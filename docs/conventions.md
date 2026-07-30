@@ -4,7 +4,7 @@ Geliştirme süreçleri boyunca standart sağlamak adına aşağıdaki kurallar 
 ## 1. Issue ve Pull Request Başlıkları
 Issue ve PR oluştururken başlık formatı standart olarak `<type>: <short description>` şeklinde olmalıdır. Sadece aşağıdaki scope'lar kullanılacaktır:
 
-- `feat`: Yeni bir özellik eklenmesi
+- `feat`: Yeni bir özellik eklenmesi veya mevcut özelliğin iyileştirilmesi
 - `refactor`: Mevcut kodun davranışını değiştirmeden iyileştirilmesi
 - `bug`: Hatalı çalışan bir yerin düzeltilmesi
 - `chore`: Derleme süreci, paket yönetimi veya dış araçlarla ilgili rutin işler
@@ -49,3 +49,24 @@ Github Copilot'un VSCode'da commit mesajı üreten AI modeli için aşağıdaki 
     { "text": "Return ONLY the final commit message. Do not include markdown code block syntax (```), conversational filler, or explanations." }
 ]
 ```
+
+## 3. Branch İsimlendirmeleri
+Yeni bir branch oluşturulurken, yapılan işin türünü belirten standart bir isimlendirme kullanılmalıdır.
+Tüm branch isimleri küçük harflerle ve kelimeler arası boşluk yerine tire (`-`) kullanılarak (kebab-case) yazılmalıdır.
+
+**Format:** `<type>/<short-description>` veya `<type>/<short-description>`
+
+Kullanılacak branch tipleri (types) issue etiketleriyle paralel olmalıdır:
+- `feat/`: Yeni özellikler için
+- `bug/`: Hata düzeltmeleri için (dev branch'inden çıkılan)
+- `hotfix/`: Acil canlı ortam hataları için (master branch'inden çıkılan)
+- `refactor/`: Kod iyileştirmeleri için
+- `chore/`: Bakım, konfigürasyon ve bağımlılık güncellemeleri için
+- `docs/`: Dokümantasyon eklemeleri veya düzenlemeleri için
+
+**Branch İsmi Örnekleri:**
+- `feat/user-authentication`
+- `bug/cart-calculation-error`
+- `hotfix/login-crash-fix`
+- `refactor/optimize-db-queries`
+- `chore/update-webpack-config`

@@ -1,4 +1,4 @@
-# İş Akış Rehberi
+## İş Akış Rehberi
 
 1. Yapılacak iş ve kapsamı belirlendikten sonra Kanban board veya repository sayfasındaki **Issues** sekmesinden
 işe uygun template kullanılarak yeni bir issue oluşturulur. Issue içeriğinde problemin veya eklenecek
