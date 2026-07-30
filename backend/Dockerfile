@@ -10,6 +10,6 @@ FROM alpine:latest
 
 COPY --from=builder /server /server
 
-EXPOSE 8080
+EXPOSE 8081
 
 CMD ["/server"]
