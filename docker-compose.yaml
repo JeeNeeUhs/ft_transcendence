@@ -1,0 +1,21 @@
+services:
+
+  # database:
+  #     networks:
+  #     - transcendence
+
+  backend:
+    build: ./backend
+    restart: on-failure
+    container_name: transcendence_backend
+    # depends_on:
+    #   - database
+    # networks:
+    #   - transcendence
+    ports:
+      - "8080:8080" 
+
+  # frontend:
+
+# networks:
+#   transcendence:
