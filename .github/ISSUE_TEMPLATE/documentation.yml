@@ -1,0 +1,27 @@
+name: Documentation
+description: Propose updates or additions to documentation.
+title: "docs: <description>"
+labels: ["documentation"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Explain which documents need to be added or updated, and provide an explanation of why.
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+    validations:
+      required: false
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I have searched for existing issues to avoid duplicates.
+          required: true
+        - label: I have read the workflow guide.
+          required: true
