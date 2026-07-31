@@ -2,7 +2,13 @@ name: Biome
 
 on:
   push:
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/biome.yml'
   pull_request:
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/biome.yml'
 
 jobs:
   biome:
@@ -17,4 +23,5 @@ jobs:
           version: latest
 
       - name: Run Biome
-        run: biome ci --config-path=./frontend ./frontend
+        working-directory: "./frontend"
+        run: biome ci .
