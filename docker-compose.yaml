@@ -1,23 +1,38 @@
 services:
-
-  # database:
-  #     networks:
-  #     - transcendence
-
   backend:
     build: ./backend
     restart: on-failure
     container_name: transcendence_backend
     env_file:
       - backend/.env
-    # depends_on:
-    #   - database
-    # networks:
-    #   - transcendence
+    depends_on:
+      - database # Yorum satırını açıyorm: Backend başlamadan önce DB ayağa kalkmalı
+    networks:
+      - transcendence # yorum satırını açıyorum: İki servis aynı ağda olmalı
     ports:
-      - "8081:8081" 
+      - "8083:8081"
 
-  # frontend:
+  # setup-database-infrastructure kısmım
+  database:
+    image: postgres:15-alpine
+    container_name: ft_transcendence_db
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres123}
+      POSTGRES_DB: ${DB_NAME:-transcendence}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./infrastructure/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - transcendence # backend ile aynı ağda
 
-# networks:
-#   transcendence:
+# frontend:
+
+networks:
+  transcendence:
+
+volumes:
+  pgdata:
