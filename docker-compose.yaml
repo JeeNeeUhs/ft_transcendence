@@ -10,7 +10,7 @@ services:
     networks:
       - transcendence 
     ports:
-      - "8083:8081"
+      - "8081:8081"
 
   database:
     image: postgres:17.6-alpine
