@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"time"
 
 	"github.com/JeeNeeUhs/ft_transcendence/auth"
 	"github.com/JeeNeeUhs/ft_transcendence/database"
@@ -11,6 +12,7 @@ import (
 )
 
 func main() {
+	time.Sleep(3 * time.Second)
 	if err := database.Connect(); err != nil {
 		log.Fatal(err)
 	}
