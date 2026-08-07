@@ -3,10 +3,10 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TABLE IF NOT EXISTS users (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     username VARCHAR(50) UNIQUE NOT NULL,
-    email VARCHAR(255) UNIQUE NOT NULL,
+    password_hash VARCHAR NOT NULL,
     avatar_url TEXT,
-    oauth_provider VARCHAR(50),
-    oauth_id VARCHAR(255),
+    is_intra BOOLEAN DEFAULT false,
+    intra_id VARCHAR(15),
     is_2fa_enabled BOOLEAN DEFAULT false,
     two_factor_secret VARCHAR,
     status VARCHAR(20) DEFAULT 'offline',

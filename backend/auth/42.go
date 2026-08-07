@@ -47,7 +47,7 @@ func fromCodeGetToken(code string) (map[string]interface{}, error) {
 	return result, nil
 }
 
-func LoginHandler(c fiber.Ctx) error {
+func Login42Handler(c fiber.Ctx) error {
 	authURL := fmt.Sprintf("https://api.intra.42.fr/oauth/authorize?client_id=%s&redirect_uri=%s&response_type=code", config.ClientID, url.QueryEscape(config.RedirectURI))
 
 	return c.JSON(fiber.Map{
