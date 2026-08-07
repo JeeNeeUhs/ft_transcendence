@@ -26,8 +26,14 @@ func RegisterHandler(c fiber.Ctx) error {
 	}
 
 	req.Username = strings.TrimSpace(req.Username)
+	if len(req.Username) < 3 || len(req.Username) > 50 {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "username not valid"})
+	}
 
-	//TODO
+	req.Password = strings.TrimSpace(req.Password)
+	if len(req.Password) < 8 || len(req.Password) > 50 {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "password not valid"})
+	}
 
 	var existing models.User
 	err := database.DB.Where("username = ?", req.Username).First(&existing).Error
