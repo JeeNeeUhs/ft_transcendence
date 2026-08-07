@@ -65,7 +65,6 @@ func RegisterHandler(c fiber.Ctx) error {
 
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
 		"token": accessToken,
-		"user":  user,
 	})
 }
 
@@ -99,7 +98,6 @@ func LoginHandler(c fiber.Ctx) error {
 
 	return c.JSON(fiber.Map{
 		"token": accessToken,
-		"user":  user,
 	})
 }
 
