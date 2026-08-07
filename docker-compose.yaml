@@ -24,7 +24,19 @@ services:
     networks:
       - transcendence
 
-# frontend:
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    container_name: transcendence_frontend
+    environment:
+      HOSTNAME: ${FRONTEND_HOST}
+      PORT: ${FRONTEND_PORT}
+    depends_on:
+      - backend
+    networks:
+      - transcendence
+    ports:
+      - "${FRONTEND_PORT}:${FRONTEND_PORT}"
 
 networks:
   transcendence:
