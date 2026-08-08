@@ -45,7 +45,7 @@ export function AccountButton() {
   const handleSignOut = async () => {
     await authService.signOut();
 
-    localStorage.removeItem("account_token");
+    localStorage.remove("access_token");
     clearUser();
   };
 
