@@ -18,8 +18,8 @@ func main() {
 	}
 
 	app := fiber.New()
+	app.Use(middleware.CORS())
 	api := app.Group("/api")
-	api.Use(middleware.CORS())
 
 	room.Register(api)
 	auth.Register(api)
