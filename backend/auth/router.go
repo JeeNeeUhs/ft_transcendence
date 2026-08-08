@@ -14,4 +14,6 @@ func Register(api fiber.Router) {
 	auth.Post("/register", RegisterHandler)
 	auth.Post("/login", LoginHandler)
 	auth.Post("/logout", middleware.RequireAuth, LogoutHandler)
+
+	auth.Get("/me", middleware.RequireAuth, MeHandler)
 }

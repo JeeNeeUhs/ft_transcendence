@@ -64,7 +64,7 @@ func RegisterHandler(c fiber.Ctx) error {
 	}
 
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
-		"token": accessToken,
+		"access_token": accessToken,
 	})
 }
 
@@ -97,7 +97,7 @@ func LoginHandler(c fiber.Ctx) error {
 	}
 
 	return c.JSON(fiber.Map{
-		"token": accessToken,
+		"access_token": accessToken,
 	})
 }
 
@@ -110,4 +110,23 @@ func LogoutHandler(c fiber.Ctx) error {
 	token.Logout(userID)
 
 	return c.JSON(fiber.Map{"message": "logged out"})
+}
+
+func MeHandler(c fiber.Ctx) error {
+	userID, ok := c.Locals(middleware.LocalsUserIDKey).(uuid.UUID)
+	if !ok {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "unauthorized"})
+	}
+
+	var user models.User
+	if err := database.DB.First(&user, "id = ?", userID).Error; err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "failed to fetch user"})
+	}
+
+	return c.JSON(fiber.Map{
+		"username":   user.Username,
+		"avatar_url": user.AvatarURL,
+		"is_intra":   user.IsIntra,
+		"created_at": user.CreatedAt,
+	})
 }

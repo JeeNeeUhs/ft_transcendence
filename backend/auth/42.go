@@ -100,28 +100,40 @@ func CallbackHandler(c fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "code is required"})
 	}
 
-	token, err := fromCodeGetToken(data["code"])
-	if err != nil || token["access_token"] == nil {
+	oauthtoken, err := fromCodeGetToken(data["code"])
+	if err != nil || oauthtoken["access_token"] == nil {
 		fmt.Println(err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "failed to get access token"})
 	}
 
-	userInfo, err := fromTokenGetUserInfo(token["access_token"].(string))
+	userInfo, err := fromTokenGetUserInfo(oauthtoken["access_token"].(string))
 	if err != nil {
 		fmt.Println(err)
 		return c.Status(fiber.StatusInternalServerError).JSON(err)
 	}
 	name := userInfo["first_name"].(string)
 
-	newUser := true
-	err = database.DB.Where("intra_id = ?", userInfo["login"]).First(models.User{}).Error
+	var existingUser models.User
+	err = database.DB.Where("intra_id = ?", userInfo["login"]).First(&existingUser).Error
 	if err == nil {
-		newUser = false
+		tokenVersion := token.Login(existingUser.ID)
+		accessToken, err := token.GenerateAccessToken(existingUser.ID, tokenVersion)
+		if err != nil {
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "failed to generate token"})
+		}
+
+		return c.JSON(fiber.Map{
+			"is_new_user":  false,
+			"access_token": accessToken,
+			"name":         name,
+		})
+	} else if !errors.Is(err, gorm.ErrRecordNotFound) {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "database error"})
 	}
 
 	return c.JSON(fiber.Map{
-		"is_new_user":  newUser,
-		"access_token": token["access_token"],
+		"is_new_user":  true,
+		"access_token": oauthtoken["access_token"],
 		"name":         name,
 	})
 }
@@ -207,7 +219,6 @@ func Register42Handler(c fiber.Ctx) error {
 	}
 
 	return c.JSON(fiber.Map{
-		"token": accessToken,
-		"user":  user,
+		"access_token": accessToken,
 	})
 }
