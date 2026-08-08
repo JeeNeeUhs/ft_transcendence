@@ -56,7 +56,7 @@ export async function apiClient<T>(endpoint: string, options: ApiOptions = {}): 
   }
 
   try {
-    const response = await fetch(`${base_url}${endpoint}`, fetchOptions);
+    const response = await fetch(`${base_url}/api${endpoint}`, fetchOptions);
 
     if (!response.ok) {
       let errorCode = `HTTP_${response.status}`;
