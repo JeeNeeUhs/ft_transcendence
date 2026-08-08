@@ -38,5 +38,7 @@ export function AuthCallback() {
     handleCallback();
   }, [searchParams]);
 
-  return <div>auth.oauth.completing</div>;
+  return (
+    <div className="w-screen h-screen flex items-center justify-center">auth.oauth.completing</div>
+  );
 }

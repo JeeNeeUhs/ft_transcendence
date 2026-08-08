@@ -20,7 +20,8 @@ import {
   DialogTrigger
 } from "@/components/ui/dialog";
 import { FieldSeparator } from "@/components/ui/field";
-import type { IntraResponse } from "@/lib/api/auth";
+import { authService, type IntraResponse } from "@/lib/api/auth";
+import { useUserStore } from "@/providers/user";
 
 export type AuthView = "signIn" | "signUp" | "intraSetup";
 
@@ -92,11 +93,24 @@ function AuthDialogContent({ onSuccess }: { onSuccess: (accessToken: string) => 
 
 export function AuthDialog() {
   const [open, setOpen] = useState<boolean>(false);
+  const setUser = useUserStore((state) => state.setUser);
 
-  const handleAuthSuccess = useCallback((accessToken: string) => {
-    alert(accessToken); // TODO: save to cookies
-    setOpen(false);
-  }, []);
+  const handleAuthSuccess = useCallback(
+    async (accessToken: string) => {
+      localStorage.setItem("access_token", accessToken);
+
+      const response = await authService.getUser();
+      if (!response.success) return;
+
+      setOpen(false);
+
+      // delay global state update to allow exit animation to finish
+      setTimeout(() => {
+        setUser(response.data);
+      }, 300);
+    },
+    [setUser]
+  );
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

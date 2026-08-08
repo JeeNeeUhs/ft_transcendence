@@ -18,21 +18,10 @@ export interface ApiOptions extends Omit<RequestInit, "body"> {
 
 const base_url = process.env.NEXT_PUBLIC_API_URL;
 
-async function getAuthToken(): Promise<string | null> {
-  // if component rendered on client-side get cookies from document
-  // else get from http header with next header library
-  if (typeof window !== "undefined") {
-    const match = document.cookie.match(/(^| )access_token=([^;]+)/);
-    return match ? match[2] : null;
-  } else {
-    try {
-      const { cookies } = await import("next/headers");
-      const cookieStore = await cookies();
-      return cookieStore.get("access_token")?.value || null;
-    } catch {
-      return null;
-    }
-  }
+async function getAccessToken(): Promise<string | null> {
+  if (typeof window === "undefined") return null;
+
+  return localStorage.getItem("access_token");
 }
 
 export async function apiClient<T>(endpoint: string, options: ApiOptions = {}): Promise<Result<T>> {
@@ -40,10 +29,8 @@ export async function apiClient<T>(endpoint: string, options: ApiOptions = {}): 
 
   if (!headers.has("Content-Type")) headers.set("Content-Type", "application/json");
 
-  const token = await getAuthToken();
-  if (token) {
-    headers.set("Authorization", `Bearer ${token}`);
-  }
+  const accessToken = await getAccessToken();
+  if (accessToken) headers.set("Authorization", `Bearer ${accessToken}`);
 
   const fetchOptions: RequestInit = {
     ...options,
