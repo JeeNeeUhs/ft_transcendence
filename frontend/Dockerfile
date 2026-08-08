@@ -29,7 +29,11 @@ WORKDIR /app
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
 
-RUN corepack enable pnpm && pnpm build;
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+ENV NEXT_TELEMETRY_DISABLED=1
+
+RUN corepack enable pnpm && pnpm build
 
 # ============================================
 # Stage 3: Run Next.js application
