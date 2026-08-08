@@ -12,8 +12,8 @@ import (
 var Secret = []byte(config.JwtSecret)
 
 const (
-	Issuer    = "myapp"
-	AccessTTL = 15 * time.Minute
+	Issuer    = "transcendence"
+	AccessTTL = 60 * time.Minute
 )
 
 type AccessClaims struct {
