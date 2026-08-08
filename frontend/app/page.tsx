@@ -1,14 +1,14 @@
-import { AuthDialog } from "@/components/auth/dialog";
-import { ThemeSwitcher } from "@/components/theme-switcher";
+import { Navbar } from "@/components/navbar";
 
 export default function Home() {
   return (
     <div className="w-full px-5 max-w-6xl mx-auto">
-      <div className="flex justify-between my-5 items-center">
-        <h1>Quizinyo</h1>
-        <div className="flex items-center gap-x-2">
-          <ThemeSwitcher />
-          <AuthDialog />
+      <Navbar />
+      <div className="mt-20">
+        <div className="text-3xl">hello world</div>
+        <div className="text-sm text-muted-foreground mt-2">
+          cok acayip bir seydir hello world hani gelir boyle ben hello worldum der hello world
+          ooauuhhh yani hani oaaauuhhhh
         </div>
       </div>
     </div>

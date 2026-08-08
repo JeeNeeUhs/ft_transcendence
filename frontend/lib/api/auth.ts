@@ -6,6 +6,13 @@ export interface IntraResponse {
   name: string;
 }
 
+export type User = {
+  username: string;
+  isIntra: boolean;
+  avatarUrl: string;
+  createdAt: Date;
+};
+
 export const authService = {
   signUp: (username: string, password: string) => {
     return apiClient<{ accessToken: string }>("/auth/register", {
@@ -44,6 +51,12 @@ export const authService = {
     return apiClient<{ accessToken: string }>("/auth/42/register", {
       method: "POST",
       body: { accessToken, username }
+    });
+  },
+
+  getUser: () => {
+    return apiClient<User>("/auth/me", {
+      method: "GET"
     });
   }
 };
