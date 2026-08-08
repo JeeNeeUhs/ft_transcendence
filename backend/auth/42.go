@@ -9,6 +9,7 @@ import (
 	"net/url"
 	"strings"
 
+	"github.com/JeeNeeUhs/ft_transcendence/apierr"
 	"github.com/JeeNeeUhs/ft_transcendence/config"
 	"github.com/JeeNeeUhs/ft_transcendence/database"
 	"github.com/JeeNeeUhs/ft_transcendence/models"
@@ -92,24 +93,22 @@ func Login42Handler(c fiber.Ctx) error {
 func CallbackHandler(c fiber.Ctx) error {
 	var data map[string]string
 	if err := c.Bind().Body(&data); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "invalid request body"})
+		return c.Status(apierr.CodeToStatus(1)).JSON(apierr.CodeToErr(1))
 	}
 
 	data["code"] = strings.TrimSpace(data["code"])
 	if data["code"] == "" {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "code is required"})
+		return c.Status(apierr.CodeToStatus(2)).JSON(apierr.CodeToErr(2))
 	}
 
 	oauthtoken, err := fromCodeGetToken(data["code"])
 	if err != nil || oauthtoken["access_token"] == nil {
-		fmt.Println(err)
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "failed to get access token"})
+		return c.Status(apierr.CodeToStatus(3)).JSON(apierr.CodeToErr(3))
 	}
 
 	userInfo, err := fromTokenGetUserInfo(oauthtoken["access_token"].(string))
 	if err != nil {
-		fmt.Println(err)
-		return c.Status(fiber.StatusInternalServerError).JSON(err)
+		return c.Status(apierr.CodeToStatus(9)).JSON(apierr.CodeToErr(9))
 	}
 	name := userInfo["first_name"].(string)
 
@@ -119,7 +118,7 @@ func CallbackHandler(c fiber.Ctx) error {
 		tokenVersion := token.Login(existingUser.ID)
 		accessToken, err := token.GenerateAccessToken(existingUser.ID, tokenVersion)
 		if err != nil {
-			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "failed to generate token"})
+			return c.Status(apierr.CodeToStatus(4)).JSON(apierr.CodeToErr(4))
 		}
 
 		return c.JSON(fiber.Map{
@@ -128,7 +127,7 @@ func CallbackHandler(c fiber.Ctx) error {
 			"name":         name,
 		})
 	} else if !errors.Is(err, gorm.ErrRecordNotFound) {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "database error"})
+		return c.Status(apierr.CodeToStatus(5)).JSON(apierr.CodeToErr(5))
 	}
 
 	return c.JSON(fiber.Map{
@@ -161,45 +160,44 @@ type IntraUser struct {
 func Register42Handler(c fiber.Ctx) error {
 	var req Register42Request
 	if err := c.Bind().Body(&req); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "invalid request body"})
+		return c.Status(apierr.CodeToStatus(1)).JSON(apierr.CodeToErr(1))
 	}
 
 	req.AccessToken = strings.TrimSpace(req.AccessToken)
 	req.Username = strings.TrimSpace(req.Username)
 	if len(req.Username) < 3 || len(req.Username) > 50 {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "username not valid"})
+		return c.Status(apierr.CodeToStatus(6)).JSON(apierr.CodeToErr(6))
 	}
 
 	var existing models.User
 	err := database.DB.Where("username = ?", req.Username).First(&existing).Error
 	if err == nil {
-		return c.Status(fiber.StatusConflict).JSON(fiber.Map{"error": "username already taken"})
+		return c.Status(apierr.CodeToStatus(8)).JSON(apierr.CodeToErr(8))
 	}
 	if !errors.Is(err, gorm.ErrRecordNotFound) {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "internal server error"})
+		return c.Status(apierr.CodeToStatus(5)).JSON(apierr.CodeToErr(5))
 	}
 
 	userInfo, err := fromTokenGetUserInfo(req.AccessToken)
 	if err != nil || userInfo == nil {
-		fmt.Println(err)
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "failed to get user info"})
+		return c.Status(apierr.CodeToStatus(9)).JSON(apierr.CodeToErr(9))
 	}
 
 	var u IntraUser
 	userInfoJSON, err := json.Marshal(userInfo)
 	if err != nil {
-		return fmt.Errorf("failed to marshal user info: %w", err)
+		return c.Status(apierr.CodeToStatus(9)).JSON(apierr.CodeToErr(9))
 	}
 	if err := json.Unmarshal(userInfoJSON, &u); err != nil {
-		return fmt.Errorf("failed to parse intra response: %w", err)
+		return c.Status(apierr.CodeToStatus(9)).JSON(apierr.CodeToErr(9))
 	}
 
 	err = database.DB.Where("intra_id = ?", u.Login).First(&existing).Error
 	if err == nil {
-		return c.Status(fiber.StatusConflict).JSON(fiber.Map{"error": "intra_id already taken"})
+		return c.Status(apierr.CodeToStatus(10)).JSON(apierr.CodeToErr(10))
 	}
 	if !errors.Is(err, gorm.ErrRecordNotFound) {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "internal server error"})
+		return c.Status(apierr.CodeToStatus(5)).JSON(apierr.CodeToErr(5))
 	}
 
 	user := models.User{
@@ -209,13 +207,13 @@ func Register42Handler(c fiber.Ctx) error {
 		IsIntra:   true,
 	}
 	if err := database.DB.Create(&user).Error; err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "failed to create user"})
+		return c.Status(apierr.CodeToStatus(11)).JSON(apierr.CodeToErr(11))
 	}
 
 	tokenVersion := token.Login(user.ID)
 	accessToken, err := token.GenerateAccessToken(user.ID, tokenVersion)
 	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "failed to generate token"})
+		return c.Status(apierr.CodeToStatus(4)).JSON(apierr.CodeToErr(4))
 	}
 
 	return c.JSON(fiber.Map{

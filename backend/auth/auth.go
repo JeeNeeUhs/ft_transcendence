@@ -4,6 +4,7 @@ import (
 	"errors"
 	"strings"
 
+	"github.com/JeeNeeUhs/ft_transcendence/apierr"
 	"github.com/JeeNeeUhs/ft_transcendence/database"
 	"github.com/JeeNeeUhs/ft_transcendence/middleware"
 	"github.com/JeeNeeUhs/ft_transcendence/models"
@@ -76,24 +77,24 @@ type LoginRequest struct {
 func LoginHandler(c fiber.Ctx) error {
 	var req LoginRequest
 	if err := c.Bind().Body(&req); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "invalid request body"})
+		return c.Status(apierr.CodeToStatus(1)).JSON(apierr.CodeToErr(1))
 	}
 
 	req.Username = strings.TrimSpace(req.Username)
 
 	var user models.User
 	if err := database.DB.Where("username = ?", req.Username).First(&user).Error; err != nil {
-		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "invalid username or password"})
+		return c.Status(apierr.CodeToStatus(12)).JSON(apierr.CodeToErr(12))
 	}
 
 	if err := bcrypt.CompareHashAndPassword([]byte(user.PasswordHash), []byte(req.Password)); err != nil {
-		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "invalid username or password"})
+		return c.Status(apierr.CodeToStatus(12)).JSON(apierr.CodeToErr(12))
 	}
 
 	tokenVersion := token.Login(user.ID)
 	accessToken, err := token.GenerateAccessToken(user.ID, tokenVersion)
 	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "failed to generate token"})
+		return c.Status(apierr.CodeToStatus(4)).JSON(apierr.CodeToErr(4))
 	}
 
 	return c.JSON(fiber.Map{
@@ -104,7 +105,7 @@ func LoginHandler(c fiber.Ctx) error {
 func LogoutHandler(c fiber.Ctx) error {
 	userID, ok := c.Locals(middleware.LocalsUserIDKey).(uuid.UUID)
 	if !ok {
-		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "unauthorized"})
+		return c.Status(apierr.CodeToStatus(13)).JSON(apierr.CodeToErr(13))
 	}
 
 	token.Logout(userID)
@@ -115,12 +116,12 @@ func LogoutHandler(c fiber.Ctx) error {
 func MeHandler(c fiber.Ctx) error {
 	userID, ok := c.Locals(middleware.LocalsUserIDKey).(uuid.UUID)
 	if !ok {
-		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "unauthorized"})
+		return c.Status(apierr.CodeToStatus(13)).JSON(apierr.CodeToErr(13))
 	}
 
 	var user models.User
 	if err := database.DB.First(&user, "id = ?", userID).Error; err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "failed to fetch user"})
+		return c.Status(apierr.CodeToStatus(9)).JSON(apierr.CodeToErr(9))
 	}
 
 	return c.JSON(fiber.Map{
