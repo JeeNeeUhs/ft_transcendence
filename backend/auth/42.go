@@ -120,7 +120,7 @@ func CallbackHandler(c fiber.Ctx) error {
 	}
 
 	return c.JSON(fiber.Map{
-		"isNewUser":    newUser,
+		"is_new_user":  newUser,
 		"access_token": token["access_token"],
 		"name":         name,
 	})
