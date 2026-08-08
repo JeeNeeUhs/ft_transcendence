@@ -1,11 +1,15 @@
+import { AuthDialog } from "@/components/auth/dialog";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 
 export default function Home() {
   return (
-    <div className="px-5">
-      <div className="w-full flex justify-between my-5">
-        <h1>quiz sekli</h1>
-        <ThemeSwitcher />
+    <div className="w-full px-5 max-w-6xl mx-auto">
+      <div className="flex justify-between my-5 items-center">
+        <h1>Quizinyo</h1>
+        <div className="flex items-center gap-x-2">
+          <ThemeSwitcher />
+          <AuthDialog />
+        </div>
       </div>
     </div>
   );

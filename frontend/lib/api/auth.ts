@@ -2,8 +2,8 @@ import { apiClient } from "@/lib/api/client";
 
 export interface IntraResponse {
   isNewUser: boolean;
-  accessToken?: string;
-  name?: string;
+  accessToken: string;
+  name: string;
 }
 
 export const authService = {
