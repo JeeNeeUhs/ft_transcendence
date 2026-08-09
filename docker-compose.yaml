@@ -6,9 +6,9 @@ services:
     env_file:
       - .env
     depends_on:
-      - database  
+      - database
     networks:
-      - transcendence 
+      - transcendence
     ports:
       - "8081:8081"
 
@@ -20,7 +20,7 @@ services:
       - .env
     volumes:
       - pgdata:/var/lib/postgresql/data
-      - ./infrastructure/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./infrastructure/db:/docker-entrypoint-initdb.d
     networks:
       - transcendence
 
