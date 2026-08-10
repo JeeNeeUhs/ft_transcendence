@@ -78,8 +78,7 @@ export function UserStoreProvider({ children }: { children: React.ReactNode }) {
 
 export function useUserStore<T>(selector: (store: UserStore) => T): T {
   const userStoreContext = useContext(UserStoreContext);
-  if (!userStoreContext)
-    throw new Error(`useCounterStore must be used within CounterStoreProvider`);
+  if (!userStoreContext) throw new Error("useUserStore must be used within UserStoreProvider");
 
   return useStore(userStoreContext, selector);
 }
