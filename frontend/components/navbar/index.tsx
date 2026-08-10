@@ -1,5 +1,5 @@
-import { AccountButton } from "@/components/auth/account-button";
-import { ThemeSwitcher } from "@/components/theme-switcher";
+import { AccountButton } from "@/components/navbar/account-button";
+import { ThemeSwitcher } from "@/components/navbar/theme-switcher";
 
 export function Navbar() {
   return (
