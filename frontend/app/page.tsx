@@ -1,3 +1,4 @@
+import { SignedIn, SignedOut } from "@/components/auth/auth-guard";
 import { Navbar } from "@/components/navbar";
 
 export default function Home() {
@@ -9,6 +10,14 @@ export default function Home() {
         <div className="text-sm text-muted-foreground mt-2">
           cok acayip bir seydir hello world hani gelir boyle ben hello worldum der hello world
           ooauuhhh yani hani oaaauuhhhh
+        </div>
+        <div className="mt-2">
+          <SignedIn fallback={<div>korumali component bu kardesim goremezsin</div>}>
+            <div>sen yetkili bi abiye benziyosun gorebilirsin bunu</div>
+          </SignedIn>
+          <SignedOut>
+            <div>giris yapmadiysan gorursun bunu oyle bir component yani</div>
+          </SignedOut>
         </div>
       </div>
     </div>
