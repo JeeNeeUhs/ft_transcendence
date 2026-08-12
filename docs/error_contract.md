@@ -18,3 +18,14 @@
 | 15 | 401 | invalid authorization header |
 | 16 | 401 | invalid or expired token |
 | 17 | 401 | token has been invalidated |
+| 18 | 400 | room name not valid |
+| 19 | 404 | room not found |
+| 20 | 409 | already in a room |
+| 21 | 409 | already in this room |
+| 22 | 500 | failed to generate room id |
+| 23 | 400 | room password not valid |
+| 24 | 401 | invalid room password |
+| 26 | 409 | not in a room |
+| 27 | 501 | not implemented |
+| 28 | 400 | invalid category id |
+| 29 | 400 | duplicate category id |

@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	
+
 	if err := database.Connect(); err != nil {
 		log.Fatal(err)
 	}
