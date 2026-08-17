@@ -30,6 +30,17 @@ var registery = map[int]Err{
 	15: {Status: 401, Code: 15, Message: "invalid authorization header"},
 	16: {Status: 401, Code: 16, Message: "invalid or expired token"},
 	17: {Status: 401, Code: 17, Message: "token has been invalidated"},
+	18: {Status: 400, Code: 18, Message: "room name not valid"},
+	19: {Status: 404, Code: 19, Message: "room not found"},
+	20: {Status: 409, Code: 20, Message: "already in a room"},
+	21: {Status: 409, Code: 21, Message: "already in this room"},
+	22: {Status: 500, Code: 22, Message: "failed to generate room id"},
+	23: {Status: 400, Code: 23, Message: "room password not valid"},
+	24: {Status: 401, Code: 24, Message: "invalid room password"},
+	27: {Status: 501, Code: 27, Message: "not implemented"},
+	28: {Status: 400, Code: 28, Message: "invalid category id"},
+	29: {Status: 400, Code: 29, Message: "duplicate category id"},
+	30: {Status: 426, Code: 30, Message: "websocket upgrade required"},
 }
 
 func CodeToErr(code int) ErrResponse {
