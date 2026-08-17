@@ -2,6 +2,7 @@
 
 import { Moon02Icon, Sun02Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 
 import { Button } from "@/components/ui/button";
@@ -14,6 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export function ThemeSwitcher() {
+  const t = useTranslations("theme");
   const { setTheme } = useTheme();
 
   return (
@@ -24,9 +26,9 @@ export function ThemeSwitcher() {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuGroup>
-          <DropdownMenuItem onClick={() => setTheme("system")}>System</DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setTheme("dark")}>Dark</DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setTheme("light")}>Light</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("system")}>{t("system")}</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("dark")}>{t("dark")}</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("light")}>{t("light")}</DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>

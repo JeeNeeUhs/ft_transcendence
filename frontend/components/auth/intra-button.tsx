@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
@@ -14,10 +15,10 @@ interface IntraButtonProps {
 }
 
 export function IntraButton({ onSuccess, onIntraSetup }: IntraButtonProps) {
+  const tAuth = useTranslations("auth");
+  const tError = useTranslations("error");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  // ref to store the interval id, used to clear the polling interval
-  // if the component unmounts unexpectedly, preventing memory leaks.
   const popupTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -29,13 +30,12 @@ export function IntraButton({ onSuccess, onIntraSetup }: IntraButtonProps) {
       if (data?.type === "intra_auth_failed") {
         toast.add({
           type: "error",
-          title: "error.genericTitle",
-          description: "auth.oauth.failed"
+          title: tError("genericTitle"),
+          description: tAuth("oauth.failed")
         });
       } else if (data?.type === "intra_requires_setup") onIntraSetup(data.payload);
       else if (data?.type === "intra_auth_succeeded") onSuccess(data.payload?.accessToken);
 
-      // cleanup the polling timer since the auth flow is completed
       setIsLoading(false);
       if (popupTimerRef.current !== null) {
         clearInterval(popupTimerRef.current);
@@ -45,13 +45,11 @@ export function IntraButton({ onSuccess, onIntraSetup }: IntraButtonProps) {
 
     window.addEventListener("message", handlePopupMessage);
 
-    // runs when the component unmounts. removes the listener and stops the timer
-    // to prevent memory leaks if the user closes the modal while the popup is still open.
     return () => {
       window.removeEventListener("message", handlePopupMessage);
       if (popupTimerRef.current !== null) clearInterval(popupTimerRef.current);
     };
-  }, [onSuccess, onIntraSetup]);
+  }, [onSuccess, onIntraSetup, tAuth, tError]);
 
   const handleIntraPopup = async () => {
     setIsLoading(true);
@@ -60,7 +58,7 @@ export function IntraButton({ onSuccess, onIntraSetup }: IntraButtonProps) {
     if (!response.success) {
       toast.add({
         type: "error",
-        title: "error.genericTitle",
+        title: tError("genericTitle"),
         description: `error.code-${response.errorCode}`
       });
       setIsLoading(false);
@@ -71,15 +69,13 @@ export function IntraButton({ onSuccess, onIntraSetup }: IntraButtonProps) {
     if (!popup) {
       toast.add({
         type: "error",
-        title: "error.genericTitle",
-        description: "error.popupBlocked"
+        title: tError("genericTitle"),
+        description: tError("popupBlocked")
       });
       setIsLoading(false);
       return;
     }
 
-    // browsers dont fire an event when a popup closes. we must manually check 'popup.closed'
-    // on an interval to reset the loading state if the user manually closes the window.
     popupTimerRef.current = setInterval(() => {
       if (popup.closed) {
         if (popupTimerRef.current !== null) {
@@ -101,7 +97,7 @@ export function IntraButton({ onSuccess, onIntraSetup }: IntraButtonProps) {
     >
       {isLoading && <Spinner />}
       <Image src="/42_Logo.svg" width={16} height={16} alt="42 Logo" className="dark:invert" />
-      <p>auth.signInWithIntra</p>
+      <p>{tAuth("signInWithIntra")}</p>
     </Button>
   );
 }

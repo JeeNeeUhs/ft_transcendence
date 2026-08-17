@@ -1,7 +1,8 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useTranslations } from "next-intl";
+import { useMemo, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -13,22 +14,27 @@ import { toast } from "@/components/ui/toast";
 import type { IntraResponse } from "@/lib/api/auth";
 import { authService } from "@/lib/api/auth";
 
-const formSchema = z.object({
-  username: z
-    .string()
-    .trim()
-    .nonempty("auth.signUp.usernameRequired")
-    .min(3, "auth.signUp.usernameMinValue")
-    .max(50, "auth.signUp.usernameMaxValue")
-});
-
 interface IntraSetupFormProps {
   response: IntraResponse;
   onSuccess: (accessToken: string) => void;
 }
 
 export function IntraSetupForm({ response, onSuccess }: IntraSetupFormProps) {
+  const t = useTranslations("auth");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const formSchema = useMemo(
+    () =>
+      z.object({
+        username: z
+          .string()
+          .trim()
+          .nonempty(t("signUp.usernameRequired"))
+          .min(3, t("signUp.usernameMinValue"))
+          .max(50, t("signUp.usernameMaxValue"))
+      }),
+    [t]
+  );
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -44,12 +50,12 @@ export function IntraSetupForm({ response, onSuccess }: IntraSetupFormProps) {
     if (!response_.success) {
       if (response_.status === 409) {
         form.setError("username", {
-          message: "auth.signUp.usernameShouldUnique"
+          message: t("signUp.usernameShouldUnique")
         });
       } else {
         toast.add({
           type: "error",
-          title: "error.genericTitle",
+          title: t("error.genericTitle"),
           description: `error.code-${response_.errorCode}`
         });
       }
@@ -58,7 +64,6 @@ export function IntraSetupForm({ response, onSuccess }: IntraSetupFormProps) {
       return;
     }
 
-    // setIsLoading(false);
     onSuccess(response_.data.accessToken);
   }
 
@@ -71,15 +76,15 @@ export function IntraSetupForm({ response, onSuccess }: IntraSetupFormProps) {
             control={form.control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="sign-in-form-username">auth.username</FieldLabel>
+                <FieldLabel htmlFor="sign-in-form-username">{t("username")}</FieldLabel>
                 <Input
                   {...field}
                   id="sign-in-form-username"
                   aria-invalid={fieldState.invalid}
-                  placeholder="auth.enterUsername"
+                  placeholder={t("enterUsername")}
                   autoComplete="off"
                 />
-                <FieldDescription>auth.signUp.uniqueUsername</FieldDescription>
+                <FieldDescription>{t("signUp.uniqueUsername")}</FieldDescription>
                 {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
               </Field>
             )}
@@ -93,7 +98,7 @@ export function IntraSetupForm({ response, onSuccess }: IntraSetupFormProps) {
         className="flex items-center gap-x-2"
       >
         {isLoading && <Spinner />}
-        auth.oauth.complete
+        {t("oauth.complete")}
       </Button>
     </>
   );

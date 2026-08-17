@@ -1,0 +1,70 @@
+{
+  "common": {
+    "appName": "Quizinyo"
+  },
+  "theme": {
+    "system": "Sistem",
+    "dark": "Koyu",
+    "light": "Açık"
+  },
+  "home": {
+    "welcome": "merhaba dünya",
+    "description": "merhaba dünya çok acayip bir şeydir, gelir der ki ben merhaba dünyayım, merhaba dünya ooauuhhh yani hani oaaauuhhhh"
+  },
+  "auth": {
+    "username": "Kullanıcı adı",
+    "password": "Şifre",
+    "enterUsername": "Kullanıcı adınızı girin",
+    "enterPassword": "Şifrenizi girin",
+    "confirmPassword": "Şifrenizi onaylayın",
+    "separator": "veya",
+    "signInWithIntra": "42 ile giriş yap",
+    "signIn": {
+      "button": "Giriş yap",
+      "title": "Tekrar hoş geldiniz",
+      "desc": "Devam etmek için hesabınıza giriş yapın",
+      "footer": "Hesabınız yok mu?",
+      "action": "Kayıt ol",
+      "usernameRequired": "Kullanıcı adı zorunludur",
+      "passwordRequired": "Şifre zorunludur",
+      "invalidUsernameOrPassword": "Geçersiz kullanıcı adı veya şifre"
+    },
+    "signUp": {
+      "button": "Kayıt ol",
+      "title": "Hesap oluştur",
+      "desc": "Quizinyo'ya başlamak için kayıt olun",
+      "footer": "Zaten hesabınız var mı?",
+      "action": "Giriş yap",
+      "usernameRequired": "Kullanıcı adı zorunludur",
+      "usernameMinValue": "Kullanıcı adı en az 3 karakter olmalıdır",
+      "usernameMaxValue": "Kullanıcı adı en fazla 50 karakter olmalıdır",
+      "passwordRequired": "Şifre zorunludur",
+      "passwordMinValue": "Şifre en az 8 karakter olmalıdır",
+      "passwordMaxValue": "Şifre en fazla 50 karakter olmalıdır",
+      "confirmPassword": "Lütfen şifrenizi onaylayın",
+      "passwordDontMatch": "Şifreler eşleşmiyor",
+      "usernameShouldUnique": "Bu kullanıcı adı zaten alınmış",
+      "uniqueUsername": "Hesabınız için benzersiz bir kullanıcı adı seçin",
+      "createPasswordMinMax": "Şifre 8 ile 50 karakter arasında olmalıdır"
+    },
+    "intraSetup": {
+      "title": "Profilinizi tamamlayın",
+      "desc": "Hesabınızı oluşturmayı tamamlamak için bir kullanıcı adı seçin",
+      "footer": "Farklı bir hesap mı kullanmak istiyorsunuz?",
+      "action": "Geri dön"
+    },
+    "signOut": "Çıkış yap",
+    "oauth": {
+      "failed": "Kimlik doğrulama başarısız. Lütfen tekrar deneyin.",
+      "complete": "Kurulumu tamamla"
+    }
+  },
+  "profile": {
+    "myAccount": "Hesabım",
+    "settings": "Ayarlar"
+  },
+  "error": {
+    "genericTitle": "Bir şeyler ters gitti",
+    "popupBlocked": "Açılır pencere tarayıcı tarafından engellendi. Lütfen açılır pencerelere izin verin ve tekrar deneyin."
+  }
+}
