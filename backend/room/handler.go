@@ -1,12 +1,14 @@
 package room
 
 import (
+	"errors"
 	"strings"
 
 	"github.com/JeeNeeUhs/ft_transcendence/apierr"
 	"github.com/JeeNeeUhs/ft_transcendence/database"
 	"github.com/JeeNeeUhs/ft_transcendence/middleware"
 	"github.com/JeeNeeUhs/ft_transcendence/models"
+	"github.com/gofiber/contrib/v3/websocket"
 	"github.com/gofiber/fiber/v3"
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
@@ -18,20 +20,22 @@ const (
 )
 
 type createRoomRequest struct {
-	Name        string `json:"name"`
-	Password    string `json:"password,omitempty"`
-	CategoryIDs []int  `json:"category_ids,omitempty"`
+	Name        string `query:"name"`
+	Password    string `query:"password"`
+	CategoryIDs []int  `query:"category_ids"`
 }
 
 type joinRoomRequest struct {
-	RoomID   string `json:"room_id"`
-	Password string `json:"password,omitempty"`
+	RoomID   string `query:"room_id"`
+	Password string `query:"password"`
 }
+
+var errNoAuthenticatedUser = errors.New("room: no authenticated user in context")
 
 func currentUsername(c fiber.Ctx) (string, error) {
 	userID, ok := c.Locals(middleware.LocalsUserIDKey).(uuid.UUID)
 	if !ok {
-		return "", fiber.NewError(fiber.StatusUnauthorized)
+		return "", errNoAuthenticatedUser
 	}
 
 	var user models.User
@@ -43,8 +47,12 @@ func currentUsername(c fiber.Ctx) (string, error) {
 }
 
 func createRoomHandler(c fiber.Ctx) error {
+	if !websocket.IsWebSocketUpgrade(c) {
+		return c.Status(apierr.CodeToStatus(30)).JSON(apierr.CodeToErr(30))
+	}
+
 	var req createRoomRequest
-	if err := c.Bind().Body(&req); err != nil {
+	if err := c.Bind().Query(&req); err != nil {
 		return c.Status(apierr.CodeToStatus(1)).JSON(apierr.CodeToErr(1))
 	}
 
@@ -82,7 +90,7 @@ func createRoomHandler(c fiber.Ctx) error {
 		return c.Status(apierr.CodeToStatus(9)).JSON(apierr.CodeToErr(9))
 	}
 
-	r, sErr := createRoom(req.Name, username, pwHash, req.CategoryIDs)
+	view, sErr := createRoom(req.Name, username, pwHash, req.CategoryIDs)
 	switch sErr {
 	case storeErrAlreadyInOtherRoom:
 		return c.Status(apierr.CodeToStatus(20)).JSON(apierr.CodeToErr(20))
@@ -90,12 +98,24 @@ func createRoomHandler(c fiber.Ctx) error {
 		return c.Status(apierr.CodeToStatus(22)).JSON(apierr.CodeToErr(22))
 	}
 
-	return c.Status(fiber.StatusCreated).JSON(r.view())
+	c.Locals(localsUsernameKey, username)
+	c.Locals(localsRoomIDKey, view.ID)
+
+	if err := upgradeJoin(c); err != nil {
+		leaveRoom(username)
+		return c.Status(apierr.CodeToStatus(30)).JSON(apierr.CodeToErr(30))
+	}
+
+	return nil
 }
 
 func joinRoomHandler(c fiber.Ctx) error {
+	if !websocket.IsWebSocketUpgrade(c) {
+		return c.Status(apierr.CodeToStatus(30)).JSON(apierr.CodeToErr(30))
+	}
+
 	var req joinRoomRequest
-	if err := c.Bind().Body(&req); err != nil {
+	if err := c.Bind().Query(&req); err != nil {
 		return c.Status(apierr.CodeToStatus(1)).JSON(apierr.CodeToErr(1))
 	}
 
@@ -119,40 +139,23 @@ func joinRoomHandler(c fiber.Ctx) error {
 		return c.Status(apierr.CodeToStatus(9)).JSON(apierr.CodeToErr(9))
 	}
 
-	r, sErr := joinRoom(req.RoomID, username)
-	switch sErr {
-	case storeErrNotFound:
-		return c.Status(apierr.CodeToStatus(19)).JSON(apierr.CodeToErr(19))
-	case storeErrAlreadyInThisRoom:
-		return c.Status(apierr.CodeToStatus(21)).JSON(apierr.CodeToErr(21))
-	case storeErrAlreadyInOtherRoom:
-		return c.Status(apierr.CodeToStatus(20)).JSON(apierr.CodeToErr(20))
+	if sErr := checkJoinable(req.RoomID, username); sErr != storeErrNone {
+		code := storeErrToCode(sErr)
+		return c.Status(apierr.CodeToStatus(code)).JSON(apierr.CodeToErr(code))
 	}
 
-	return c.JSON(r.view())
-}
+	c.Locals(localsUsernameKey, username)
+	c.Locals(localsRoomIDKey, req.RoomID)
 
-func leaveRoomHandler(c fiber.Ctx) error {
-	username, err := currentUsername(c)
-	if err != nil {
-		return c.Status(apierr.CodeToStatus(9)).JSON(apierr.CodeToErr(9))
+	if err := upgradeJoin(c); err != nil {
+		return c.Status(apierr.CodeToStatus(30)).JSON(apierr.CodeToErr(30))
 	}
 
-	if sErr := leaveRoom(username); sErr == storeErrNotInRoom {
-		return c.Status(apierr.CodeToStatus(26)).JSON(apierr.CodeToErr(26))
-	}
-
-	return c.JSON(fiber.Map{"message": "left room"})
+	return nil
 }
 
 func searchRoomsHandler(c fiber.Ctx) error {
-	list := listRooms()
-	views := make([]RoomView, len(list))
-	for i, r := range list {
-		views[i] = r.view()
-	}
-
-	return c.JSON(fiber.Map{"rooms": views})
+	return c.JSON(fiber.Map{"rooms": listRooms()})
 }
 
 func existRoomHandler(c fiber.Ctx) error {

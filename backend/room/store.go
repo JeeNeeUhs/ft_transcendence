@@ -10,13 +10,15 @@ var errIDGenExhausted = errors.New("room: exhausted id generation attempts")
 type storeErr int
 
 const (
-	storeErrNone               = 0
-	storeErrNotFound           = 1
-	storeErrAlreadyInThisRoom  = 2
-	storeErrAlreadyInOtherRoom = 3
-	storeErrIDGenFailed        = 4
-	storeErrNotInRoom          = 5
+	storeErrNone storeErr = iota
+	storeErrNotFound
+	storeErrAlreadyInThisRoom
+	storeErrAlreadyInOtherRoom
+	storeErrIDGenFailed
+	storeErrNotInRoom
 )
+
+const sendBufferSize = 16
 
 var (
 	mu       sync.RWMutex
@@ -43,83 +45,176 @@ func passwordHash(id string) (hash string, found bool) {
 	return r.PasswordHash, true
 }
 
-func listRooms() []Room {
+func listRooms() []RoomView {
 	mu.RLock()
 	defer mu.RUnlock()
 
-	list := make([]Room, 0, len(rooms))
+	list := make([]RoomView, 0, len(rooms))
 	for _, r := range rooms {
-		list = append(list, copyRoom(r))
+		list = append(list, r.view())
 	}
 	return list
 }
 
-func createRoom(name, creatorUsername, pwHash string, categoryIDs []int) (Room, storeErr) {
+func createRoom(name, creatorUsername, pwHash string, categoryIDs []int) (RoomView, storeErr) {
 	mu.Lock()
 	defer mu.Unlock()
 
 	if _, ok := userRoom[creatorUsername]; ok {
-		return Room{}, storeErrAlreadyInOtherRoom
+		return RoomView{}, storeErrAlreadyInOtherRoom
 	}
 
 	id, err := uniqueRoomIDLocked()
 	if err != nil {
-		return Room{}, storeErrIDGenFailed
+		return RoomView{}, storeErrIDGenFailed
 	}
 
 	r := &Room{
 		ID:           id,
 		Name:         name,
-		Users:        []string{creatorUsername},
+		Members:      []*member{{username: creatorUsername}},
 		CategoryIDs:  categoryIDs,
 		PasswordHash: pwHash,
 	}
 	rooms[id] = r
 	userRoom[creatorUsername] = id
 
-	return copyRoom(r), storeErrNone
+	return r.view(), storeErrNone
 }
 
-func joinRoom(id, username string) (Room, storeErr) {
+func checkJoinable(roomID, username string) storeErr {
+	mu.RLock()
+	defer mu.RUnlock()
+
+	if _, ok := rooms[roomID]; !ok {
+		return storeErrNotFound
+	}
+	if current, inRoom := userRoom[username]; inRoom && current != roomID {
+		return storeErrAlreadyInOtherRoom
+	}
+	return storeErrNone
+}
+
+func attach(roomID, username string) (*member, RoomView, storeErr) {
 	mu.Lock()
 	defer mu.Unlock()
 
-	r, ok := rooms[id]
+	r, ok := rooms[roomID]
 	if !ok {
-		return Room{}, storeErrNotFound
+		return nil, RoomView{}, storeErrNotFound
 	}
 
-	if current, inRoom := userRoom[username]; inRoom {
-		if current == id {
-			return Room{}, storeErrAlreadyInThisRoom
-		}
-		return Room{}, storeErrAlreadyInOtherRoom
+	if current, inRoom := userRoom[username]; inRoom && current != roomID {
+		return nil, RoomView{}, storeErrAlreadyInOtherRoom
 	}
 
-	r.Users = append(r.Users, username)
-	userRoom[username] = id
+	m := &member{username: username, send: make(chan []byte, sendBufferSize)}
 
-	return copyRoom(r), storeErrNone
+	if idx := r.indexOf(username); idx >= 0 {
+		r.Members[idx].closeSend()
+		r.Members[idx] = m
+	} else {
+		r.Members = append(r.Members, m)
+		userRoom[username] = roomID
+	}
+
+	return m, r.view(), storeErrNone
 }
 
-func leaveRoom(username string) storeErr {
+func detach(username string, m *member) (roomID string, view RoomView, ok bool) {
+	mu.Lock()
+	defer mu.Unlock()
+
+	id, inRoom := userRoom[username]
+	if !inRoom {
+		return "", RoomView{}, false
+	}
+
+	r, roomOK := rooms[id]
+	if !roomOK {
+		delete(userRoom, username)
+		return "", RoomView{}, false
+	}
+
+	idx := r.indexOf(username)
+	if idx < 0 || r.Members[idx] != m {
+		return "", RoomView{}, false
+	}
+
+	m.closeSend()
+	r.Members = append(r.Members[:idx], r.Members[idx+1:]...)
+	delete(userRoom, username)
+
+	if len(r.Members) == 0 {
+		delete(rooms, id)
+		return "", RoomView{}, false
+	}
+
+	return id, r.view(), true
+}
+
+func leaveRoom(username string) (roomID string, view RoomView, announce bool, sErr storeErr) {
 	mu.Lock()
 	defer mu.Unlock()
 
 	id, ok := userRoom[username]
 	if !ok {
-		return storeErrNotInRoom
+		return "", RoomView{}, false, storeErrNotInRoom
 	}
 	delete(userRoom, username)
 
-	if r, ok := rooms[id]; ok {
-		r.Users = removeString(r.Users, username)
-		if len(r.Users) == 0 {
-			delete(rooms, id)
-		}
+	r, roomOK := rooms[id]
+	if !roomOK {
+		return "", RoomView{}, false, storeErrNone
 	}
 
-	return storeErrNone
+	if idx := r.indexOf(username); idx >= 0 {
+		r.Members[idx].closeSend()
+		r.Members = append(r.Members[:idx], r.Members[idx+1:]...)
+	}
+
+	if len(r.Members) == 0 {
+		delete(rooms, id)
+		return "", RoomView{}, false, storeErrNone
+	}
+
+	return id, r.view(), true, storeErrNone
+}
+
+func setCategories(roomID string, categoryIDs []int) (RoomView, storeErr) {
+	mu.Lock()
+	defer mu.Unlock()
+
+	r, ok := rooms[roomID]
+	if !ok {
+		return RoomView{}, storeErrNotFound
+	}
+
+	ids := make([]int, len(categoryIDs))
+	copy(ids, categoryIDs)
+	r.CategoryIDs = ids
+
+	return r.view(), storeErrNone
+}
+
+func broadcast(roomID string, payload []byte) {
+	mu.RLock()
+	defer mu.RUnlock()
+
+	r, ok := rooms[roomID]
+	if !ok {
+		return
+	}
+	for _, m := range r.Members {
+		m.deliver(payload)
+	}
+}
+
+func sendTo(m *member, payload []byte) {
+	mu.RLock()
+	defer mu.RUnlock()
+
+	m.deliver(payload)
 }
 
 func uniqueRoomIDLocked() (string, error) {
@@ -133,30 +228,4 @@ func uniqueRoomIDLocked() (string, error) {
 		}
 	}
 	return "", errIDGenExhausted
-}
-
-func removeString(list []string, target string) []string {
-	filtered := list[:0]
-	for _, s := range list {
-		if s != target {
-			filtered = append(filtered, s)
-		}
-	}
-	return filtered
-}
-
-func copyRoom(r *Room) Room {
-	users := make([]string, len(r.Users))
-	copy(users, r.Users)
-
-	categoryIDs := make([]int, len(r.CategoryIDs))
-	copy(categoryIDs, r.CategoryIDs)
-
-	return Room{
-		ID:           r.ID,
-		Name:         r.Name,
-		Users:        users,
-		CategoryIDs:  categoryIDs,
-		PasswordHash: r.PasswordHash,
-	}
 }

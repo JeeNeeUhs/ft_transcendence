@@ -4,10 +4,34 @@ import (
 	"crypto/rand"
 )
 
+type member struct {
+	username string
+	send     chan []byte
+	closed   bool
+}
+
+func (m *member) deliver(payload []byte) {
+	if m.send == nil || m.closed || payload == nil {
+		return
+	}
+	select {
+	case m.send <- payload:
+	default:
+	}
+}
+
+func (m *member) closeSend() {
+	if m.send == nil || m.closed {
+		return
+	}
+	m.closed = true
+	close(m.send)
+}
+
 type Room struct {
 	ID           string
 	Name         string
-	Users        []string
+	Members      []*member
 	CategoryIDs  []int
 	PasswordHash string
 }
@@ -20,14 +44,31 @@ type RoomView struct {
 	HasPassword bool     `json:"has_password"`
 }
 
-func (r Room) view() RoomView {
+func (r *Room) view() RoomView {
+	users := make([]string, len(r.Members))
+	for i, m := range r.Members {
+		users[i] = m.username
+	}
+
+	categoryIDs := make([]int, len(r.CategoryIDs))
+	copy(categoryIDs, r.CategoryIDs)
+
 	return RoomView{
 		ID:          r.ID,
 		Name:        r.Name,
-		Users:       r.Users,
-		CategoryIDs: r.CategoryIDs,
+		Users:       users,
+		CategoryIDs: categoryIDs,
 		HasPassword: r.PasswordHash != "",
 	}
+}
+
+func (r *Room) indexOf(username string) int {
+	for i, m := range r.Members {
+		if m.username == username {
+			return i
+		}
+	}
+	return -1
 }
 
 const (
