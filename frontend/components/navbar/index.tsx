@@ -1,7 +1,8 @@
 import { useTranslations } from "next-intl";
-import { AccountButton } from "@/components/auth/account-button";
-import { LocaleSwitcher } from "@/components/locale-switcher";
-import { ThemeSwitcher } from "@/components/theme-switcher";
+
+import { AccountButton } from "@/components/navbar/account-button";
+import { LocaleSwitcher } from "@/components/navbar/locale-switcher";
+import { ThemeSwitcher } from "@/components/navbar/theme-switcher";
 
 export function Navbar() {
   const t = useTranslations("common");

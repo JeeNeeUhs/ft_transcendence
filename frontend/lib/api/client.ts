@@ -8,7 +8,7 @@ export type Result<T> =
   | {
       success: false;
       status?: number;
-      errorCode: string;
+      errorCode: number;
     };
 
 // extends RequestInit for body snake_case conversation
@@ -46,14 +46,12 @@ export async function apiClient<T>(endpoint: string, options: ApiOptions = {}): 
     const response = await fetch(`${base_url}/api${endpoint}`, fetchOptions);
 
     if (!response.ok) {
-      let errorCode = `HTTP_${response.status}`;
+      let errorCode = 0;
 
       try {
         const responseErr = await response.json();
 
-        if (responseErr?.code) {
-          errorCode = responseErr.code;
-        }
+        if (responseErr?.code) errorCode = responseErr.code;
       } catch {}
 
       return {
@@ -77,7 +75,7 @@ export async function apiClient<T>(endpoint: string, options: ApiOptions = {}): 
   } catch {
     return {
       success: false,
-      errorCode: "NETWORK_ERROR"
+      errorCode: -1
     };
   }
 }
