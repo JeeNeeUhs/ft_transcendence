@@ -1,7 +1,8 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useTranslations } from "next-intl";
+import { useMemo, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -12,34 +13,38 @@ import { Spinner } from "@/components/ui/spinner";
 import { toast } from "@/components/ui/toast";
 import { authService } from "@/lib/api/auth";
 
-const formSchema = z
-  .object({
-    username: z
-      .string()
-      .trim()
-      .nonempty("auth.signUp.usernameRequired")
-      .min(3, "auth.signUp.usernameMinValue")
-      .max(50, "auth.signUp.usernameMaxValue"),
-    password: z
-      .string()
-      .nonempty("auth.signUp.passwordRequired")
-      .min(8, "auth.signUp.passwordMinValue")
-      .max(50, "auth.signUp.passwordMaxValue"),
-    confirmPassword: z.string().nonempty("auth.signUp.confirmPassword")
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    path: ["confirmPassword"],
-    message: "auth.signUp.passwordDontMatch"
-  });
-
 export function SignUpForm({ onSuccess }: { onSuccess: (accessToken: string) => void }) {
+  const tAuth = useTranslations("auth");
+  const tError = useTranslations("error");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const formSchema = useMemo(
+    () =>
+      z
+        .object({
+          username: z
+            .string()
+            .trim()
+            .nonempty(tAuth("signUp.usernameRequired"))
+            .min(3, tAuth("signUp.usernameMinValue"))
+            .max(50, tAuth("signUp.usernameMaxValue")),
+          password: z
+            .string()
+            .nonempty(tAuth("signUp.passwordRequired"))
+            .min(8, tAuth("signUp.passwordMinValue"))
+            .max(50, tAuth("signUp.passwordMaxValue")),
+          confirmPassword: z.string().nonempty(tAuth("signUp.confirmPassword"))
+        })
+        .refine((data) => data.password === data.confirmPassword, {
+          path: ["confirmPassword"],
+          message: tAuth("signUp.passwordDontMatch")
+        }),
+    [tAuth]
+  );
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
 
-    // set default values to prevent uncontrolled input warning
-    // do not remove these default values
     defaultValues: {
       username: "",
       password: "",
@@ -54,13 +59,13 @@ export function SignUpForm({ onSuccess }: { onSuccess: (accessToken: string) => 
     if (!response.success) {
       if (response.status === 409) {
         form.setError("username", {
-          message: "auth.signUp.usernameShouldUnique"
+          message: tAuth("signUp.usernameShouldUnique")
         });
       } else {
         toast.add({
           type: "error",
-          title: "error.genericTitle",
-          description: `error.code-${response.errorCode}`
+          title: tAuth("error.genericTitle"),
+          description: tError(`error.codes.${response.errorCode}`)
         });
       }
 
@@ -68,7 +73,6 @@ export function SignUpForm({ onSuccess }: { onSuccess: (accessToken: string) => 
       return;
     }
 
-    // setIsLoading(false);
     onSuccess(response.data.accessToken);
   }
 
@@ -81,15 +85,15 @@ export function SignUpForm({ onSuccess }: { onSuccess: (accessToken: string) => 
             control={form.control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="sign-up-form-username">auth.username</FieldLabel>
+                <FieldLabel htmlFor="sign-up-form-username">{tAuth("username")}</FieldLabel>
                 <Input
                   {...field}
                   id="sign-up-form-username"
                   aria-invalid={fieldState.invalid}
-                  placeholder="auth.enterUsername"
+                  placeholder={tAuth("enterUsername")}
                   autoComplete="off"
                 />
-                <FieldDescription>auth.signUp.uniqueUsername</FieldDescription>
+                <FieldDescription>{tAuth("signUp.uniqueUsername")}</FieldDescription>
                 {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
               </Field>
             )}
@@ -100,13 +104,13 @@ export function SignUpForm({ onSuccess }: { onSuccess: (accessToken: string) => 
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="sign-up-form-password">auth.password</FieldLabel>
+                  <FieldLabel htmlFor="sign-up-form-password">{tAuth("password")}</FieldLabel>
                   <Input
                     {...field}
                     id="sign-up-form-password"
                     type="password"
                     aria-invalid={fieldState.invalid}
-                    placeholder="auth.enterPassword"
+                    placeholder={tAuth("enterPassword")}
                     autoComplete="off"
                   />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -123,10 +127,10 @@ export function SignUpForm({ onSuccess }: { onSuccess: (accessToken: string) => 
                     id="sign-up-form-confirm-password"
                     type="password"
                     aria-invalid={fieldState.invalid}
-                    placeholder="auth.confirmPassword"
+                    placeholder={tAuth("confirmPassword")}
                     autoComplete="off"
                   />
-                  <FieldDescription>auth.signUp.createPasswordMinMax</FieldDescription>
+                  <FieldDescription>{tAuth("signUp.createPasswordMinMax")}</FieldDescription>
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
               )}
@@ -141,7 +145,7 @@ export function SignUpForm({ onSuccess }: { onSuccess: (accessToken: string) => 
         className="flex items-center gap-x-2"
       >
         {isLoading && <Spinner />}
-        auth.signUp
+        {tAuth("signUp.button")}
       </Button>
     </>
   );

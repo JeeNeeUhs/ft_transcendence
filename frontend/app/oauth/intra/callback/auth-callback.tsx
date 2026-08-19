@@ -1,11 +1,14 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 
 import { authService } from "@/lib/api/auth";
 
 export function AuthCallback() {
+  const t = useTranslations("auth.oauth");
+
   const searchParams = useSearchParams();
 
   useEffect(() => {
@@ -39,6 +42,9 @@ export function AuthCallback() {
   }, [searchParams]);
 
   return (
-    <div className="w-screen h-screen flex items-center justify-center">auth.oauth.completing</div>
+    <div className="w-screen h-screen flex flex-col items-center justify-center">
+      <div className="text-2xl font-black mb-3">Quizinyo</div>
+      <div className="text-sm">{t("completing")}</div>
+    </div>
   );
 }

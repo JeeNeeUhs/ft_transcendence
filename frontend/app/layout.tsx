@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
-import { cn } from "@/lib/utils";
+import { getLocale } from "next-intl/server";
 
+import { cn } from "@/lib/utils";
 import { Providers } from "@/providers";
 import "@/app/globals.css";
 
@@ -9,13 +10,15 @@ const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {};
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+
   return (
-    <html lang="en" className={cn("font-sans", geist.variable)} suppressHydrationWarning>
+    <html lang={locale} className={cn("font-sans", geist.variable)} suppressHydrationWarning>
       <body>
         <Providers>{children}</Providers>
       </body>

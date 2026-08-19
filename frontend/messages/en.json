@@ -1,0 +1,71 @@
+{
+  "common": {
+    "appName": "Quizinyo"
+  },
+  "theme": {
+    "system": "System",
+    "dark": "Dark",
+    "light": "Light"
+  },
+  "auth": {
+    "username": "Username",
+    "password": "Password",
+    "enterUsername": "Enter your username",
+    "enterPassword": "Enter your password",
+    "confirmPassword": "Confirm your password",
+    "separator": "or continue with",
+    "signInWithIntra": "Sign in with 42",
+    "signIn": {
+      "button": "Sign in",
+      "title": "Welcome back",
+      "desc": "Sign in to your account to continue",
+      "footer": "Don't have an account?",
+      "action": "Sign up",
+      "usernameRequired": "Username is required",
+      "passwordRequired": "Password is required",
+      "invalidUsernameOrPassword": "Invalid username or password"
+    },
+    "signUp": {
+      "button": "Sign up",
+      "title": "Create an account",
+      "desc": "Sign up to get started with Quizinyo",
+      "footer": "Already have an account?",
+      "action": "Sign in",
+      "usernameRequired": "Username is required",
+      "usernameMinValue": "Username must be at least 3 characters",
+      "usernameMaxValue": "Username must be at most 50 characters",
+      "passwordRequired": "Password is required",
+      "passwordMinValue": "Password must be at least 8 characters",
+      "passwordMaxValue": "Password must be at most 50 characters",
+      "confirmPassword": "Please confirm your password",
+      "passwordDontMatch": "Passwords do not match",
+      "usernameShouldUnique": "This username is already taken",
+      "uniqueUsername": "Choose a unique username for your account",
+      "createPasswordMinMax": "Password must be between 8 and 50 characters"
+    },
+    "intraSetup": {
+      "title": "Complete your profile",
+      "desc": "Choose a username to finish setting up your account",
+      "footer": "Want to use a different account?",
+      "action": "Go back"
+    },
+    "signOut": "Sign out",
+    "oauth": {
+      "failed": "Authentication failed. Please try again.",
+      "complete": "Complete setup",
+      "completing": "Completing setup..."
+    }
+  },
+  "profile": {
+    "myAccount": "My Account",
+    "settings": "Settings"
+  },
+  "error": {
+    "genericTitle": "Something went wrong",
+    "popupBlocked": "Popup was blocked by the browser. Please allow popups and try again.",
+    "codes": {
+      "-1": "Connection lost, please try again.",
+      "0": "Unknown error occurred."
+    }
+  }
+}

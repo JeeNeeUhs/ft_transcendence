@@ -1,0 +1,71 @@
+{
+  "common": {
+    "appName": "Quizinyo"
+  },
+  "theme": {
+    "system": "Sistema",
+    "dark": "Oscuro",
+    "light": "Claro"
+  },
+  "auth": {
+    "username": "Nombre de usuario",
+    "password": "Contraseña",
+    "enterUsername": "Introduce tu nombre de usuario",
+    "enterPassword": "Introduce tu contraseña",
+    "confirmPassword": "Confirma tu contraseña",
+    "separator": "o continuar con",
+    "signInWithIntra": "Iniciar sesión con 42",
+    "signIn": {
+      "button": "Iniciar sesión",
+      "title": "Bienvenido de nuevo",
+      "desc": "Inicia sesión en tu cuenta para continuar",
+      "footer": "¿No tienes una cuenta?",
+      "action": "Regístrate",
+      "usernameRequired": "El nombre de usuario es obligatorio",
+      "passwordRequired": "La contraseña es obligatoria",
+      "invalidUsernameOrPassword": "Nombre de usuario o contraseña incorrectos"
+    },
+    "signUp": {
+      "button": "Registrarse",
+      "title": "Crear una cuenta",
+      "desc": "Regístrate para empezar con Quizinyo",
+      "footer": "¿Ya tienes una cuenta?",
+      "action": "Iniciar sesión",
+      "usernameRequired": "El nombre de usuario es obligatorio",
+      "usernameMinValue": "El nombre de usuario debe tener al menos 3 caracteres",
+      "usernameMaxValue": "El nombre de usuario debe tener un máximo de 50 caracteres",
+      "passwordRequired": "La contraseña es obligatoria",
+      "passwordMinValue": "La contraseña debe tener al menos 8 caracteres",
+      "passwordMaxValue": "La contraseña debe tener un máximo de 50 caracteres",
+      "confirmPassword": "Por favor, confirma tu contraseña",
+      "passwordDontMatch": "Las contraseñas no coinciden",
+      "usernameShouldUnique": "Este nombre de usuario ya está en uso",
+      "uniqueUsername": "Elige un nombre de usuario único para tu cuenta",
+      "createPasswordMinMax": "La contraseña debe tener entre 8 y 50 caracteres"
+    },
+    "intraSetup": {
+      "title": "Completa tu perfil",
+      "desc": "Elige un nombre de usuario para terminar de configurar tu cuenta",
+      "footer": "¿Quieres usar una cuenta diferente?",
+      "action": "Volver"
+    },
+    "signOut": "Cerrar sesión",
+    "oauth": {
+      "failed": "Error de autenticación. Por favor, inténtalo de nuevo.",
+      "complete": "Completar configuración",
+      "completing": "Completando configuración..."
+    }
+  },
+  "profile": {
+    "myAccount": "Mi cuenta",
+    "settings": "Ajustes"
+  },
+  "error": {
+    "genericTitle": "Algo salió mal",
+    "popupBlocked": "El navegador bloqueó la ventana emergente. Por favor, permite las ventanas emergentes e inténtalo de nuevo.",
+    "codes": {
+      "-1": "Se perdió la conexión, por favor inténtalo de nuevo.",
+      "0": "Ocurrió un error desconocido."
+    }
+  }
+}

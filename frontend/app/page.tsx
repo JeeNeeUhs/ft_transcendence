@@ -1,7 +1,7 @@
 import { SignedIn, SignedOut } from "@/components/auth/auth-guard";
 import { Navbar } from "@/components/navbar";
 
-export default function Home() {
+export default async function Home() {
   return (
     <div className="w-full px-5 max-w-6xl mx-auto">
       <Navbar />

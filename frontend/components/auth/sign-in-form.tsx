@@ -1,7 +1,8 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useTranslations } from "next-intl";
+import { useMemo, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -12,19 +13,23 @@ import { Spinner } from "@/components/ui/spinner";
 import { toast } from "@/components/ui/toast";
 import { authService } from "@/lib/api/auth";
 
-const formSchema = z.object({
-  username: z.string().trim().nonempty("auth.signIn.usernameRequired"),
-  password: z.string().nonempty("auth.signIn.passwordRequired")
-});
-
 export function SignInForm({ onSuccess }: { onSuccess: (accessToken: string) => void }) {
+  const tAuth = useTranslations("auth");
+  const tError = useTranslations("auth");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const formSchema = useMemo(
+    () =>
+      z.object({
+        username: z.string().trim().nonempty(tAuth("signIn.usernameRequired")),
+        password: z.string().nonempty(tAuth("signIn.passwordRequired"))
+      }),
+    [tAuth]
+  );
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
 
-    // set default values to prevent uncontrolled input warning
-    // do not remove these default values
     defaultValues: {
       username: "",
       password: ""
@@ -38,16 +43,16 @@ export function SignInForm({ onSuccess }: { onSuccess: (accessToken: string) => 
     if (!response.success) {
       if (response.status === 401) {
         form.setError("username", {
-          message: "auth.signIn.invalidUsernameOrPassword"
+          message: tAuth("signIn.invalidUsernameOrPassword")
         });
         form.setError("password", {
-          message: "auth.signIn.invalidUsernameOrPassword"
+          message: tAuth("signIn.invalidUsernameOrPassword")
         });
       } else {
         toast.add({
           type: "error",
-          title: "error.genericTitle",
-          description: `error.code-${response.errorCode}`
+          title: tAuth("error.genericTitle"),
+          description: tError(`error.codes.${response.errorCode}`)
         });
       }
 
@@ -55,7 +60,6 @@ export function SignInForm({ onSuccess }: { onSuccess: (accessToken: string) => 
       return;
     }
 
-    // setIsLoading(false);
     onSuccess(response.data.accessToken);
   }
 
@@ -68,12 +72,12 @@ export function SignInForm({ onSuccess }: { onSuccess: (accessToken: string) => 
             control={form.control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="sign-in-form-username">auth.username</FieldLabel>
+                <FieldLabel htmlFor="sign-in-form-username">{tAuth("username")}</FieldLabel>
                 <Input
                   {...field}
                   id="sign-in-form-username"
                   aria-invalid={fieldState.invalid}
-                  placeholder="auth.enterUsername"
+                  placeholder={tAuth("enterUsername")}
                   autoComplete="off"
                 />
                 {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -85,13 +89,13 @@ export function SignInForm({ onSuccess }: { onSuccess: (accessToken: string) => 
             control={form.control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="sign-in-form-password">auth.password</FieldLabel>
+                <FieldLabel htmlFor="sign-in-form-password">{tAuth("password")}</FieldLabel>
                 <Input
                   {...field}
                   id="sign-in-form-password"
                   type="password"
                   aria-invalid={fieldState.invalid}
-                  placeholder="auth.enterPassword"
+                  placeholder={tAuth("enterPassword")}
                   autoComplete="off"
                 />
                 {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -107,7 +111,7 @@ export function SignInForm({ onSuccess }: { onSuccess: (accessToken: string) => 
         className="flex items-center gap-x-2"
       >
         {isLoading && <Spinner />}
-        auth.signIn
+        {tAuth("signIn.button")}
       </Button>
     </>
   );

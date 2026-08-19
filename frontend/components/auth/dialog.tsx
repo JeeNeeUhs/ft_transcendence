@@ -4,6 +4,7 @@ import { User02Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { useCallback, useState } from "react";
 
 import { IntraButton } from "@/components/auth/intra-button";
@@ -26,6 +27,7 @@ import { useUserStore } from "@/providers/user";
 export type AuthView = "signIn" | "signUp" | "intraSetup";
 
 function AuthDialogContent({ onSuccess }: { onSuccess: (accessToken: string) => void }) {
+  const t = useTranslations("auth");
   const [formView, setFormView] = useState<AuthView>("signIn");
   const [intraResponse, setIntraResponse] = useState<IntraResponse | null>(null);
 
@@ -51,27 +53,27 @@ function AuthDialogContent({ onSuccess }: { onSuccess: (accessToken: string) => 
           {formView === "intraSetup" && intraResponse ? (
             <>
               <DialogHeader>
-                <DialogTitle>auth.$formView.title</DialogTitle>
-                <DialogDescription>auth.$formView.desc</DialogDescription>
+                <DialogTitle>{t(`${formView}.title`)}</DialogTitle>
+                <DialogDescription>{t(`${formView}.desc`)}</DialogDescription>
               </DialogHeader>
               <IntraSetupForm response={intraResponse} onSuccess={onSuccess} />
             </>
           ) : (
             <>
               <DialogHeader>
-                <DialogTitle>auth.$formView.title</DialogTitle>
-                <DialogDescription>auth.$formView.desc</DialogDescription>
+                <DialogTitle>{t(`${formView}.title`)}</DialogTitle>
+                <DialogDescription>{t(`${formView}.desc`)}</DialogDescription>
               </DialogHeader>
               <IntraButton onSuccess={onSuccess} onIntraSetup={handleIntraSetup} />
               <FieldSeparator className="mt-0.5 *:data-[slot=field-separator-content]:bg-card">
-                auth.separator
+                {t("separator")}
               </FieldSeparator>
 
               <ActiveForm onSuccess={onSuccess} />
               <div className="text-center text-muted-foreground">
-                auth.$formView.footer{" "}
+                {t(`${formView}.footer`)}{" "}
                 <button type="button" className="underline cursor-pointer" onClick={toggleFormView}>
-                  auth.$formView.action
+                  {t(`${formView}.action`)}
                 </button>
               </div>
             </>
@@ -92,6 +94,7 @@ function AuthDialogContent({ onSuccess }: { onSuccess: (accessToken: string) => 
 }
 
 export function AuthDialog() {
+  const t = useTranslations("auth");
   const [open, setOpen] = useState<boolean>(false);
   const setUser = useUserStore((state) => state.setUser);
 
@@ -117,7 +120,7 @@ export function AuthDialog() {
       <DialogTrigger
         render={
           <Button size="lg">
-            <HugeiconsIcon icon={User02Icon} /> auth.signIn
+            <HugeiconsIcon icon={User02Icon} /> {t("signIn.button")}
           </Button>
         }
       />
