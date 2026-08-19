@@ -7,17 +7,13 @@
     "dark": "Dark",
     "light": "Light"
   },
-  "home": {
-    "welcome": "hello world",
-    "description": "hello world is a very strange thing, it comes and says I am hello world, hello world ooauuhhh you know like ooaaauuhhhh"
-  },
   "auth": {
     "username": "Username",
     "password": "Password",
     "enterUsername": "Enter your username",
     "enterPassword": "Enter your password",
     "confirmPassword": "Confirm your password",
-    "separator": "or",
+    "separator": "or continue with",
     "signInWithIntra": "Sign in with 42",
     "signIn": {
       "button": "Sign in",

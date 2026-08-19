@@ -7,17 +7,13 @@
     "dark": "Koyu",
     "light": "Açık"
   },
-  "home": {
-    "welcome": "merhaba dünya",
-    "description": "merhaba dünya çok acayip bir şeydir, gelir der ki ben merhaba dünyayım, merhaba dünya ooauuhhh yani hani oaaauuhhhh"
-  },
   "auth": {
     "username": "Kullanıcı adı",
     "password": "Şifre",
     "enterUsername": "Kullanıcı adınızı girin",
     "enterPassword": "Şifrenizi girin",
     "confirmPassword": "Şifrenizi onaylayın",
-    "separator": "veya",
+    "separator": "veya şununla devam et",
     "signInWithIntra": "42 ile giriş yap",
     "signIn": {
       "button": "Giriş yap",
