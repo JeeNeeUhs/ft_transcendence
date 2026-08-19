@@ -14,16 +14,17 @@ import { toast } from "@/components/ui/toast";
 import { authService } from "@/lib/api/auth";
 
 export function SignInForm({ onSuccess }: { onSuccess: (accessToken: string) => void }) {
-  const t = useTranslations("auth");
+  const tAuth = useTranslations("auth");
+  const tError = useTranslations("auth");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const formSchema = useMemo(
     () =>
       z.object({
-        username: z.string().trim().nonempty(t("signIn.usernameRequired")),
-        password: z.string().nonempty(t("signIn.passwordRequired"))
+        username: z.string().trim().nonempty(tAuth("signIn.usernameRequired")),
+        password: z.string().nonempty(tAuth("signIn.passwordRequired"))
       }),
-    [t]
+    [tAuth]
   );
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -42,16 +43,16 @@ export function SignInForm({ onSuccess }: { onSuccess: (accessToken: string) => 
     if (!response.success) {
       if (response.status === 401) {
         form.setError("username", {
-          message: t("signIn.invalidUsernameOrPassword")
+          message: tAuth("signIn.invalidUsernameOrPassword")
         });
         form.setError("password", {
-          message: t("signIn.invalidUsernameOrPassword")
+          message: tAuth("signIn.invalidUsernameOrPassword")
         });
       } else {
         toast.add({
           type: "error",
-          title: t("error.genericTitle"),
-          description: `error.code-${response.errorCode}`
+          title: tAuth("error.genericTitle"),
+          description: tError(`error.codes.${response.errorCode}`)
         });
       }
 
@@ -71,12 +72,12 @@ export function SignInForm({ onSuccess }: { onSuccess: (accessToken: string) => 
             control={form.control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="sign-in-form-username">{t("username")}</FieldLabel>
+                <FieldLabel htmlFor="sign-in-form-username">{tAuth("username")}</FieldLabel>
                 <Input
                   {...field}
                   id="sign-in-form-username"
                   aria-invalid={fieldState.invalid}
-                  placeholder={t("enterUsername")}
+                  placeholder={tAuth("enterUsername")}
                   autoComplete="off"
                 />
                 {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -88,13 +89,13 @@ export function SignInForm({ onSuccess }: { onSuccess: (accessToken: string) => 
             control={form.control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="sign-in-form-password">{t("password")}</FieldLabel>
+                <FieldLabel htmlFor="sign-in-form-password">{tAuth("password")}</FieldLabel>
                 <Input
                   {...field}
                   id="sign-in-form-password"
                   type="password"
                   aria-invalid={fieldState.invalid}
-                  placeholder={t("enterPassword")}
+                  placeholder={tAuth("enterPassword")}
                   autoComplete="off"
                 />
                 {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -110,7 +111,7 @@ export function SignInForm({ onSuccess }: { onSuccess: (accessToken: string) => 
         className="flex items-center gap-x-2"
       >
         {isLoading && <Spinner />}
-        {t("signIn.button")}
+        {tAuth("signIn.button")}
       </Button>
     </>
   );

@@ -3,8 +3,8 @@
 import { User02Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { AnimatePresence, motion } from "motion/react";
-import { useTranslations } from "next-intl";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { useCallback, useState } from "react";
 
 import { IntraButton } from "@/components/auth/intra-button";
@@ -107,6 +107,7 @@ export function AuthDialog() {
 
       setOpen(false);
 
+      // delay global state update to allow exit animation to finish
       setTimeout(() => {
         setUser(response.data);
       }, 300);

@@ -20,7 +20,8 @@ interface IntraSetupFormProps {
 }
 
 export function IntraSetupForm({ response, onSuccess }: IntraSetupFormProps) {
-  const t = useTranslations("auth");
+  const tAuth = useTranslations("auth");
+  const tError = useTranslations("error");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const formSchema = useMemo(
@@ -29,11 +30,11 @@ export function IntraSetupForm({ response, onSuccess }: IntraSetupFormProps) {
         username: z
           .string()
           .trim()
-          .nonempty(t("signUp.usernameRequired"))
-          .min(3, t("signUp.usernameMinValue"))
-          .max(50, t("signUp.usernameMaxValue"))
+          .nonempty(tAuth("signUp.usernameRequired"))
+          .min(3, tAuth("signUp.usernameMinValue"))
+          .max(50, tAuth("signUp.usernameMaxValue"))
       }),
-    [t]
+    [tAuth]
   );
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -50,13 +51,13 @@ export function IntraSetupForm({ response, onSuccess }: IntraSetupFormProps) {
     if (!response_.success) {
       if (response_.status === 409) {
         form.setError("username", {
-          message: t("signUp.usernameShouldUnique")
+          message: tAuth("signUp.usernameShouldUnique")
         });
       } else {
         toast.add({
           type: "error",
-          title: t("error.genericTitle"),
-          description: `error.code-${response_.errorCode}`
+          title: tError("error.genericTitle"),
+          description: tError(`error.codes.${response_.errorCode}`)
         });
       }
 
@@ -76,15 +77,15 @@ export function IntraSetupForm({ response, onSuccess }: IntraSetupFormProps) {
             control={form.control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="sign-in-form-username">{t("username")}</FieldLabel>
+                <FieldLabel htmlFor="sign-in-form-username">{tAuth("username")}</FieldLabel>
                 <Input
                   {...field}
                   id="sign-in-form-username"
                   aria-invalid={fieldState.invalid}
-                  placeholder={t("enterUsername")}
+                  placeholder={tAuth("enterUsername")}
                   autoComplete="off"
                 />
-                <FieldDescription>{t("signUp.uniqueUsername")}</FieldDescription>
+                <FieldDescription>{tAuth("signUp.uniqueUsername")}</FieldDescription>
                 {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
               </Field>
             )}
@@ -98,7 +99,7 @@ export function IntraSetupForm({ response, onSuccess }: IntraSetupFormProps) {
         className="flex items-center gap-x-2"
       >
         {isLoading && <Spinner />}
-        {t("oauth.complete")}
+        {tAuth("oauth.complete")}
       </Button>
     </>
   );

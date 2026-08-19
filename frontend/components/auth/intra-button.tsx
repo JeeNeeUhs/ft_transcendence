@@ -1,7 +1,7 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -19,6 +19,8 @@ export function IntraButton({ onSuccess, onIntraSetup }: IntraButtonProps) {
   const tError = useTranslations("error");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  // ref to store the interval id, used to clear the polling interval
+  // if the component unmounts unexpectedly, preventing memory leaks.
   const popupTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -36,6 +38,7 @@ export function IntraButton({ onSuccess, onIntraSetup }: IntraButtonProps) {
       } else if (data?.type === "intra_requires_setup") onIntraSetup(data.payload);
       else if (data?.type === "intra_auth_succeeded") onSuccess(data.payload?.accessToken);
 
+      // cleanup the polling timer since the auth flow is completed
       setIsLoading(false);
       if (popupTimerRef.current !== null) {
         clearInterval(popupTimerRef.current);
@@ -45,6 +48,8 @@ export function IntraButton({ onSuccess, onIntraSetup }: IntraButtonProps) {
 
     window.addEventListener("message", handlePopupMessage);
 
+    // runs when the component unmounts. removes the listener and stops the timer
+    // to prevent memory leaks if the user closes the modal while the popup is still open.
     return () => {
       window.removeEventListener("message", handlePopupMessage);
       if (popupTimerRef.current !== null) clearInterval(popupTimerRef.current);
@@ -59,7 +64,7 @@ export function IntraButton({ onSuccess, onIntraSetup }: IntraButtonProps) {
       toast.add({
         type: "error",
         title: tError("genericTitle"),
-        description: `error.code-${response.errorCode}`
+        description: tError(`codes.${response.errorCode}`)
       });
       setIsLoading(false);
       return;

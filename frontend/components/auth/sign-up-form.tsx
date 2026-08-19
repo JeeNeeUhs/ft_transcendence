@@ -14,7 +14,8 @@ import { toast } from "@/components/ui/toast";
 import { authService } from "@/lib/api/auth";
 
 export function SignUpForm({ onSuccess }: { onSuccess: (accessToken: string) => void }) {
-  const t = useTranslations("auth");
+  const tAuth = useTranslations("auth");
+  const tError = useTranslations("error");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const formSchema = useMemo(
@@ -24,21 +25,21 @@ export function SignUpForm({ onSuccess }: { onSuccess: (accessToken: string) => 
           username: z
             .string()
             .trim()
-            .nonempty(t("signUp.usernameRequired"))
-            .min(3, t("signUp.usernameMinValue"))
-            .max(50, t("signUp.usernameMaxValue")),
+            .nonempty(tAuth("signUp.usernameRequired"))
+            .min(3, tAuth("signUp.usernameMinValue"))
+            .max(50, tAuth("signUp.usernameMaxValue")),
           password: z
             .string()
-            .nonempty(t("signUp.passwordRequired"))
-            .min(8, t("signUp.passwordMinValue"))
-            .max(50, t("signUp.passwordMaxValue")),
-          confirmPassword: z.string().nonempty(t("signUp.confirmPassword"))
+            .nonempty(tAuth("signUp.passwordRequired"))
+            .min(8, tAuth("signUp.passwordMinValue"))
+            .max(50, tAuth("signUp.passwordMaxValue")),
+          confirmPassword: z.string().nonempty(tAuth("signUp.confirmPassword"))
         })
         .refine((data) => data.password === data.confirmPassword, {
           path: ["confirmPassword"],
-          message: t("signUp.passwordDontMatch")
+          message: tAuth("signUp.passwordDontMatch")
         }),
-    [t]
+    [tAuth]
   );
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -58,13 +59,13 @@ export function SignUpForm({ onSuccess }: { onSuccess: (accessToken: string) => 
     if (!response.success) {
       if (response.status === 409) {
         form.setError("username", {
-          message: t("signUp.usernameShouldUnique")
+          message: tAuth("signUp.usernameShouldUnique")
         });
       } else {
         toast.add({
           type: "error",
-          title: t("error.genericTitle"),
-          description: `error.code-${response.errorCode}`
+          title: tAuth("error.genericTitle"),
+          description: tError(`error.codes.${response.errorCode}`)
         });
       }
 
@@ -84,15 +85,15 @@ export function SignUpForm({ onSuccess }: { onSuccess: (accessToken: string) => 
             control={form.control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="sign-up-form-username">{t("username")}</FieldLabel>
+                <FieldLabel htmlFor="sign-up-form-username">{tAuth("username")}</FieldLabel>
                 <Input
                   {...field}
                   id="sign-up-form-username"
                   aria-invalid={fieldState.invalid}
-                  placeholder={t("enterUsername")}
+                  placeholder={tAuth("enterUsername")}
                   autoComplete="off"
                 />
-                <FieldDescription>{t("signUp.uniqueUsername")}</FieldDescription>
+                <FieldDescription>{tAuth("signUp.uniqueUsername")}</FieldDescription>
                 {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
               </Field>
             )}
@@ -103,13 +104,13 @@ export function SignUpForm({ onSuccess }: { onSuccess: (accessToken: string) => 
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="sign-up-form-password">{t("password")}</FieldLabel>
+                  <FieldLabel htmlFor="sign-up-form-password">{tAuth("password")}</FieldLabel>
                   <Input
                     {...field}
                     id="sign-up-form-password"
                     type="password"
                     aria-invalid={fieldState.invalid}
-                    placeholder={t("enterPassword")}
+                    placeholder={tAuth("enterPassword")}
                     autoComplete="off"
                   />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -126,10 +127,10 @@ export function SignUpForm({ onSuccess }: { onSuccess: (accessToken: string) => 
                     id="sign-up-form-confirm-password"
                     type="password"
                     aria-invalid={fieldState.invalid}
-                    placeholder={t("confirmPassword")}
+                    placeholder={tAuth("confirmPassword")}
                     autoComplete="off"
                   />
-                  <FieldDescription>{t("signUp.createPasswordMinMax")}</FieldDescription>
+                  <FieldDescription>{tAuth("signUp.createPasswordMinMax")}</FieldDescription>
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
               )}
@@ -144,7 +145,7 @@ export function SignUpForm({ onSuccess }: { onSuccess: (accessToken: string) => 
         className="flex items-center gap-x-2"
       >
         {isLoading && <Spinner />}
-        {t("signUp.button")}
+        {tAuth("signUp.button")}
       </Button>
     </>
   );

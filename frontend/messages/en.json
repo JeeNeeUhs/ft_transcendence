@@ -56,7 +56,8 @@
     "signOut": "Sign out",
     "oauth": {
       "failed": "Authentication failed. Please try again.",
-      "complete": "Complete setup"
+      "complete": "Complete setup",
+      "completing": "Completing setup..."
     }
   },
   "profile": {
@@ -65,6 +66,10 @@
   },
   "error": {
     "genericTitle": "Something went wrong",
-    "popupBlocked": "Popup was blocked by the browser. Please allow popups and try again."
+    "popupBlocked": "Popup was blocked by the browser. Please allow popups and try again.",
+    "codes": {
+      "-1": "Connection lost, please try again.",
+      "0": "Unknown error occurred."
+    }
   }
 }

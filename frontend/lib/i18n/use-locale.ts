@@ -1,7 +1,8 @@
+import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
-import { useState } from "react";
+import { useTransition } from "react";
 
-import { locales, type Locale, isValidLocale } from "@/i18n/config";
+import { isValidLocale, type Locale, locales } from "@/lib/i18n/config";
 
 interface UseLocaleSwitchReturn {
   locale: Locale;
@@ -12,18 +13,13 @@ interface UseLocaleSwitchReturn {
 
 export function useLocaleSwitch(): UseLocaleSwitchReturn {
   const currentLocale = useLocale() as Locale;
-  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  const [isPending, startTransition] = useTransition();
 
   async function changeLocale(newLocale: Locale): Promise<void> {
-    if (newLocale === currentLocale) {
-      return;
-    }
-
-    if (!isValidLocale(newLocale)) {
-      throw new Error(`Unsupported locale: ${newLocale}`);
-    }
-
-    setIsLoading(true);
+    if (newLocale === currentLocale) return;
+    if (!isValidLocale(newLocale)) throw new Error(`Unsupported locale: ${newLocale}`);
 
     try {
       const response = await fetch("/api/locale", {
@@ -32,20 +28,18 @@ export function useLocaleSwitch(): UseLocaleSwitchReturn {
         body: JSON.stringify({ locale: newLocale })
       });
 
-      if (!response.ok) {
-        throw new Error(`Failed to set locale (status ${response.status})`);
-      }
+      if (!response.ok) throw new Error(`Failed to set locale (status ${response.status})`);
 
-      window.location.reload();
-    } finally {
-      setIsLoading(false);
-    }
+      startTransition(() => {
+        router.refresh();
+      });
+    } catch {}
   }
 
   return {
     locale: currentLocale,
     locales,
-    isLoading,
+    isLoading: isPending,
     changeLocale
   };
 }

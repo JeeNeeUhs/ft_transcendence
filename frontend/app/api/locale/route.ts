@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
+import { isValidLocale, type Locale, locales } from "@/lib/i18n/config";
 import { setLocaleCookie } from "@/lib/i18n/cookie";
-import { locales, type Locale, isValidLocale } from "@/i18n/config";
 
 export async function POST(request: Request): Promise<NextResponse> {
   let body: unknown;
@@ -9,15 +9,11 @@ export async function POST(request: Request): Promise<NextResponse> {
   try {
     body = await request.json();
   } catch {
-    return NextResponse.json(
-      { error: "Invalid JSON body" },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
 
   const rawLocale = (body as { locale?: unknown })?.locale;
-  const localeCandidate =
-    typeof rawLocale === "string" ? rawLocale : undefined;
+  const localeCandidate = typeof rawLocale === "string" ? rawLocale : undefined;
 
   if (!isValidLocale(localeCandidate)) {
     return NextResponse.json(

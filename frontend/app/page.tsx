@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+
 import { Navbar } from "@/components/navbar";
 
 export default async function Home() {

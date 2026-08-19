@@ -10,13 +10,11 @@ export async function Providers({ children }: { children: React.ReactNode }) {
   const messages = await getMessages();
 
   return (
-    <>
-      <NextIntlClientProvider locale={locale} messages={messages}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <UserStoreProvider>{children}</UserStoreProvider>
-        </ThemeProvider>
-      </NextIntlClientProvider>
+    <NextIntlClientProvider locale={locale} messages={messages}>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <UserStoreProvider>{children}</UserStoreProvider>
+      </ThemeProvider>
       <Toaster />
-    </>
+    </NextIntlClientProvider>
   );
 }
