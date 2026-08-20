@@ -1,15 +1,16 @@
-INSERT INTO categories (name) VALUES 
-('Science'), 
-('History'),
-('Geography'),
-('Sports'),
-('Art'),
-('Technology'),
-('Literature'),
-('Music'),
-('Movies'),
-('Gaming')
-ON CONFLICT (name) DO NOTHING;
+INSERT INTO categories (name_tr, name_en, name_es)
+VALUES 
+    ('Bilim', 'Science', 'Ciencia'),
+    ('Tarih', 'History', 'Historia'),
+    ('Coğrafya', 'Geography', 'Geografía'),
+    ('Spor', 'Sports', 'Deportes'),
+    ('Sanat', 'Art', 'Arte'),
+    ('Teknoloji', 'Technology', 'Tecnología'),
+    ('Edebiyat', 'Literature', 'Literatura'),
+    ('Müzik', 'Music', 'Música'),
+    ('Sinema', 'Movies', 'Películas'),
+    ('Oyun', 'Gaming', 'Videojuegos')
+ON CONFLICT DO NOTHING;
 
 INSERT INTO questions (category_id, language, question_text, option_a, option_b, option_c, option_d, correct_option, difficulty)
 VALUES
