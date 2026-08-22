@@ -66,25 +66,3 @@ func GetMatchStatsHandler(c fiber.Ctx) error {
 	return c.JSON(fiber.Map{"total_matches": totalMatches})
 }
 
-// BU KISIMDA POST, PUT, DELETE METODLARINI MOCK OLARAKEKLEDM
-// (KALDIRILABİLİR, BEN EKLENECEK DİYE ANLADIM PDF E GÖRE)
-
-func PostFeedbackHandler(c fiber.Ctx) error {
-	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
-		"message": "POST request successful. Feedback received.",
-	})
-}
-
-func PutFeedbackHandler(c fiber.Ctx) error {
-	id := c.Params("id")
-	return c.JSON(fiber.Map{
-		"message": "PUT request successful. Feedback updated for ID: " + id,
-	})
-}
-
-func DeleteFeedbackHandler(c fiber.Ctx) error {
-	id := c.Params("id")
-	return c.JSON(fiber.Map{
-		"message": "DELETE request successful. Feedback removed for ID: " + id,
-	})
-}
