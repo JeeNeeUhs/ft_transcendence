@@ -41,8 +41,8 @@ var registery = map[int]Err{
 	28: {Status: 400, Code: 28, Message: "invalid category id"},
 	29: {Status: 400, Code: 29, Message: "duplicate category id"},
 	30: {Status: 426, Code: 30, Message: "websocket upgrade required"},
-	31: {Status: 429, Code: 31, Message: "rate limit exceeded"},
-	32: {Status: 401, Code: 32, Message: "invalid or missing api key"},
+	40: {Status: 429, Code: 40, Message: "rate limit exceeded"},
+	41: {Status: 401, Code: 41, Message: "invalid or missing api key"},
 }
 
 func CodeToErr(code int) ErrResponse {
