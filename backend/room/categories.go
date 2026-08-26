@@ -1,6 +1,8 @@
 package room
 
 import (
+	"strings"
+
 	"github.com/JeeNeeUhs/ft_transcendence/apierr"
 	"github.com/JeeNeeUhs/ft_transcendence/database"
 	"github.com/JeeNeeUhs/ft_transcendence/models"
@@ -20,7 +22,7 @@ func hasDuplicateInts(ids []int) bool {
 
 func checkCategoryIDs(ids []int) (bool, error) {
 	if len(ids) == 0 {
-		return true, nil
+		return false, nil
 	}
 
 	var count int64
@@ -31,9 +33,31 @@ func checkCategoryIDs(ids []int) (bool, error) {
 	return int(count) == len(ids), nil
 }
 
+var categoryNameColumns = map[string]string{
+	"tr": "name_tr",
+	"en": "name_en",
+	"es": "name_es",
+}
+
+type categoryView struct {
+	ID   int    `json:"id"`
+	Name string `json:"name"`
+}
+
 func listCategoriesHandler(c fiber.Ctx) error {
-	var categories []models.Category
-	if err := database.DB.Find(&categories).Error; err != nil {
+	lang := strings.ToLower(strings.TrimSpace(c.Query("lang")))
+
+	nameColumn, ok := categoryNameColumns[lang]
+	if !ok {
+		return c.Status(apierr.CodeToStatus(34)).JSON(apierr.CodeToErr(34))
+	}
+
+	var categories []categoryView
+	if err := database.DB.
+		Model(&models.Category{}).
+		Select("id", nameColumn+" AS name").
+		Order("id").
+		Scan(&categories).Error; err != nil {
 		return c.Status(apierr.CodeToStatus(5)).JSON(apierr.CodeToErr(5))
 	}
 
