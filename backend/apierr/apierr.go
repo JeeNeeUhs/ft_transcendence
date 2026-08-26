@@ -41,6 +41,15 @@ var registery = map[int]Err{
 	28: {Status: 400, Code: 28, Message: "invalid category id"},
 	29: {Status: 400, Code: 29, Message: "duplicate category id"},
 	30: {Status: 426, Code: 30, Message: "websocket upgrade required"},
+	31: {Status: 400, Code: 31, Message: "chat message not valid"},
+	32: {Status: 400, Code: 32, Message: "no categories selected"},
+	33: {Status: 409, Code: 33, Message: "game already started"},
+	34: {Status: 400, Code: 34, Message: "invalid room language"},
+	35: {Status: 400, Code: 35, Message: "message too long"},
+	36: {Status: 409, Code: 36, Message: "room is full"},
+	37: {Status: 409, Code: 37, Message: "no active question"},
+	38: {Status: 409, Code: 38, Message: "already answered"},
+	39: {Status: 400, Code: 39, Message: "invalid answer option"},
 }
 
 func CodeToErr(code int) ErrResponse {
