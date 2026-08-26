@@ -50,6 +50,8 @@ var registery = map[int]Err{
 	37: {Status: 409, Code: 37, Message: "no active question"},
 	38: {Status: 409, Code: 38, Message: "already answered"},
 	39: {Status: 400, Code: 39, Message: "invalid answer option"},
+  40: {Status: 429, Code: 40, Message: "rate limit exceeded"},
+	41: {Status: 401, Code: 41, Message: "invalid or missing api key"},
 }
 
 func CodeToErr(code int) ErrResponse {

@@ -1,0 +1,47 @@
+basePath: /
+host: localhost:8081
+info:
+  contact: {}
+  description: Public API statistics endpoints for the ft_transcendence project.
+  title: ft_transcendence Public API
+  version: "1.0"
+paths:
+  /api/public/stats/matches:
+    get:
+      description: Returns the total number of matches played on the platform.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: Get match statistics
+      tags:
+      - Public Stats
+  /api/public/stats/users:
+    get:
+      description: Returns the total number of users, 42 Intra users, and users with
+        2FA enabled.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: Get user statistics
+      tags:
+      - Public Stats
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: X-API-Key
+    type: apiKey
+swagger: "2.0"

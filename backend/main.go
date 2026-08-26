@@ -12,6 +12,15 @@ import (
 	"github.com/JeeNeeUhs/ft_transcendence/publicapi"
 )
 
+// @title ft_transcendence Public API
+// @version 1.0
+// @description Public API statistics endpoints for the ft_transcendence project.
+// @host localhost:8081
+// @BasePath /
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name X-API-Key
+
 func main() {
 
 	if err := database.Connect(); err != nil {
