@@ -7,7 +7,9 @@ import (
 	"github.com/JeeNeeUhs/ft_transcendence/database"
 	"github.com/JeeNeeUhs/ft_transcendence/middleware"
 	"github.com/JeeNeeUhs/ft_transcendence/room"
+	"github.com/JeeNeeUhs/ft_transcendence/apikey"
 	"github.com/gofiber/fiber/v3"
+	"github.com/JeeNeeUhs/ft_transcendence/publicapi"
 )
 
 func main() {
@@ -22,6 +24,8 @@ func main() {
 
 	room.Register(api)
 	auth.Register(api)
+	apikey.Register(api)
+	publicapi.Register(api)
 
 	app.Listen(":8081")
 
