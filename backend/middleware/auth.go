@@ -41,12 +41,7 @@ func RequireAuthWS(c fiber.Ctx) error {
 		return c.Status(apierr.CodeToStatus(14)).JSON(apierr.CodeToErr(14))
 	}
 
-	parts := strings.SplitN(authHeader, " ", 2)
-	if len(parts) != 2 || !strings.EqualFold(parts[0], "Bearer") {
-		return c.Status(apierr.CodeToStatus(15)).JSON(apierr.CodeToErr(15))
-	}
-
-	claims, err := token.ParseAccessToken(parts[1])
+	claims, err := token.ParseAccessToken(authHeader)
 	if err != nil {
 		return c.Status(apierr.CodeToStatus(16)).JSON(apierr.CodeToErr(16))
 	}
@@ -56,6 +51,7 @@ func RequireAuthWS(c fiber.Ctx) error {
 	}
 
 	c.Locals(LocalsUserIDKey, claims.UserID)
+	c.Set("Sec-WebSocket-Protocol", authHeader)
 
 	return c.Next()
 }
