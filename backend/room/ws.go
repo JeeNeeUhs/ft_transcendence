@@ -250,16 +250,22 @@ func joinConnHandler(conn *websocket.Conn) {
 		defer wg.Done()
 		writePump(conn, m.send)
 	}()
+	defer wg.Wait()
+
+	// The websocket layer above us recovers panics, so cleanup left as a plain
+	// statement after readPump would be skipped on one and leave this member
+	// wedged in the room forever. Deferred, it runs either way — and it runs
+	// before wg.Wait because defers unwind in reverse.
+	defer func() {
+		if id, remaining, ok := detach(username, m); ok {
+			broadcast(id, encodeEvent(wsEvent{Type: eventUserLeft, User: username, Room: &remaining}))
+		}
+	}()
 
 	sendTo(m, encodeEvent(wsEvent{Type: eventRoomState, User: username, Room: &view}))
 	broadcast(roomID, encodeEvent(wsEvent{Type: eventUserJoined, User: username, Room: &view}))
 
 	readPump(conn, m, roomID, username)
-
-	if id, remaining, ok := detach(username, m); ok {
-		broadcast(id, encodeEvent(wsEvent{Type: eventUserLeft, User: username, Room: &remaining}))
-	}
-	wg.Wait()
 }
 
 func readPump(conn *websocket.Conn, m *member, roomID, username string) {
