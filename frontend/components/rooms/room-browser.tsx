@@ -124,7 +124,7 @@ export function RoomBrowser({ categories, locale }: { categories: Category[]; lo
           <Select value={langFilter} onValueChange={(value) => setLangFilter(value ?? "all")}>
             <SelectTrigger className="w-fit">
               <SelectValue>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-x-2">
                   <Image
                     src={`/flags/${langFilter}.svg`}
                     width={16}
@@ -139,16 +139,7 @@ export function RoomBrowser({ categories, locale }: { categories: Category[]; lo
             <SelectContent>
               {["all", "tr", "en", "es"].map((lang) => (
                 <SelectItem key={lang} value={lang}>
-                  <div className="flex items-center gap-2">
-                    <Image
-                      src={`/flags/${lang}.svg`}
-                      width={16}
-                      height={12}
-                      alt={lang}
-                      className="w-[16px] h-[12px] object-cover"
-                    />
-                    <span>{tLang(lang)}</span>
-                  </div>
+                  <span>{tLang(lang)}</span>
                 </SelectItem>
               ))}
             </SelectContent>
@@ -161,7 +152,7 @@ export function RoomBrowser({ categories, locale }: { categories: Category[]; lo
             <SelectTrigger className="w-fit">
               <SelectValue>
                 {selectedCategory ? (
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-x-2">
                     <HugeiconsIcon icon={selectedCategory.icon} size={16} />
                     <span>{selectedCategory.label}</span>
                   </div>
@@ -173,10 +164,7 @@ export function RoomBrowser({ categories, locale }: { categories: Category[]; lo
             <SelectContent>
               {categoryItems.map((item) => (
                 <SelectItem key={item.value} value={item.value}>
-                  <div className="flex items-center gap-2">
-                    <HugeiconsIcon icon={item.icon} size={16} />
-                    <span>{item.label}</span>
-                  </div>
+                  <span>{item.label}</span>
                 </SelectItem>
               ))}
             </SelectContent>
