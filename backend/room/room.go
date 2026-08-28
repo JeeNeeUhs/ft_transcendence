@@ -15,6 +15,15 @@ func (r *Room) isFull() bool {
 	return len(r.Members) >= maxPlayersPerRoom
 }
 
+func (r *Room) hasConnectedMember() bool {
+	for _, m := range r.Members {
+		if !m.awaitingConnection() {
+			return true
+		}
+	}
+	return false
+}
+
 var supportedLangs = map[string]struct{}{
 	"tr": {},
 	"en": {},
@@ -38,6 +47,13 @@ type member struct {
 	send     chan []byte
 	closed   bool
 	ready    bool
+}
+
+// A seat created by createRoom has no socket yet: the WebSocket upgrade only
+// runs once the room exists. That placeholder is the one and only seat attach
+// is allowed to take over.
+func (m *member) awaitingConnection() bool {
+	return m.send == nil
 }
 
 func (m *member) deliver(payload []byte) bool {

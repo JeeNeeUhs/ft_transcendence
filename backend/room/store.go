@@ -25,6 +25,7 @@ const (
 	storeErrNoActiveQuestion
 	storeErrAlreadyAnswered
 	storeErrBadOption
+	storeErrAlreadyConnected
 )
 
 func storeErrToCode(sErr storeErr) int {
@@ -33,6 +34,8 @@ func storeErrToCode(sErr storeErr) int {
 		return 19
 	case storeErrAlreadyInOtherRoom:
 		return 20
+	case storeErrAlreadyConnected:
+		return 21
 	case storeErrIDGenFailed:
 		return 22
 	case storeErrAlreadyStarted:
@@ -83,6 +86,12 @@ func listRooms() []RoomListView {
 	mu.RLock()
 	list := make([]RoomListView, 0, len(rooms))
 	for _, r := range rooms {
+		// A room whose creator has not finished the handshake yet has a seat
+		// but nobody behind it. Showing it in the lobby advertises a room with
+		// a user count that nobody is actually sitting at.
+		if !r.hasConnectedMember() {
+			continue
+		}
 		list = append(list, r.listView())
 	}
 	mu.RUnlock()
@@ -134,16 +143,23 @@ func checkJoinable(roomID, username string) storeErr {
 	if !ok {
 		return storeErrNotFound
 	}
-	if current, inRoom := userRoom[username]; inRoom && current != roomID {
-		return storeErrAlreadyInOtherRoom
+	// An account gets one socket at a time. Being seated anywhere at all is
+	// enough to refuse: in another room the answer is "you are already in a
+	// room", in this one it is "you already have this room open". Neither
+	// case touches the live connection, so a second tab can never take the
+	// first one down.
+	if current, inRoom := userRoom[username]; inRoom {
+		if current != roomID {
+			return storeErrAlreadyInOtherRoom
+		}
+		return storeErrAlreadyConnected
 	}
-	if r.indexOf(username) < 0 {
-		if r.Started {
-			return storeErrAlreadyStarted
-		}
-		if r.isFull() {
-			return storeErrRoomFull
-		}
+
+	if r.Started {
+		return storeErrAlreadyStarted
+	}
+	if r.isFull() {
+		return storeErrRoomFull
 	}
 	return storeErrNone
 }
@@ -161,26 +177,28 @@ func attach(roomID, username string) (*member, RoomView, storeErr) {
 		return nil, RoomView{}, storeErrAlreadyInOtherRoom
 	}
 
-	existing := r.indexOf(username)
-
-	if existing < 0 {
-		if r.Started {
-			return nil, RoomView{}, storeErrAlreadyStarted
-		}
-		if r.isFull() {
-			return nil, RoomView{}, storeErrRoomFull
-		}
-	}
-
 	m := &member{username: username, send: make(chan []byte, sendBufferSize)}
 
-	if existing >= 0 {
-		r.Members[existing].closeSend()
+	// checkJoinable already refused a seated account, but it runs under a read
+	// lock before the upgrade, so several handshakes can pass it at once. This
+	// is where the decision is actually made.
+	if existing := r.indexOf(username); existing >= 0 {
+		if !r.Members[existing].awaitingConnection() {
+			return nil, RoomView{}, storeErrAlreadyConnected
+		}
 		r.Members[existing] = m
-	} else {
-		r.Members = append(r.Members, m)
-		userRoom[username] = roomID
+		return m, r.view(), storeErrNone
 	}
+
+	if r.Started {
+		return nil, RoomView{}, storeErrAlreadyStarted
+	}
+	if r.isFull() {
+		return nil, RoomView{}, storeErrRoomFull
+	}
+
+	r.Members = append(r.Members, m)
+	userRoom[username] = roomID
 
 	return m, r.view(), storeErrNone
 }
@@ -243,6 +261,42 @@ func leaveRoom(username string) {
 	if len(r.Members) == 0 {
 		delete(rooms, id)
 	}
+}
+
+// reservationGrace is how long createRoom's seat may sit without a socket
+// before it is swept. A handshake that is going to arrive arrives in
+// milliseconds, so anything still empty after this never connected at all.
+const reservationGrace = 10 * time.Second
+
+// releaseUnconnectedSeat undoes the seat createRoom reserved when the
+// WebSocket never showed up. It only ever touches a seat that has no socket,
+// so a creator who did connect — and anyone who joined meanwhile — is left
+// alone. The room goes with the seat when nobody else is left in it.
+func releaseUnconnectedSeat(username, roomID string) (id string, view RoomView, ok bool) {
+	mu.Lock()
+	defer mu.Unlock()
+
+	r, roomOK := rooms[roomID]
+	if !roomOK {
+		return "", RoomView{}, false
+	}
+
+	idx := r.indexOf(username)
+	if idx < 0 || !r.Members[idx].awaitingConnection() {
+		return "", RoomView{}, false
+	}
+
+	r.Members = append(r.Members[:idx], r.Members[idx+1:]...)
+	if current, inRoom := userRoom[username]; inRoom && current == roomID {
+		delete(userRoom, username)
+	}
+
+	if len(r.Members) == 0 {
+		delete(rooms, roomID)
+		return "", RoomView{}, false
+	}
+
+	return roomID, r.view(), true
 }
 
 func setReady(roomID string, m *member, ready bool) (view RoomView, allReady bool, sErr storeErr) {
