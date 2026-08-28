@@ -7,12 +7,18 @@
     "dark": "Koyu",
     "light": "Açık"
   },
+  "languages": {
+    "all": "Tümü",
+    "tr": "Türkçe",
+    "en": "İngilizce",
+    "es": "İspanyolca"
+  },
   "auth": {
     "username": "Kullanıcı adı",
-    "password": "Şifre",
+    "password": "Parola",
     "enterUsername": "Kullanıcı adınızı girin",
-    "enterPassword": "Şifrenizi girin",
-    "confirmPassword": "Şifrenizi onaylayın",
+    "enterPassword": "Parolanızı girin",
+    "confirmPassword": "Parolanızı onaylayın",
     "separator": "veya şununla devam et",
     "signInWithIntra": "42 ile giriş yap",
     "signIn": {
@@ -22,8 +28,8 @@
       "footer": "Hesabınız yok mu?",
       "action": "Kayıt ol",
       "usernameRequired": "Kullanıcı adı zorunludur",
-      "passwordRequired": "Şifre zorunludur",
-      "invalidUsernameOrPassword": "Geçersiz kullanıcı adı veya şifre"
+      "passwordRequired": "Parola zorunludur",
+      "invalidUsernameOrPassword": "Geçersiz kullanıcı adı veya parola"
     },
     "signUp": {
       "button": "Kayıt ol",
@@ -34,14 +40,14 @@
       "usernameRequired": "Kullanıcı adı zorunludur",
       "usernameMinValue": "Kullanıcı adı en az 3 karakter olmalıdır",
       "usernameMaxValue": "Kullanıcı adı en fazla 50 karakter olmalıdır",
-      "passwordRequired": "Şifre zorunludur",
-      "passwordMinValue": "Şifre en az 8 karakter olmalıdır",
-      "passwordMaxValue": "Şifre en fazla 50 karakter olmalıdır",
-      "confirmPassword": "Lütfen şifrenizi onaylayın",
-      "passwordDontMatch": "Şifreler eşleşmiyor",
+      "passwordRequired": "Parola zorunludur",
+      "passwordMinValue": "Parola en az 8 karakter olmalıdır",
+      "passwordMaxValue": "Parola en fazla 50 karakter olmalıdır",
+      "confirmPassword": "Lütfen parolanızı onaylayın",
+      "passwordDontMatch": "Parolalar eşleşmiyor",
       "usernameShouldUnique": "Bu kullanıcı adı zaten alınmış",
       "uniqueUsername": "Hesabınız için benzersiz bir kullanıcı adı seçin",
-      "createPasswordMinMax": "Şifre 8 ile 50 karakter arasında olmalıdır"
+      "createPasswordMinMax": "Parola 8 ile 50 karakter arasında olmalıdır"
     },
     "intraSetup": {
       "title": "Profilinizi tamamlayın",
@@ -56,12 +62,25 @@
       "completing": "Kurulum tamamlanıyor..."
     }
   },
+  "rooms": {
+    "title": "Odalar",
+    "description": "Bir oda seç veya oluştur ve oynamaya başla",
+    "search": "Bir oda aratın",
+    "card": {
+      "join": "Katıl",
+      "categories": "Kategoriler",
+      "footer": "{time} oluşturuldu · {user}"
+    },
+    "allFilter": "Tümü",
+    "emptyList": "Herhangi bir oda bulunamadı, lütfen daha sonra tekrar deneyin."
+  },
   "profile": {
     "myAccount": "Hesabım",
     "settings": "Ayarlar"
   },
   "error": {
     "genericTitle": "Bir şeyler ters gitti",
+    "fetchError": "Veri çekilirken bir sorun oluştu.",
     "popupBlocked": "Açılır pencere tarayıcı tarafından engellendi. Lütfen açılır pencerelere izin verin ve tekrar deneyin.",
     "codes": {
       "-1": "Connection lost, please try again.",

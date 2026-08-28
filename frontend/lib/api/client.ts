@@ -18,7 +18,7 @@ export interface ApiOptions extends Omit<RequestInit, "body"> {
 
 const base_url = process.env.NEXT_PUBLIC_API_URL;
 
-async function getAccessToken(): Promise<string | null> {
+export function getAccessToken() {
   if (typeof window === "undefined") return null;
 
   return localStorage.getItem("access_token");
@@ -29,7 +29,7 @@ export async function apiClient<T>(endpoint: string, options: ApiOptions = {}): 
 
   if (!headers.has("Content-Type")) headers.set("Content-Type", "application/json");
 
-  const accessToken = await getAccessToken();
+  const accessToken = getAccessToken();
   if (accessToken) headers.set("Authorization", `Bearer ${accessToken}`);
 
   const fetchOptions: RequestInit = {
