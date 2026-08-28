@@ -86,9 +86,6 @@ func listRooms() []RoomListView {
 	mu.RLock()
 	list := make([]RoomListView, 0, len(rooms))
 	for _, r := range rooms {
-		// A room whose creator has not finished the handshake yet has a seat
-		// but nobody behind it. Showing it in the lobby advertises a room with
-		// a user count that nobody is actually sitting at.
 		if !r.hasConnectedMember() {
 			continue
 		}
@@ -143,11 +140,6 @@ func checkJoinable(roomID, username string) storeErr {
 	if !ok {
 		return storeErrNotFound
 	}
-	// An account gets one socket at a time. Being seated anywhere at all is
-	// enough to refuse: in another room the answer is "you are already in a
-	// room", in this one it is "you already have this room open". Neither
-	// case touches the live connection, so a second tab can never take the
-	// first one down.
 	if current, inRoom := userRoom[username]; inRoom {
 		if current != roomID {
 			return storeErrAlreadyInOtherRoom
@@ -178,10 +170,6 @@ func attach(roomID, username string) (*member, RoomView, storeErr) {
 	}
 
 	m := &member{username: username, send: make(chan []byte, sendBufferSize)}
-
-	// checkJoinable already refused a seated account, but it runs under a read
-	// lock before the upgrade, so several handshakes can pass it at once. This
-	// is where the decision is actually made.
 	if existing := r.indexOf(username); existing >= 0 {
 		if !r.Members[existing].awaitingConnection() {
 			return nil, RoomView{}, storeErrAlreadyConnected
@@ -263,15 +251,8 @@ func leaveRoom(username string) {
 	}
 }
 
-// reservationGrace is how long createRoom's seat may sit without a socket
-// before it is swept. A handshake that is going to arrive arrives in
-// milliseconds, so anything still empty after this never connected at all.
 const reservationGrace = 10 * time.Second
 
-// releaseUnconnectedSeat undoes the seat createRoom reserved when the
-// WebSocket never showed up. It only ever touches a seat that has no socket,
-// so a creator who did connect — and anyone who joined meanwhile — is left
-// alone. The room goes with the seat when nobody else is left in it.
 func releaseUnconnectedSeat(username, roomID string) (id string, view RoomView, ok bool) {
 	mu.Lock()
 	defer mu.Unlock()
