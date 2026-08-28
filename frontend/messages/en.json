@@ -7,6 +7,12 @@
     "dark": "Dark",
     "light": "Light"
   },
+  "languages": {
+    "all": "All",
+    "tr": "Turkish",
+    "en": "English",
+    "es": "Spanish"
+  },
   "auth": {
     "username": "Username",
     "password": "Password",
@@ -56,12 +62,25 @@
       "completing": "Completing setup..."
     }
   },
+  "rooms": {
+    "title": "Rooms",
+    "description": "Choose a room to join or create your own and start playing",
+    "search": "Search a room",
+    "card": {
+      "join": "Join",
+      "categories": "Categories",
+      "footer": "Created at {time} · {user}"
+    },
+    "allFilter": "All",
+    "emptyList": "No rooms found, please try again later."
+  },
   "profile": {
     "myAccount": "My Account",
     "settings": "Settings"
   },
   "error": {
     "genericTitle": "Something went wrong",
+    "fetchError": "An error occurred while fetching source.",
     "popupBlocked": "Popup was blocked by the browser. Please allow popups and try again.",
     "codes": {
       "-1": "Connection lost, please try again.",

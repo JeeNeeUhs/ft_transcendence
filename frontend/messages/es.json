@@ -7,6 +7,12 @@
     "dark": "Oscuro",
     "light": "Claro"
   },
+  "languages": {
+    "all": "Todos",
+    "tr": "Turco",
+    "en": "Inglés",
+    "es": "Español"
+  },
   "auth": {
     "username": "Nombre de usuario",
     "password": "Contraseña",
@@ -56,12 +62,21 @@
       "completing": "Completando configuración..."
     }
   },
+  "rooms": {
+    "title": "Salas",
+    "description": "Elige una sala para unirte o crea la tuya y empieza a jugar",
+    "search": "Buscar una sala",
+    "card": { "join": "Unirse", "categories": "Categorías", "footer": "Creada el {time} · {user}" },
+    "allFilter": "Todas",
+    "emptyList": "No se encontraron salas, inténtalo de nuevo más tarde."
+  },
   "profile": {
     "myAccount": "Mi cuenta",
     "settings": "Ajustes"
   },
   "error": {
     "genericTitle": "Algo salió mal",
+    "fetchError": "Ocurrió un error al obtener la fuente.",
     "popupBlocked": "El navegador bloqueó la ventana emergente. Por favor, permite las ventanas emergentes e inténtalo de nuevo.",
     "codes": {
       "-1": "Se perdió la conexión, por favor inténtalo de nuevo.",
