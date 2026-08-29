@@ -120,11 +120,6 @@ func createRoomHandler(c fiber.Ctx) error {
 		return c.Status(apierr.CodeToStatus(30)).JSON(apierr.CodeToErr(30))
 	}
 
-	// The hijacked connection runs after this handler returns, and it never
-	// runs at all if writing the 101 fails or the client walks away right
-	// after it. Nothing else would then clear the seat createRoom reserved,
-	// and since attach no longer takes over a live seat, that would strand
-	// both the room and the account for good.
 	time.AfterFunc(reservationGrace, func() {
 		if id, remaining, ok := releaseUnconnectedSeat(username, view.ID); ok {
 			broadcast(id, encodeEvent(wsEvent{Type: eventUserLeft, User: username, Room: &remaining}))

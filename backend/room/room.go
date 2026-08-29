@@ -49,9 +49,6 @@ type member struct {
 	ready    bool
 }
 
-// A seat created by createRoom has no socket yet: the WebSocket upgrade only
-// runs once the room exists. That placeholder is the one and only seat attach
-// is allowed to take over.
 func (m *member) awaitingConnection() bool {
 	return m.send == nil
 }
