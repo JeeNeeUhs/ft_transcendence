@@ -3,6 +3,7 @@ package room
 import (
 	"errors"
 	"strings"
+	"time"
 	"unicode/utf8"
 
 	"github.com/JeeNeeUhs/ft_transcendence/apierr"
@@ -118,6 +119,12 @@ func createRoomHandler(c fiber.Ctx) error {
 		leaveRoom(username)
 		return c.Status(apierr.CodeToStatus(30)).JSON(apierr.CodeToErr(30))
 	}
+
+	time.AfterFunc(reservationGrace, func() {
+		if id, remaining, ok := releaseUnconnectedSeat(username, view.ID); ok {
+			broadcast(id, encodeEvent(wsEvent{Type: eventUserLeft, User: username, Room: &remaining}))
+		}
+	})
 
 	return nil
 }

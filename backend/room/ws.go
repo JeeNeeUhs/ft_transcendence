@@ -250,16 +250,18 @@ func joinConnHandler(conn *websocket.Conn) {
 		defer wg.Done()
 		writePump(conn, m.send)
 	}()
+	defer wg.Wait()
+
+	defer func() {
+		if id, remaining, ok := detach(username, m); ok {
+			broadcast(id, encodeEvent(wsEvent{Type: eventUserLeft, User: username, Room: &remaining}))
+		}
+	}()
 
 	sendTo(m, encodeEvent(wsEvent{Type: eventRoomState, User: username, Room: &view}))
 	broadcast(roomID, encodeEvent(wsEvent{Type: eventUserJoined, User: username, Room: &view}))
 
 	readPump(conn, m, roomID, username)
-
-	if id, remaining, ok := detach(username, m); ok {
-		broadcast(id, encodeEvent(wsEvent{Type: eventUserLeft, User: username, Room: &remaining}))
-	}
-	wg.Wait()
 }
 
 func readPump(conn *websocket.Conn, m *member, roomID, username string) {

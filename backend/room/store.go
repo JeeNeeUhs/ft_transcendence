@@ -25,6 +25,7 @@ const (
 	storeErrNoActiveQuestion
 	storeErrAlreadyAnswered
 	storeErrBadOption
+	storeErrAlreadyConnected
 )
 
 func storeErrToCode(sErr storeErr) int {
@@ -33,6 +34,8 @@ func storeErrToCode(sErr storeErr) int {
 		return 19
 	case storeErrAlreadyInOtherRoom:
 		return 20
+	case storeErrAlreadyConnected:
+		return 21
 	case storeErrIDGenFailed:
 		return 22
 	case storeErrAlreadyStarted:
@@ -83,6 +86,9 @@ func listRooms() []RoomListView {
 	mu.RLock()
 	list := make([]RoomListView, 0, len(rooms))
 	for _, r := range rooms {
+		if !r.hasConnectedMember() {
+			continue
+		}
 		list = append(list, r.listView())
 	}
 	mu.RUnlock()
@@ -134,16 +140,18 @@ func checkJoinable(roomID, username string) storeErr {
 	if !ok {
 		return storeErrNotFound
 	}
-	if current, inRoom := userRoom[username]; inRoom && current != roomID {
-		return storeErrAlreadyInOtherRoom
+	if current, inRoom := userRoom[username]; inRoom {
+		if current != roomID {
+			return storeErrAlreadyInOtherRoom
+		}
+		return storeErrAlreadyConnected
 	}
-	if r.indexOf(username) < 0 {
-		if r.Started {
-			return storeErrAlreadyStarted
-		}
-		if r.isFull() {
-			return storeErrRoomFull
-		}
+
+	if r.Started {
+		return storeErrAlreadyStarted
+	}
+	if r.isFull() {
+		return storeErrRoomFull
 	}
 	return storeErrNone
 }
@@ -161,26 +169,24 @@ func attach(roomID, username string) (*member, RoomView, storeErr) {
 		return nil, RoomView{}, storeErrAlreadyInOtherRoom
 	}
 
-	existing := r.indexOf(username)
-
-	if existing < 0 {
-		if r.Started {
-			return nil, RoomView{}, storeErrAlreadyStarted
-		}
-		if r.isFull() {
-			return nil, RoomView{}, storeErrRoomFull
-		}
-	}
-
 	m := &member{username: username, send: make(chan []byte, sendBufferSize)}
-
-	if existing >= 0 {
-		r.Members[existing].closeSend()
+	if existing := r.indexOf(username); existing >= 0 {
+		if !r.Members[existing].awaitingConnection() {
+			return nil, RoomView{}, storeErrAlreadyConnected
+		}
 		r.Members[existing] = m
-	} else {
-		r.Members = append(r.Members, m)
-		userRoom[username] = roomID
+		return m, r.view(), storeErrNone
 	}
+
+	if r.Started {
+		return nil, RoomView{}, storeErrAlreadyStarted
+	}
+	if r.isFull() {
+		return nil, RoomView{}, storeErrRoomFull
+	}
+
+	r.Members = append(r.Members, m)
+	userRoom[username] = roomID
 
 	return m, r.view(), storeErrNone
 }
@@ -243,6 +249,35 @@ func leaveRoom(username string) {
 	if len(r.Members) == 0 {
 		delete(rooms, id)
 	}
+}
+
+const reservationGrace = 10 * time.Second
+
+func releaseUnconnectedSeat(username, roomID string) (id string, view RoomView, ok bool) {
+	mu.Lock()
+	defer mu.Unlock()
+
+	r, roomOK := rooms[roomID]
+	if !roomOK {
+		return "", RoomView{}, false
+	}
+
+	idx := r.indexOf(username)
+	if idx < 0 || !r.Members[idx].awaitingConnection() {
+		return "", RoomView{}, false
+	}
+
+	r.Members = append(r.Members[:idx], r.Members[idx+1:]...)
+	if current, inRoom := userRoom[username]; inRoom && current == roomID {
+		delete(userRoom, username)
+	}
+
+	if len(r.Members) == 0 {
+		delete(rooms, roomID)
+		return "", RoomView{}, false
+	}
+
+	return roomID, r.view(), true
 }
 
 func setReady(roomID string, m *member, ready bool) (view RoomView, allReady bool, sErr storeErr) {
