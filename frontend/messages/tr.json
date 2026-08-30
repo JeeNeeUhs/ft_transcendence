@@ -78,13 +78,93 @@
     "myAccount": "Hesabım",
     "settings": "Ayarlar"
   },
+  "settings": {
+    "title": "Ayarlar",
+    "description": "Hesabını ve geliştirici erişimini buradan yönet",
+    "signInRequired": "Bu sayfayı görmek için giriş yapmalısın.",
+    "nav": {
+      "profile": "Profil",
+      "password": "Parola",
+      "apiKey": "API anahtarı"
+    },
+    "profile": {
+      "title": "Profil",
+      "description": "Diğer oyuncuların seni nasıl gördüğünü belirle.",
+      "username": "Kullanıcı adı",
+      "usernameHint": "Kullanıcı adı kayıt olurken belirlenir ve değiştirilemez.",
+      "accountType": "Hesap türü",
+      "intraAccount": "42 hesabı",
+      "localAccount": "Yerel hesap",
+      "memberSince": "{date} tarihinden beri üye",
+      "bio": "Hakkında",
+      "bioPlaceholder": "Kendinden kısaca bahset",
+      "bioHint": "{count}/{max} karakter",
+      "descriptionMaxValue": "Açıklama en fazla 100 karakter olmalıdır",
+      "save": "Değişiklikleri kaydet",
+      "saved": "Profilin güncellendi"
+    },
+    "password": {
+      "title": "Parola",
+      "description": "Hesabının parolasını değiştir.",
+      "currentPassword": "Mevcut parola",
+      "newPassword": "Yeni parola",
+      "enterCurrent": "Mevcut parolanı gir",
+      "enterNew": "Yeni parolanı gir",
+      "enterConfirm": "Yeni parolanı onayla",
+      "currentRequired": "Mevcut parola zorunludur",
+      "confirmRequired": "Lütfen yeni parolanı onayla",
+      "minValue": "Parola en az 8 karakter olmalıdır",
+      "maxValue": "Parola en fazla 50 karakter olmalıdır",
+      "dontMatch": "Parolalar eşleşmiyor",
+      "sameAsCurrent": "Yeni parola mevcut parolandan farklı olmalıdır",
+      "invalidCurrent": "Mevcut parolan hatalı",
+      "hint": "Parola 8 ile 50 karakter arasında olmalıdır",
+      "save": "Parolayı değiştir",
+      "saved": "Parolan değiştirildi",
+      "savedDescription": "Diğer tüm oturumların kapatıldı.",
+      "intraNotice": "42 hesabınla giriş yaptığın için parolan yok. Girişini 42 Intra üzerinden yapmaya devam edebilirsin."
+    },
+    "apiKey": {
+      "title": "API anahtarı",
+      "description": "Herkese açık istatistik uçlarına erişmek için kullanılır. Anahtar başına saatte 1200 istek sınırı vardır.",
+      "loading": "API anahtarı yükleniyor...",
+      "empty": "Henüz bir API anahtarın yok. Herkese açık API'yi kullanmaya başlamak için bir tane oluştur.",
+      "create": "API anahtarı oluştur",
+      "created": "API anahtarın oluşturuldu",
+      "createdDescription": "Anahtarı güvenli bir yere kaydet.",
+      "reveal": "Göster",
+      "hide": "Gizle",
+      "copy": "Kopyala",
+      "copied": "Kopyalandı",
+      "delete": "Sil",
+      "deleted": "API anahtarın silindi",
+      "active": "Aktif",
+      "inactive": "Pasif",
+      "createdAt": "{date} tarihinde oluşturuldu",
+      "deleteTitle": "API anahtarı silinsin mi?",
+      "deleteDescription": "Bu anahtarı kullanan tüm entegrasyonlar çalışmayı durdurur. Bu işlem geri alınamaz.",
+      "deleteConfirm": "Anahtarı sil",
+      "cancel": "Vazgeç",
+      "warning": "Bu anahtarı kimseyle paylaşma. Sızdırdığını düşünüyorsan sil ve yenisini oluştur."
+    }
+  },
   "error": {
     "genericTitle": "Bir şeyler ters gitti",
     "fetchError": "Veri çekilirken bir sorun oluştu.",
     "popupBlocked": "Açılır pencere tarayıcı tarafından engellendi. Lütfen açılır pencerelere izin verin ve tekrar deneyin.",
     "codes": {
-      "-1": "Connection lost, please try again.",
-      "0": "Unknown error occurred."
+      "-1": "Bağlantı koptu, lütfen tekrar deneyin.",
+      "0": "Bilinmeyen bir hata oluştu.",
+      "1": "Gönderilen istek geçersiz.",
+      "4": "Oturum jetonu oluşturulamadı.",
+      "5": "Veritabanı hatası oluştu.",
+      "7": "Parola geçerli değil.",
+      "9": "Kullanıcı bilgileri alınamadı.",
+      "13": "Bu işlem için yetkin yok.",
+      "47": "Açıklama geçerli değil.",
+      "48": "Mevcut parolan hatalı.",
+      "49": "Bu hesabın bir parolası yok.",
+      "50": "API anahtarı bulunamadı."
     }
   }
 }

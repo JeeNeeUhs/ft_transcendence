@@ -2,6 +2,7 @@
 
 import { User02Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 
 import { AuthDialog } from "@/components/auth/dialog";
@@ -34,7 +35,9 @@ function AccountDropdown({ user, onSignOut }: { user: User; onSignOut: () => voi
       <DropdownMenuContent>
         <DropdownMenuGroup>
           <DropdownMenuItem>{tProfile("myAccount")}</DropdownMenuItem>
-          <DropdownMenuItem>{tProfile("settings")}</DropdownMenuItem>
+          <DropdownMenuItem render={<Link href="/settings" />}>
+            {tProfile("settings")}
+          </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={onSignOut}>{tAuth("signOut")}</DropdownMenuItem>
         </DropdownMenuGroup>
