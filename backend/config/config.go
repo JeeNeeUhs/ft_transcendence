@@ -11,6 +11,7 @@ var (
 	ClientID     string = getEnv("CLIENT_ID", "")
 	ClientSecret string = getEnv("CLIENT_SECRET", "")
 	JwtSecret    string = getEnv("JWT_SECRET", "default_jwt_secret")
+	AvatarDir    string = getEnv("AVATAR_DIR", "./avatars")
 
 	CorsAllowedOrigins []string = strings.Split(getEnv("CORS_ALLOWED_ORIGINS", "http://localhost:3000"), ",")
 

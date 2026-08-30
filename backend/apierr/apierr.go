@@ -50,8 +50,16 @@ var registery = map[int]Err{
 	37: {Status: 409, Code: 37, Message: "no active question"},
 	38: {Status: 409, Code: 38, Message: "already answered"},
 	39: {Status: 400, Code: 39, Message: "invalid answer option"},
-  40: {Status: 429, Code: 40, Message: "rate limit exceeded"},
+	40: {Status: 429, Code: 40, Message: "rate limit exceeded"},
 	41: {Status: 401, Code: 41, Message: "invalid or missing api key"},
+	42: {Status: 400, Code: 42, Message: "avatar file is required"},
+	43: {Status: 413, Code: 43, Message: "avatar file too large"},
+	44: {Status: 400, Code: 44, Message: "unsupported avatar file type"},
+	45: {Status: 500, Code: 45, Message: "failed to save avatar"},
+	46: {Status: 404, Code: 46, Message: "user not found"},
+	47: {Status: 400, Code: 47, Message: "description not valid"},
+	48: {Status: 401, Code: 48, Message: "invalid current password"},
+	49: {Status: 409, Code: 49, Message: "account has no password"},
 }
 
 func CodeToErr(code int) ErrResponse {

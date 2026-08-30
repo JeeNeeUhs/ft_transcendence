@@ -165,7 +165,7 @@ func Register42Handler(c fiber.Ctx) error {
 
 	req.AccessToken = strings.TrimSpace(req.AccessToken)
 	req.Username = strings.TrimSpace(req.Username)
-	if len(req.Username) < 3 || len(req.Username) > 50 {
+	if !validUsername.MatchString(req.Username) {
 		return c.Status(apierr.CodeToStatus(6)).JSON(apierr.CodeToErr(6))
 	}
 
