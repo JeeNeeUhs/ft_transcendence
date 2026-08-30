@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "ft_transcendence",
     short_name: "Transcendence",
-    description: "Pong & Multiplayer Gaming Platform",
+    description: "Quizinyo - Trivia & Multiplayer Quiz Game",
     start_url: "/",
     display: "standalone",
     background_color: "#000000",

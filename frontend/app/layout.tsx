@@ -12,7 +12,7 @@ const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: "ft_transcendence",
-  description: "Pong & Multiplayer Gaming Platform",
+  description: "Quizinyo - Trivia & Multiplayer Quiz Game",
   manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,

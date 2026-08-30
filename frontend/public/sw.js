@@ -1,12 +1,18 @@
-const CACHE_NAME = "transcendence-v1";
+const CACHE_NAME = "transcendence-v2";
 const OFFLINE_URL = "/offline";
 
 const ASSETS_TO_CACHE = [OFFLINE_URL, "/icons/icon-192x192.png", "/icons/icon-512x512.png"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS_TO_CACHE);
+    caches.open(CACHE_NAME).then(async (cache) => {
+      for (const asset of ASSETS_TO_CACHE) {
+        try {
+          await cache.add(new Request(asset, { cache: "reload" }));
+        } catch {
+          // Ignore individual asset prefetch failures
+        }
+      }
     })
   );
   self.skipWaiting();
@@ -31,12 +37,19 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
 
-  if (event.request.mode === "navigate") {
+  const isNavigationRequest =
+    event.request.mode === "navigate" ||
+    (event.request.headers.get("accept") || "").includes("text/html");
+
+  if (isNavigationRequest) {
     event.respondWith(
       fetch(event.request).catch(async () => {
         const cache = await caches.open(CACHE_NAME);
         const cachedOfflinePage = await cache.match(OFFLINE_URL);
-        return cachedOfflinePage || Response.error();
+        if (cachedOfflinePage) {
+          return cachedOfflinePage;
+        }
+        return Response.error();
       })
     );
     return;
