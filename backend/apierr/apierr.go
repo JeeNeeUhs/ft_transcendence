@@ -60,6 +60,7 @@ var registery = map[int]Err{
 	47: {Status: 400, Code: 47, Message: "description not valid"},
 	48: {Status: 401, Code: 48, Message: "invalid current password"},
 	49: {Status: 409, Code: 49, Message: "account has no password"},
+	50: {Status: 404, Code: 50, Message: "api key not found"},
 }
 
 func CodeToErr(code int) ErrResponse {
