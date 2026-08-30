@@ -7,6 +7,7 @@ import (
 	"github.com/JeeNeeUhs/ft_transcendence/database"
 	"github.com/JeeNeeUhs/ft_transcendence/middleware"
 	"github.com/JeeNeeUhs/ft_transcendence/room"
+	"github.com/JeeNeeUhs/ft_transcendence/user"
 	"github.com/JeeNeeUhs/ft_transcendence/apikey"
 	"github.com/gofiber/fiber/v3"
 	"github.com/JeeNeeUhs/ft_transcendence/publicapi"
@@ -27,12 +28,13 @@ func main() {
 		log.Fatal(err)
 	}
 
-	app := fiber.New()
+	app := fiber.New(fiber.Config{BodyLimit: user.MaxAvatarSize + 1024*1024})
 	app.Use(middleware.CORS())
 	api := app.Group("/api")
 
 	room.Register(api)
 	auth.Register(api)
+	user.Register(api)
 	apikey.Register(api)
 	publicapi.Register(api)
 

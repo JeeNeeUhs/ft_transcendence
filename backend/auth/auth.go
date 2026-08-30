@@ -2,6 +2,7 @@ package auth
 
 import (
 	"errors"
+	"regexp"
 	"strings"
 
 	"github.com/JeeNeeUhs/ft_transcendence/apierr"
@@ -15,6 +16,8 @@ import (
 	"gorm.io/gorm"
 )
 
+var validUsername = regexp.MustCompile(`^[A-Za-z0-9]{3,50}$`)
+
 type RegisterRequest struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
@@ -27,7 +30,7 @@ func RegisterHandler(c fiber.Ctx) error {
 	}
 
 	req.Username = strings.TrimSpace(req.Username)
-	if len(req.Username) < 3 || len(req.Username) > 50 {
+	if !validUsername.MatchString(req.Username) {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "username not valid"})
 	}
 
@@ -111,23 +114,4 @@ func LogoutHandler(c fiber.Ctx) error {
 	token.Logout(userID)
 
 	return c.JSON(fiber.Map{"message": "logged out"})
-}
-
-func MeHandler(c fiber.Ctx) error {
-	userID, ok := c.Locals(middleware.LocalsUserIDKey).(uuid.UUID)
-	if !ok {
-		return c.Status(apierr.CodeToStatus(13)).JSON(apierr.CodeToErr(13))
-	}
-
-	var user models.User
-	if err := database.DB.First(&user, "id = ?", userID).Error; err != nil {
-		return c.Status(apierr.CodeToStatus(9)).JSON(apierr.CodeToErr(9))
-	}
-
-	return c.JSON(fiber.Map{
-		"username":   user.Username,
-		"avatar_url": user.AvatarURL,
-		"is_intra":   user.IsIntra,
-		"created_at": user.CreatedAt,
-	})
 }

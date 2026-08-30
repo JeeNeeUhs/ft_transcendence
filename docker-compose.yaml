@@ -5,6 +5,10 @@ services:
     container_name: transcendence_backend
     env_file:
       - .env
+    environment:
+      AVATAR_DIR: /app/avatars
+    volumes:
+      - avatars:/app/avatars
     depends_on:
       database:
         condition: service_healthy
@@ -52,3 +56,4 @@ networks:
 
 volumes:
   pgdata:
+  avatars:
