@@ -6,6 +6,7 @@ import { useMemo, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
 
+import { AvatarField } from "@/components/settings/avatar-field";
 import { SectionHeader } from "@/components/settings/section-header";
 import { Button } from "@/components/ui/button";
 import {
@@ -102,6 +103,8 @@ export function ProfileSection() {
       />
 
       <FieldGroup>
+        <AvatarField />
+
         <Field>
           <FieldLabel htmlFor="settings-username">{tSettings("profile.username")}</FieldLabel>
           <Input id="settings-username" value={user.username} readOnly disabled />
