@@ -9,6 +9,7 @@ func Register(api fiber.Router) {
 	apikeyGroup := api.Group("/apikey")
 	
 
+	apikeyGroup.Get("/", middleware.RequireAuth, HandleGetKey)
 	apikeyGroup.Post("/", middleware.RequireAuth, HandleCreateKey)
 	apikeyGroup.Delete("/", middleware.RequireAuth, HandleDeleteKey)
 }

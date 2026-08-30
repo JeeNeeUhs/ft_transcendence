@@ -37,7 +37,11 @@ export async function apiClient<T>(endpoint: string, options: ApiOptions = {}): 
     headers
   } as RequestInit;
 
-  if (options.body) {
+  if (options.body instanceof FormData) {
+    // the browser has to set the multipart boundary itself
+    headers.delete("Content-Type");
+    fetchOptions.body = options.body;
+  } else if (options.body) {
     const snakeCaseBody = convertKeysToSnakeCase(options.body);
     fetchOptions.body = JSON.stringify(snakeCaseBody);
   }

@@ -10,6 +10,8 @@ export type User = {
   username: string;
   isIntra: boolean;
   avatarUrl: string;
+  description: string;
+  status: string;
   createdAt: Date;
 };
 
@@ -55,7 +57,7 @@ export const authService = {
   },
 
   getUser: () => {
-    return apiClient<User>("/auth/me", {
+    return apiClient<User>("/user/me", {
       method: "GET"
     });
   }
