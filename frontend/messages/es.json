@@ -82,5 +82,10 @@
       "-1": "Se perdió la conexión, por favor inténtalo de nuevo.",
       "0": "Ocurrió un error desconocido."
     }
+  },
+  "offline": {
+    "title": "Estás sin conexión",
+    "description": "Parece que has perdido la conexión a internet. Por favor, comprueba tu red e inténtalo de nuevo.",
+    "retry": "Intentar de nuevo"
   }
 }

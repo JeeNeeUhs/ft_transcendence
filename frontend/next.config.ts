@@ -5,6 +5,9 @@ const withNextIntl = createNextIntlPlugin("./lib/i18n/request.ts");
 
 const nextConfig: NextConfig = {
   output: "standalone",
+  turbopack: {
+    root: __dirname
+  },
 
   // https://nextjs.org/docs/messages/next-image-unconfigured-host
   images: {

@@ -86,5 +86,10 @@
       "-1": "Connection lost, please try again.",
       "0": "Unknown error occurred."
     }
+  },
+  "offline": {
+    "title": "You are offline",
+    "description": "It looks like you've lost your internet connection. Please check your network and try again.",
+    "retry": "Try Again"
   }
 }

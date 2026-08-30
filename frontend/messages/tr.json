@@ -86,5 +86,10 @@
       "-1": "Connection lost, please try again.",
       "0": "Unknown error occurred."
     }
+  },
+  "offline": {
+    "title": "Çevrim dışısınız",
+    "description": "İnternet bağlantınız kesilmiş gibi görünüyor. Lütfen ağınızı kontrol edin ve tekrar deneyin.",
+    "retry": "Yeniden Dene"
   }
 }
