@@ -7,7 +7,6 @@ import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
 
 import { SectionHeader } from "@/components/settings/section-header";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Field,
@@ -110,15 +109,13 @@ export function ProfileSection() {
         </Field>
 
         <Field>
-          <FieldTitle>{tSettings("profile.accountType")}</FieldTitle>
-          <div className="flex items-center gap-1">
-            <Badge variant="secondary">
-              {user.isIntra ? tSettings("profile.intraAccount") : tSettings("profile.localAccount")}
-            </Badge>
-            <Badge variant="outline">
-              {tSettings("profile.memberSince", { date: memberSince })}
-            </Badge>
-          </div>
+          <FieldTitle>{tSettings("profile.accountInfo")}</FieldTitle>
+          <p className="text-muted-foreground text-xs">
+            {tSettings("profile.memberSince", { date: memberSince })}
+          </p>
+          <p className="text-muted-foreground text-xs">
+            {user.isIntra ? tSettings("profile.intraAccount") : tSettings("profile.localAccount")}
+          </p>
         </Field>
       </FieldGroup>
 

@@ -37,7 +37,6 @@ export function ApiKeySection() {
   const [isRevealed, setIsRevealed] = useState<boolean>(false);
   const [isCopied, setIsCopied] = useState<boolean>(false);
 
-  // the "copied" label resets itself, so the timer has to be cleared on unmount
   const copyTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -206,7 +205,11 @@ export function ApiKeySection() {
       ) : (
         <div className="space-y-3">
           <p className="text-xs/relaxed text-muted-foreground">{tSettings("apiKey.empty")}</p>
-          <Button onClick={handleCreate} disabled={isMutating} className="flex items-center gap-x-2">
+          <Button
+            onClick={handleCreate}
+            disabled={isMutating}
+            className="flex items-center gap-x-2"
+          >
             {isMutating && <Spinner />}
             {tSettings("apiKey.create")}
           </Button>

@@ -90,7 +90,6 @@ export function PasswordSection() {
       return;
     }
 
-    // the backend invalidates every issued token, so the fresh one must replace it
     localStorage.setItem("access_token", response.data.accessToken);
 
     form.reset();

@@ -88,7 +88,7 @@
       "description": "Decide cómo te ven los demás jugadores.",
       "username": "Nombre de usuario",
       "usernameHint": "El nombre de usuario se define al registrarte y no se puede cambiar.",
-      "accountType": "Tipo de cuenta",
+      "accountInfo": "Tipo de cuenta",
       "intraAccount": "Cuenta de 42",
       "localAccount": "Cuenta local",
       "memberSince": "Miembro desde el {date}",
