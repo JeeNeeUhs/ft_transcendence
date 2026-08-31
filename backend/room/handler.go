@@ -3,6 +3,8 @@ package room
 import (
 	"errors"
 	"strings"
+	"time"
+	"unicode/utf8"
 
 	"github.com/JeeNeeUhs/ft_transcendence/apierr"
 	"github.com/JeeNeeUhs/ft_transcendence/database"
@@ -19,10 +21,13 @@ const (
 	maxRoomPasswordLen = 50
 )
 
+const maxRoomNameLen = 30
+
 type createRoomRequest struct {
 	Name        string `query:"name"`
 	Password    string `query:"password"`
 	CategoryIDs []int  `query:"category_ids"`
+	Lang        string `query:"lang"`
 }
 
 type joinRoomRequest struct {
@@ -57,8 +62,13 @@ func createRoomHandler(c fiber.Ctx) error {
 	}
 
 	req.Name = strings.TrimSpace(req.Name)
-	if len(req.Name) == 0 || len(req.Name) > 100 {
+	if nameLen := utf8.RuneCountInString(req.Name); nameLen == 0 || nameLen > maxRoomNameLen {
 		return c.Status(apierr.CodeToStatus(18)).JSON(apierr.CodeToErr(18))
+	}
+
+	req.Lang = strings.ToLower(strings.TrimSpace(req.Lang))
+	if !isSupportedLang(req.Lang) {
+		return c.Status(apierr.CodeToStatus(34)).JSON(apierr.CodeToErr(34))
 	}
 
 	var pwHash string
@@ -71,6 +81,10 @@ func createRoomHandler(c fiber.Ctx) error {
 			return c.Status(apierr.CodeToStatus(0)).JSON(apierr.CodeToErr(0))
 		}
 		pwHash = string(hash)
+	}
+
+	if len(req.CategoryIDs) == 0 {
+		return c.Status(apierr.CodeToStatus(32)).JSON(apierr.CodeToErr(32))
 	}
 
 	if hasDuplicateInts(req.CategoryIDs) {
@@ -90,7 +104,7 @@ func createRoomHandler(c fiber.Ctx) error {
 		return c.Status(apierr.CodeToStatus(9)).JSON(apierr.CodeToErr(9))
 	}
 
-	view, sErr := createRoom(req.Name, username, pwHash, req.CategoryIDs)
+	view, sErr := createRoom(req.Name, username, pwHash, req.CategoryIDs, req.Lang)
 	switch sErr {
 	case storeErrAlreadyInOtherRoom:
 		return c.Status(apierr.CodeToStatus(20)).JSON(apierr.CodeToErr(20))
@@ -105,6 +119,12 @@ func createRoomHandler(c fiber.Ctx) error {
 		leaveRoom(username)
 		return c.Status(apierr.CodeToStatus(30)).JSON(apierr.CodeToErr(30))
 	}
+
+	time.AfterFunc(reservationGrace, func() {
+		if id, remaining, ok := releaseUnconnectedSeat(username, view.ID); ok {
+			broadcast(id, encodeEvent(wsEvent{Type: eventUserLeft, User: username, Room: &remaining}))
+		}
+	})
 
 	return nil
 }
@@ -154,7 +174,7 @@ func joinRoomHandler(c fiber.Ctx) error {
 	return nil
 }
 
-func searchRoomsHandler(c fiber.Ctx) error {
+func listRoomsHandler(c fiber.Ctx) error {
 	return c.JSON(fiber.Map{"rooms": listRooms()})
 }
 

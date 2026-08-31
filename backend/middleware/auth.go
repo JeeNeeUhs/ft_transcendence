@@ -34,3 +34,24 @@ func RequireAuth(c fiber.Ctx) error {
 
 	return c.Next()
 }
+
+func RequireAuthWS(c fiber.Ctx) error {
+	authHeader := c.Get("Sec-WebSocket-Protocol")
+	if authHeader == "" {
+		return c.Status(apierr.CodeToStatus(14)).JSON(apierr.CodeToErr(14))
+	}
+
+	claims, err := token.ParseAccessToken(authHeader)
+	if err != nil {
+		return c.Status(apierr.CodeToStatus(16)).JSON(apierr.CodeToErr(16))
+	}
+
+	if !token.IsValid(claims.UserID, claims.TokenVersion) {
+		return c.Status(apierr.CodeToStatus(17)).JSON(apierr.CodeToErr(17))
+	}
+
+	c.Locals(LocalsUserIDKey, claims.UserID)
+	c.Set("Sec-WebSocket-Protocol", authHeader)
+
+	return c.Next()
+}

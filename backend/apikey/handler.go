@@ -3,6 +3,7 @@ package apikey
 import (
 	"crypto/rand"
 	"encoding/hex"
+	"time"
 
 	"github.com/JeeNeeUhs/ft_transcendence/apierr"
 	"github.com/JeeNeeUhs/ft_transcendence/database"
@@ -60,6 +61,35 @@ func HandleCreateKey(c fiber.Ctx) error {
 	})
 }
 
+
+type APIKeyView struct {
+	Key       string    `json:"key"`
+	IsActive  bool      `json:"is_active"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
+func HandleGetKey(c fiber.Ctx) error {
+
+	userID, ok := c.Locals(middleware.LocalsUserIDKey).(uuid.UUID)
+	if !ok {
+
+		return c.Status(apierr.CodeToStatus(13)).JSON(apierr.CodeToErr(13))
+	}
+
+	var keys []APIKeyView
+
+	if err := database.DB.Raw("SELECT key, is_active, created_at FROM api_keys WHERE owner_id = ?", userID).Scan(&keys).Error; err != nil {
+
+		return c.Status(apierr.CodeToStatus(5)).JSON(apierr.CodeToErr(5))
+	}
+
+	if len(keys) == 0 {
+
+		return c.Status(apierr.CodeToStatus(50)).JSON(apierr.CodeToErr(50))
+	}
+
+	return c.JSON(keys[0])
+}
 
 func HandleDeleteKey(c fiber.Ctx) error {
 	

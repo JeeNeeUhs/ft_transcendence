@@ -5,47 +5,14 @@ import (
 	"github.com/gofiber/fiber/v3"
 )
 
-func DocsHandler(c fiber.Ctx) error {
-	docs := fiber.Map{
-		"version": "1.0",
-		"description": "ft_transcendence Public API Documentation",
-		"base_url": "/api/public",
-		"headers_required": fiber.Map{
-			"X-API-Key": "Your unique API key must be provided in the headers",
-		},
-		"rate_limit": "1200 requests per hour per key",
-		"endpoints": []fiber.Map{
-			{
-				"path": "/stats/users",
-				"method": "GET",
-				"description": "Returns general statistics about users (total, intra, 2FA)",
-			},
-			{
-				"path": "/stats/matches",
-				"method": "GET",
-				"description": "Returns total matches played on the platform",
-			},
-			{
-				"path": "/feedback",
-				"method": "POST",
-				"description": "Submit a feedback or custom stat report to the developers",
-			},
-			{
-				"path": "/feedback/:id",
-				"method": "PUT",
-				"description": "Update a previously submitted feedback",
-			},
-			{
-				"path": "/feedback/:id",
-				"method": "DELETE",
-				"description": "Delete a previously submitted feedback",
-			},
-		},
-	}
-	return c.JSON(docs)
-}
-
-
+// GetUserStatsHandler godoc
+// @Summary Get user statistics
+// @Description Returns the total number of users, 42 Intra users, and users with 2FA enabled.
+// @Tags Public Stats
+// @Security ApiKeyAuth
+// @Produce json
+// @Success 200 {object} map[string]interface{}
+// @Router /api/public/stats/users [get]
 func GetUserStatsHandler(c fiber.Ctx) error {
 	var totalUsers, intraUsers, twoFaUsers int64
 	
@@ -60,6 +27,15 @@ func GetUserStatsHandler(c fiber.Ctx) error {
 	})
 }
 
+
+// GetMatchStatsHandler godoc
+// @Summary Get match statistics
+// @Description Returns the total number of matches played on the platform.
+// @Tags Public Stats
+// @Security ApiKeyAuth
+// @Produce json
+// @Success 200 {object} map[string]interface{}
+// @Router /api/public/stats/matches [get]
 func GetMatchStatsHandler(c fiber.Ctx) error {
 	var totalMatches int64
 	database.DB.Table("matches").Count(&totalMatches)

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { getLocale } from "next-intl/server";
 
+import { Navbar } from "@/components/navbar";
 import { cn } from "@/lib/utils";
 import { Providers } from "@/providers";
 import "@/app/globals.css";
@@ -20,7 +21,10 @@ export default async function RootLayout({
   return (
     <html lang={locale} className={cn("font-sans", geist.variable)} suppressHydrationWarning>
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          <Navbar />
+          {children}
+        </Providers>
       </body>
     </html>
   );

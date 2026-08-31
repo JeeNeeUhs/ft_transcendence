@@ -58,7 +58,7 @@ export function UserStoreProvider({ children }: { children: React.ReactNode }) {
             transition={{ duration: 0.3 }}
             className="w-screen h-screen flex items-center justify-center"
           >
-            <div className="text-3xl font-black">Quizinyo</div>
+            <div className="text-2xl">Quizinyo</div>
           </motion.div>
         ) : (
           <motion.div

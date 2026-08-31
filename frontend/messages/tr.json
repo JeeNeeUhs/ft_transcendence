@@ -7,12 +7,18 @@
     "dark": "Koyu",
     "light": "Açık"
   },
+  "languages": {
+    "all": "Tümü",
+    "tr": "Türkçe",
+    "en": "İngilizce",
+    "es": "İspanyolca"
+  },
   "auth": {
     "username": "Kullanıcı adı",
-    "password": "Şifre",
+    "password": "Parola",
     "enterUsername": "Kullanıcı adınızı girin",
-    "enterPassword": "Şifrenizi girin",
-    "confirmPassword": "Şifrenizi onaylayın",
+    "enterPassword": "Parolanızı girin",
+    "confirmPassword": "Parolanızı onaylayın",
     "separator": "veya şununla devam et",
     "signInWithIntra": "42 ile giriş yap",
     "signIn": {
@@ -22,8 +28,8 @@
       "footer": "Hesabınız yok mu?",
       "action": "Kayıt ol",
       "usernameRequired": "Kullanıcı adı zorunludur",
-      "passwordRequired": "Şifre zorunludur",
-      "invalidUsernameOrPassword": "Geçersiz kullanıcı adı veya şifre"
+      "passwordRequired": "Parola zorunludur",
+      "invalidUsernameOrPassword": "Geçersiz kullanıcı adı veya parola"
     },
     "signUp": {
       "button": "Kayıt ol",
@@ -34,14 +40,14 @@
       "usernameRequired": "Kullanıcı adı zorunludur",
       "usernameMinValue": "Kullanıcı adı en az 3 karakter olmalıdır",
       "usernameMaxValue": "Kullanıcı adı en fazla 50 karakter olmalıdır",
-      "passwordRequired": "Şifre zorunludur",
-      "passwordMinValue": "Şifre en az 8 karakter olmalıdır",
-      "passwordMaxValue": "Şifre en fazla 50 karakter olmalıdır",
-      "confirmPassword": "Lütfen şifrenizi onaylayın",
-      "passwordDontMatch": "Şifreler eşleşmiyor",
+      "passwordRequired": "Parola zorunludur",
+      "passwordMinValue": "Parola en az 8 karakter olmalıdır",
+      "passwordMaxValue": "Parola en fazla 50 karakter olmalıdır",
+      "confirmPassword": "Lütfen parolanızı onaylayın",
+      "passwordDontMatch": "Parolalar eşleşmiyor",
       "usernameShouldUnique": "Bu kullanıcı adı zaten alınmış",
       "uniqueUsername": "Hesabınız için benzersiz bir kullanıcı adı seçin",
-      "createPasswordMinMax": "Şifre 8 ile 50 karakter arasında olmalıdır"
+      "createPasswordMinMax": "Parola 8 ile 50 karakter arasında olmalıdır"
     },
     "intraSetup": {
       "title": "Profilinizi tamamlayın",
@@ -56,16 +62,119 @@
       "completing": "Kurulum tamamlanıyor..."
     }
   },
+  "rooms": {
+    "title": "Odalar",
+    "description": "Bir oda seç veya oluştur ve oynamaya başla",
+    "search": "Bir oda aratın",
+    "card": {
+      "join": "Katıl",
+      "categories": "Kategoriler",
+      "footer": "{time} oluşturuldu · {user}"
+    },
+    "allFilter": "Tümü",
+    "emptyList": "Herhangi bir oda bulunamadı, lütfen daha sonra tekrar deneyin."
+  },
   "profile": {
     "myAccount": "Hesabım",
     "settings": "Ayarlar"
   },
+  "settings": {
+    "title": "Ayarlar",
+    "description": "Hesabını ve geliştirici erişimini buradan yönet",
+    "signInRequired": "Bu sayfayı görmek için giriş yapmalısın.",
+    "nav": {
+      "profile": "Profil",
+      "password": "Parola",
+      "apiKey": "API anahtarı"
+    },
+    "profile": {
+      "title": "Profil",
+      "description": "Diğer oyuncuların seni nasıl gördüğünü belirle.",
+      "username": "Kullanıcı adı",
+      "usernameHint": "Kullanıcı adı kayıt olurken belirlenir ve değiştirilemez.",
+      "avatar": "Profil resmi",
+      "avatarHint": "JPG veya PNG, en fazla 5 MB.",
+      "changeAvatar": "Resmi değiştir",
+      "avatarUpdated": "Profil resmin güncellendi",
+      "avatarUnsupported": "Yalnızca JPG ve PNG dosyaları yükleyebilirsin.",
+      "avatarTooLarge": "Dosya 5 MB'tan küçük olmalı.",
+      "accountInfo": "Hesap bilgisi",
+      "intraAccount": "Bu bir 42 hesabıdır.",
+      "localAccount": "Bu bir yerel hesaptır.",
+      "memberSince": "{date} tarihinden beri üye",
+      "bio": "Hakkında",
+      "bioPlaceholder": "Kendinden kısaca bahset",
+      "bioHint": "{count}/{max} karakter",
+      "descriptionMaxValue": "Açıklama en fazla 100 karakter olmalıdır",
+      "save": "Değişiklikleri kaydet",
+      "saved": "Profilin güncellendi"
+    },
+    "password": {
+      "title": "Parola",
+      "description": "Hesabının parolasını değiştir.",
+      "currentPassword": "Mevcut parola",
+      "newPassword": "Yeni parola",
+      "enterCurrent": "Mevcut parolanı gir",
+      "enterNew": "Yeni parolanı gir",
+      "enterConfirm": "Yeni parolanı onayla",
+      "currentRequired": "Mevcut parola zorunludur",
+      "confirmRequired": "Lütfen yeni parolanı onayla",
+      "minValue": "Parola en az 8 karakter olmalıdır",
+      "maxValue": "Parola en fazla 50 karakter olmalıdır",
+      "dontMatch": "Parolalar eşleşmiyor",
+      "sameAsCurrent": "Yeni parola mevcut parolandan farklı olmalıdır",
+      "invalidCurrent": "Mevcut parolan hatalı",
+      "hint": "Parola 8 ile 50 karakter arasında olmalıdır",
+      "save": "Parolayı değiştir",
+      "saved": "Parolan değiştirildi",
+      "savedDescription": "Diğer tüm oturumların kapatıldı.",
+      "intraNotice": "42 hesabınla giriş yaptığın için parolan yok. Girişini 42 Intra üzerinden yapmaya devam edebilirsin."
+    },
+    "apiKey": {
+      "title": "API anahtarı",
+      "description": "Herkese açık istatistik uçlarına erişmek için kullanılır. Anahtar başına saatte 1200 istek sınırı vardır.",
+      "loading": "API anahtarı yükleniyor...",
+      "empty": "Henüz bir API anahtarın yok. Herkese açık API'yi kullanmaya başlamak için bir tane oluştur.",
+      "create": "API anahtarı oluştur",
+      "created": "API anahtarın oluşturuldu",
+      "createdDescription": "Anahtarı güvenli bir yere kaydet.",
+      "reveal": "Göster",
+      "hide": "Gizle",
+      "copy": "Kopyala",
+      "copied": "Kopyalandı",
+      "delete": "Sil",
+      "deleted": "API anahtarın silindi",
+      "active": "Aktif",
+      "inactive": "Pasif",
+      "createdAt": "{date} tarihinde oluşturuldu",
+      "deleteTitle": "API anahtarı silinsin mi?",
+      "deleteDescription": "Bu anahtarı kullanan tüm entegrasyonlar çalışmayı durdurur. Bu işlem geri alınamaz.",
+      "deleteConfirm": "Anahtarı sil",
+      "cancel": "Vazgeç",
+      "warning": "Bu anahtarı kimseyle paylaşma. Sızdırdığını düşünüyorsan sil ve yenisini oluştur."
+    }
+  },
   "error": {
     "genericTitle": "Bir şeyler ters gitti",
+    "fetchError": "Veri çekilirken bir sorun oluştu.",
     "popupBlocked": "Açılır pencere tarayıcı tarafından engellendi. Lütfen açılır pencerelere izin verin ve tekrar deneyin.",
     "codes": {
-      "-1": "Connection lost, please try again.",
-      "0": "Unknown error occurred."
+      "-1": "Bağlantı koptu, lütfen tekrar deneyin.",
+      "0": "Bilinmeyen bir hata oluştu.",
+      "1": "Gönderilen istek geçersiz.",
+      "4": "Oturum jetonu oluşturulamadı.",
+      "5": "Veritabanı hatası oluştu.",
+      "7": "Parola geçerli değil.",
+      "9": "Kullanıcı bilgileri alınamadı.",
+      "13": "Bu işlem için yetkin yok.",
+      "42": "Bir dosya seçmelisin.",
+      "43": "Dosya çok büyük.",
+      "44": "Bu dosya türü desteklenmiyor.",
+      "45": "Profil resmi kaydedilemedi.",
+      "47": "Açıklama geçerli değil.",
+      "48": "Mevcut parolan hatalı.",
+      "49": "Bu hesabın bir parolası yok.",
+      "50": "API anahtarı bulunamadı."
     }
   }
 }
