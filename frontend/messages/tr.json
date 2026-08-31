@@ -78,6 +78,40 @@
     "myAccount": "Hesabım",
     "settings": "Ayarlar"
   },
+  "users": {
+    "loading": "Profil yükleniyor...",
+    "signInRequired": "Bu sayfayı görmek için giriş yapmalısın.",
+    "notFound": "Kullanıcı bulunamadı",
+    "notFoundDescription": "{username} adında bir kullanıcı yok.",
+    "editProfile": "Profili düzenle",
+    "noBio": "Bu kullanıcı henüz kendinden bahsetmemiş.",
+    "memberSince": "{date} tarihinden beri üye",
+    "status": {
+      "online": "Çevrim içi",
+      "offline": "Çevrim dışı"
+    },
+    "friends": {
+      "title": "Arkadaşlar",
+      "description": "Çevrim içi olanlar en üstte listelenir.",
+      "empty": "Henüz arkadaş yok.",
+      "onlineCount": "{online}/{total} çevrim içi"
+    },
+    "requests": {
+      "incoming": "Sana {time} arkadaşlık isteği gönderdi.",
+      "accept": "Kabul et",
+      "decline": "Reddet"
+    },
+    "add": {
+      "title": "Arkadaş ekle",
+      "placeholder": "Kullanıcı adı ile arkadaş ekle",
+      "hint": "Kullanıcı adları büyük küçük harfe duyarlıdır.",
+      "button": "Ekle",
+      "sent": "{username} kullanıcısına istek gönderildi.",
+      "usernameRequired": "Kullanıcı adı zorunludur",
+      "usernameMinValue": "Kullanıcı adı en az 3 karakter olmalıdır",
+      "usernameMaxValue": "Kullanıcı adı en fazla 50 karakter olmalıdır"
+    }
+  },
   "settings": {
     "title": "Ayarlar",
     "description": "Hesabını ve geliştirici erişimini buradan yönet",
@@ -171,6 +205,7 @@
       "43": "Dosya çok büyük.",
       "44": "Bu dosya türü desteklenmiyor.",
       "45": "Profil resmi kaydedilemedi.",
+      "46": "Kullanıcı bulunamadı.",
       "47": "Açıklama geçerli değil.",
       "48": "Mevcut parolan hatalı.",
       "49": "Bu hesabın bir parolası yok.",

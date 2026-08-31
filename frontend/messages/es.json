@@ -74,6 +74,40 @@
     "myAccount": "Mi cuenta",
     "settings": "Ajustes"
   },
+  "users": {
+    "loading": "Cargando el perfil...",
+    "signInRequired": "Debes iniciar sesión para ver esta página.",
+    "notFound": "Usuario no encontrado",
+    "notFoundDescription": "No existe ningún usuario llamado {username}.",
+    "editProfile": "Editar perfil",
+    "noBio": "Este usuario todavía no ha escrito nada sobre sí mismo.",
+    "memberSince": "Miembro desde el {date}",
+    "status": {
+      "online": "En línea",
+      "offline": "Desconectado"
+    },
+    "friends": {
+      "title": "Amigos",
+      "description": "Quienes están en línea aparecen primero.",
+      "empty": "Todavía no hay amigos.",
+      "onlineCount": "{online}/{total} en línea"
+    },
+    "requests": {
+      "incoming": "Te envió una solicitud de amistad {time}.",
+      "accept": "Aceptar",
+      "decline": "Rechazar"
+    },
+    "add": {
+      "title": "Añadir amigo",
+      "placeholder": "Añade un amigo por nombre de usuario",
+      "hint": "Los nombres de usuario distinguen mayúsculas y minúsculas.",
+      "button": "Añadir",
+      "sent": "Solicitud enviada a {username}.",
+      "usernameRequired": "El nombre de usuario es obligatorio",
+      "usernameMinValue": "El nombre de usuario debe tener al menos 3 caracteres",
+      "usernameMaxValue": "El nombre de usuario debe tener como máximo 50 caracteres"
+    }
+  },
   "settings": {
     "title": "Ajustes",
     "description": "Gestiona tu cuenta y tu acceso de desarrollador",
@@ -165,6 +199,7 @@
       "43": "El archivo es demasiado grande.",
       "44": "Este tipo de archivo no es compatible.",
       "45": "No se pudo guardar la foto de perfil.",
+      "46": "Usuario no encontrado.",
       "47": "La descripción no es válida.",
       "48": "Tu contraseña actual es incorrecta.",
       "49": "Esta cuenta no tiene contraseña.",
