@@ -33,7 +33,7 @@ export function FriendsPanel({ isSelf }: { isSelf: boolean }) {
   });
 
   const onlineCount = friends.filter((friend) => friend.status === "online").length;
-  const currentRequest = isSelf ? requests[0] : undefined;
+  const pendingRequests = isSelf ? requests : [];
 
   // TEMPORARY: local only, both of these need an endpoint that does not exist yet
   const acceptRequest = (request: FriendRequest) => {
@@ -57,25 +57,6 @@ export function FriendsPanel({ isSelf }: { isSelf: boolean }) {
     <div className="my-10 space-y-5">
       {isSelf && <AddFriendForm />}
 
-      <AnimatePresence initial={false} mode="wait">
-        {currentRequest && (
-          <motion.div
-            key={currentRequest.username}
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.15 }}
-          >
-            <FriendRequestPopup
-              request={currentRequest}
-              remaining={requests.length}
-              onAccept={() => acceptRequest(currentRequest)}
-              onDecline={() => declineRequest(currentRequest)}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       <div className="space-y-3">
         <SectionHeader
           title={tUsers("friends.title")}
@@ -86,6 +67,27 @@ export function FriendsPanel({ isSelf }: { isSelf: boolean }) {
             </Badge>
           }
         />
+        {pendingRequests.length > 0 && (
+          <div className="space-y-2">
+            <AnimatePresence initial={false}>
+              {pendingRequests.map((request) => (
+                <motion.div
+                  key={request.username}
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.15 }}
+                >
+                  <FriendRequestPopup
+                    request={request}
+                    onAccept={() => acceptRequest(request)}
+                    onDecline={() => declineRequest(request)}
+                  />
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
+        )}
         {sortedFriends.length > 0 ? (
           <div className="space-y-1">
             {sortedFriends.map((friend) => (
