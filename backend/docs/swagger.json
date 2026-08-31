@@ -9,6 +9,118 @@
     "host": "localhost:8081",
     "basePath": "/",
     "paths": {
+        "/api/friend/accept": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Friends"
+                ],
+                "summary": "Accept friend request",
+                "parameters": [
+                    {
+                        "description": "Requester User Name",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/friend.AcceptRequestInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/api/friend/list": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Friends"
+                ],
+                "summary": "Get friends list",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/friend.UserResponse"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/friend/request": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Friends"
+                ],
+                "summary": "Send friend request",
+                "parameters": [
+                    {
+                        "description": "Target User Name",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/friend.SendRequestInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/api/friend/requests": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Friends"
+                ],
+                "summary": "Get pending friend requests",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/friend.UserResponse"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/public/stats/matches": {
             "get": {
                 "security": [
@@ -58,6 +170,38 @@
                             "additionalProperties": true
                         }
                     }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "friend.AcceptRequestInput": {
+            "type": "object",
+            "properties": {
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "friend.SendRequestInput": {
+            "type": "object",
+            "properties": {
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "friend.UserResponse": {
+            "type": "object",
+            "properties": {
+                "avatar_url": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
                 }
             }
         }

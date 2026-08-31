@@ -8,6 +8,10 @@ import (
 func Register(api fiber.Router) {
 	
 	friendGroup := api.Group("/friend", middleware.RequireAuth)
+	
 
 	friendGroup.Post("/request", SendRequestHandler)
+	friendGroup.Post("/accept", AcceptRequestHandler)
+	friendGroup.Get("/requests", GetRequestsHandler)
+	friendGroup.Get("/list", GetFriendsHandler)
 }

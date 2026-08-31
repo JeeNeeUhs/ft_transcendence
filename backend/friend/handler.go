@@ -28,18 +28,21 @@ func SendRequestHandler(c fiber.Ctx) error {
 	}
 
 	
-	var input SendRequestInput
-	if err := c.Bind().Body(&input); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "invalid request body"})
-	}
-
 	
-	var addresseeID uuid.UUID
-	err := database.DB.Table("users").Select("id").Where("username = ?", input.AddresseeUsername).Scan(&addresseeID).Error
-	if err != nil || addresseeID == uuid.Nil {
-		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "user not found"})
+	var input SendRequestInput
+	if err := c.Bind().Body(&input); err != nil || input.AddresseeUsername == "" {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "invalid request body or empty username"})
 	}
 
+	var destUser struct {
+		ID uuid.UUID
+	}
+	
+	err := database.DB.Table("users").Select("id").Where("username = ?", input.AddresseeUsername).First(&destUser).Error
+	if err != nil {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "user not found in db"})
+	}
+	addresseeID := destUser.ID
 	
 	insertQuery := `INSERT INTO friendships (requester_id, addressee_id, status) VALUES (?, ?, 'pending')`
 	if err := database.DB.Exec(insertQuery, requesterID, addresseeID).Error; err != nil {
@@ -49,4 +52,118 @@ func SendRequestHandler(c fiber.Ctx) error {
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
 		"message": "friend request sent successfully",
 	})
+}
+
+
+type AcceptRequestInput struct {
+	RequesterUsername string `json:"username"`
+}
+
+// AcceptRequestHandler godoc
+// @Summary Accept friend request
+// @Tags Friends
+// @Accept json
+// @Produce json
+// @Param request body AcceptRequestInput true "Requester User Name"
+// @Success 200 {object} map[string]interface{}
+// @Router /api/friend/accept [post]
+func AcceptRequestHandler(c fiber.Ctx) error {
+	addresseeID, ok := c.Locals(middleware.LocalsUserIDKey).(uuid.UUID)
+	if !ok {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "unauthorized"})
+	}
+
+	var input AcceptRequestInput
+	if err := c.Bind().Body(&input); err != nil || input.RequesterUsername == "" {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "invalid request body or empty username"})
+	}
+
+	var reqUser struct {
+		ID uuid.UUID
+	}
+	err := database.DB.Table("users").Select("id").Where("username = ?", input.RequesterUsername).First(&reqUser).Error
+	if err != nil {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "requester not found in db"})
+	}
+	requesterID := reqUser.ID
+
+	updateQuery := `UPDATE friendships SET status = 'accepted' WHERE requester_id = ? AND addressee_id = ? AND status = 'pending'`
+	result := database.DB.Exec(updateQuery, requesterID, addresseeID)
+	
+	if result.Error != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "database error"})
+	}
+	if result.RowsAffected == 0 {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "no pending friend request found from this user"})
+	}
+
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"message": "friend request accepted successfully",
+	})
+}
+
+type UserResponse struct {
+	Username  string `json:"username"`
+	AvatarURL string `json:"avatar_url"`
+	Status    string `json:"status"`
+}
+
+// GetRequestsHandler godoc
+// @Summary Get pending friend requests
+// @Tags Friends
+// @Produce json
+// @Success 200 {array} UserResponse
+// @Router /api/friend/requests [get]
+func GetRequestsHandler(c fiber.Ctx) error {
+	userID, ok := c.Locals(middleware.LocalsUserIDKey).(uuid.UUID)
+	if !ok {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "unauthorized"})
+	}
+
+	var requests []UserResponse
+	query := `
+		SELECT u.username, u.avatar_url, u.status
+		FROM users u
+		INNER JOIN friendships f ON u.id = f.requester_id
+		WHERE f.addressee_id = ? AND f.status = 'pending'
+	`
+	if err := database.DB.Raw(query, userID).Scan(&requests).Error; err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "database error"})
+	}
+
+	if requests == nil {
+		requests = []UserResponse{}
+	}
+	return c.Status(fiber.StatusOK).JSON(requests)
+}
+
+// GetFriendsHandler godoc
+// @Summary Get friends list
+// @Tags Friends
+// @Produce json
+// @Success 200 {array} UserResponse
+// @Router /api/friend/list [get]
+func GetFriendsHandler(c fiber.Ctx) error {
+	userID, ok := c.Locals(middleware.LocalsUserIDKey).(uuid.UUID)
+	if !ok {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "unauthorized"})
+	}
+
+	var friends []UserResponse
+	query := `
+		SELECT u.username, u.avatar_url, u.status
+		FROM users u
+		INNER JOIN friendships f ON (u.id = f.requester_id OR u.id = f.addressee_id)
+		WHERE (f.requester_id = ? OR f.addressee_id = ?) 
+		  AND f.status = 'accepted'
+		  AND u.id != ?
+	`
+	if err := database.DB.Raw(query, userID, userID, userID).Scan(&friends).Error; err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "database error"})
+	}
+
+	if friends == nil {
+		friends = []UserResponse{}
+	}
+	return c.Status(fiber.StatusOK).JSON(friends)
 }
