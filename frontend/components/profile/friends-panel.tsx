@@ -21,7 +21,7 @@ const newestFirst = (a: FriendRequest, b: FriendRequest) => b.createdAt - a.crea
 export function FriendsPanel({ isSelf }: { isSelf: boolean }) {
   const tUsers = useTranslations("users");
 
-  // TEMPORARY: every profile shows the same fixture until the backend exposes friendships
+  // TODO: every profile shows the same fixture until the backend exposes friendships
   const [friends, setFriends] = useState<Friend[]>(mockFriends);
   const [requests, setRequests] = useState<FriendRequest[]>(() =>
     [...mockFriendRequests].sort(newestFirst)
@@ -35,7 +35,7 @@ export function FriendsPanel({ isSelf }: { isSelf: boolean }) {
   const onlineCount = friends.filter((friend) => friend.status === "online").length;
   const pendingRequests = isSelf ? requests : [];
 
-  // TEMPORARY: local only, both of these need an endpoint that does not exist yet
+  // TODO: local only, both of these need an endpoint that does not exist yet
   const acceptRequest = (request: FriendRequest) => {
     setFriends((current) => [
       ...current,

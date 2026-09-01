@@ -33,9 +33,6 @@ export function ProfileHeader({ profile, isSelf }: { profile: UserProfile; isSel
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-1">
-            <Badge variant="secondary">
-              {profile.status === "online" ? tUsers("status.online") : tUsers("status.offline")}
-            </Badge>
             <Badge variant="outline">{tUsers("memberSince", { date: memberSince })}</Badge>
           </div>
         </div>

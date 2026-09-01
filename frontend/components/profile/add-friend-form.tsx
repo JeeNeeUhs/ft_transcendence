@@ -46,7 +46,7 @@ export function AddFriendForm() {
     }
   });
 
-  // TEMPORARY: there is no friendship endpoint yet, so this only confirms locally
+  // TODO: there is no friendship endpoint yet, so this only confirms locally
   function onSubmit(data: z.infer<typeof formSchema>) {
     setSentTo(data.username);
     form.reset();

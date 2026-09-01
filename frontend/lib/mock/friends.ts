@@ -1,4 +1,4 @@
-// TEMPORARY: the friendship system does not exist in the backend yet. Every profile renders this
+// TODO: the friendship system does not exist in the backend yet. Every profile renders this
 // same fixture so the UI can be built and reviewed. Delete this file once the real endpoints land
 // and swap the imports in components/profile/ for a friendService.
 
