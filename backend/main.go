@@ -3,14 +3,15 @@ package main
 import (
 	"log"
 
+	"github.com/JeeNeeUhs/ft_transcendence/apikey"
 	"github.com/JeeNeeUhs/ft_transcendence/auth"
 	"github.com/JeeNeeUhs/ft_transcendence/database"
+	"github.com/JeeNeeUhs/ft_transcendence/friend"
 	"github.com/JeeNeeUhs/ft_transcendence/middleware"
+	"github.com/JeeNeeUhs/ft_transcendence/publicapi"
 	"github.com/JeeNeeUhs/ft_transcendence/room"
 	"github.com/JeeNeeUhs/ft_transcendence/user"
-	"github.com/JeeNeeUhs/ft_transcendence/apikey"
 	"github.com/gofiber/fiber/v3"
-	"github.com/JeeNeeUhs/ft_transcendence/publicapi"
 )
 
 // @title ft_transcendence Public API
@@ -37,6 +38,7 @@ func main() {
 	user.Register(api)
 	apikey.Register(api)
 	publicapi.Register(api)
+	friend.Register(api)
 
 	app.Listen(":8081")
 
