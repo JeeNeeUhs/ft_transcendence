@@ -72,7 +72,31 @@
       "footer": "Created at {time} · {user}"
     },
     "allFilter": "All",
-    "emptyList": "No rooms found, please try again later."
+    "emptyList": "No rooms found, please try again later.",
+    "create": {
+      "action": "Create",
+      "title": "Create a New Room",
+      "description": "Create a room and choose the categories you want to play with.",
+      "roomName": "Room Name",
+      "roomNamePlaceholder": "Enter room name",
+      "roomNameRequired": "Room name is required",
+      "roomNameTooLong": "Room name must be at most 30 characters.",
+      "password": "Password (optional)",
+      "passwordPlaceholder": "Enter password",
+      "passwordInvalidLen": "Password must be between 4 and 16 characters.",
+      "categories": "Categories",
+      "categoriesRequired": "Select at least one category.",
+      "failed": "Failed to create the room."
+    },
+    "join": {
+      "action": "Join",
+      "title": "Join Room",
+      "description": "Enter the password to join this room.",
+      "password": "Password",
+      "passwordPlaceholder": "Enter password",
+      "passwordRequired": "Password is required",
+      "failed": "Failed to join the room."
+    }
   },
   "profile": {
     "myAccount": "My Account",

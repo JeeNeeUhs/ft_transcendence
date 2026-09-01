@@ -72,7 +72,31 @@
       "footer": "{time} oluşturuldu · {user}"
     },
     "allFilter": "Tümü",
-    "emptyList": "Herhangi bir oda bulunamadı, lütfen daha sonra tekrar deneyin."
+    "emptyList": "Herhangi bir oda bulunamadı, lütfen daha sonra tekrar deneyin.",
+    "create": {
+      "action": "Oluştur",
+      "title": "Yeni Oda Oluştur",
+      "description": "Bir oda oluşturun ve oynamak istediğiniz kategorileri seçin.",
+      "roomName": "Oda Adı",
+      "roomNamePlaceholder": "Oda adını girin",
+      "roomNameRequired": "Oda adı zorunludur",
+      "roomNameTooLong": "Oda adı en fazla 30 karakter olabilir.",
+      "password": "Şifre (isteğe bağlı)",
+      "passwordPlaceholder": "Şifreyi girin",
+      "passwordInvalidLen": "Şifre 4 ile 16 karakter arasında olmalıdır.",
+      "categories": "Kategoriler",
+      "categoriesRequired": "En az bir kategori seçin.",
+      "failed": "Oda oluşturulamadı."
+    },
+    "join": {
+      "action": "Katıl",
+      "title": "Odaya Katıl",
+      "description": "Bu odaya katılmak için şifreyi girin.",
+      "password": "Şifre",
+      "passwordPlaceholder": "Şifreyi girin",
+      "passwordRequired": "Şifre zorunludur",
+      "failed": "Odaya katılınamadı."
+    }
   },
   "profile": {
     "myAccount": "Hesabım",

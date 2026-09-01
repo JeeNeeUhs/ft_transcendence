@@ -68,7 +68,31 @@
     "search": "Buscar una sala",
     "card": { "join": "Unirse", "categories": "Categorías", "footer": "Creada el {time} · {user}" },
     "allFilter": "Todas",
-    "emptyList": "No se encontraron salas, inténtalo de nuevo más tarde."
+    "emptyList": "No se encontraron salas, inténtalo de nuevo más tarde.",
+    "create": {
+      "action": "Crear",
+      "title": "Crear una nueva sala",
+      "description": "Crea una sala y elige las categorías con las que quieres jugar.",
+      "roomName": "Nombre de la sala",
+      "roomNamePlaceholder": "Introduce el nombre de la sala",
+      "roomNameRequired": "El nombre de la sala es obligatorio",
+      "roomNameTooLong": "El nombre de la sala debe tener como máximo 30 caracteres.",
+      "password": "Contraseña (opcional)",
+      "passwordPlaceholder": "Introduce la contraseña",
+      "passwordInvalidLen": "La contraseña debe tener entre 4 y 16 caracteres.",
+      "categories": "Categorías",
+      "categoriesRequired": "Selecciona al menos una categoría.",
+      "failed": "No se pudo crear la sala."
+    },
+    "join": {
+      "action": "Unirse",
+      "title": "Unirse a la sala",
+      "description": "Introduce la contraseña para unirte a esta sala.",
+      "password": "Contraseña",
+      "passwordPlaceholder": "Introduce la contraseña",
+      "passwordRequired": "La contraseña es obligatoria",
+      "failed": "No se pudo unir a la sala."
+    }
   },
   "profile": {
     "myAccount": "Mi cuenta",

@@ -4,6 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 import { SignedIn } from "@/components/auth/auth-guard";
+import { CreateRoomDialog } from "@/components/rooms/create-room-dialog";
 import { RoomBrowser } from "@/components/rooms/room-browser";
 import { toast } from "@/components/ui/toast";
 import { type Category, roomService } from "@/lib/api/room";
@@ -43,7 +44,7 @@ export default function RoomsPage() {
         </div>
         <SignedIn>
           <div className="flex items-center gap-x-1">
-            {/* <CreateRoomDialog categories={categories} locale={locale} /> */}
+            <CreateRoomDialog categories={categories} locale={locale} />
           </div>
         </SignedIn>
       </div>
