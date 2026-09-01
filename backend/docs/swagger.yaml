@@ -1,24 +1,4 @@
 basePath: /
-definitions:
-  friend.AcceptRequestInput:
-    properties:
-      username:
-        type: string
-    type: object
-  friend.SendRequestInput:
-    properties:
-      username:
-        type: string
-    type: object
-  friend.UserResponse:
-    properties:
-      avatar_url:
-        type: string
-      status:
-        type: string
-      username:
-        type: string
-    type: object
 host: localhost:8081
 info:
   contact: {}
@@ -26,78 +6,6 @@ info:
   title: ft_transcendence Public API
   version: "1.0"
 paths:
-  /api/friend/accept:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: Requester User Name
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/friend.AcceptRequestInput'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Accept friend request
-      tags:
-      - Friends
-  /api/friend/list:
-    get:
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/friend.UserResponse'
-            type: array
-      summary: Get friends list
-      tags:
-      - Friends
-  /api/friend/request:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: Target User Name
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/friend.SendRequestInput'
-      produces:
-      - application/json
-      responses:
-        "201":
-          description: Created
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Send friend request
-      tags:
-      - Friends
-  /api/friend/requests:
-    get:
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/friend.UserResponse'
-            type: array
-      summary: Get pending friend requests
-      tags:
-      - Friends
   /api/public/stats/matches:
     get:
       description: Returns the total number of matches played on the platform.

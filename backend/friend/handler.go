@@ -12,14 +12,7 @@ type SendRequestInput struct {
 	AddresseeUsername string `json:"username"`
 }
 
-// SendRequestHandler godoc
-// @Summary Send friend request
-// @Tags Friends
-// @Accept json
-// @Produce json
-// @Param request body SendRequestInput true "Target User Name"
-// @Success 201 {object} map[string]interface{}
-// @Router /api/friend/request [post]
+
 func SendRequestHandler(c fiber.Ctx) error {
 	
 	requesterID, ok := c.Locals(middleware.LocalsUserIDKey).(uuid.UUID)
@@ -59,14 +52,7 @@ type AcceptRequestInput struct {
 	RequesterUsername string `json:"username"`
 }
 
-// AcceptRequestHandler godoc
-// @Summary Accept friend request
-// @Tags Friends
-// @Accept json
-// @Produce json
-// @Param request body AcceptRequestInput true "Requester User Name"
-// @Success 200 {object} map[string]interface{}
-// @Router /api/friend/accept [post]
+
 func AcceptRequestHandler(c fiber.Ctx) error {
 	addresseeID, ok := c.Locals(middleware.LocalsUserIDKey).(uuid.UUID)
 	if !ok {
@@ -108,12 +94,7 @@ type UserResponse struct {
 	Status    string `json:"status"`
 }
 
-// GetRequestsHandler godoc
-// @Summary Get pending friend requests
-// @Tags Friends
-// @Produce json
-// @Success 200 {array} UserResponse
-// @Router /api/friend/requests [get]
+
 func GetRequestsHandler(c fiber.Ctx) error {
 	userID, ok := c.Locals(middleware.LocalsUserIDKey).(uuid.UUID)
 	if !ok {
@@ -137,12 +118,7 @@ func GetRequestsHandler(c fiber.Ctx) error {
 	return c.Status(fiber.StatusOK).JSON(requests)
 }
 
-// GetFriendsHandler godoc
-// @Summary Get friends list
-// @Tags Friends
-// @Produce json
-// @Success 200 {array} UserResponse
-// @Router /api/friend/list [get]
+
 func GetFriendsHandler(c fiber.Ctx) error {
 	userID, ok := c.Locals(middleware.LocalsUserIDKey).(uuid.UUID)
 	if !ok {
