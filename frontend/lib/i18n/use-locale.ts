@@ -22,7 +22,7 @@ export function useLocaleSwitch(): UseLocaleSwitchReturn {
     if (!isValidLocale(newLocale)) throw new Error(`Unsupported locale: ${newLocale}`);
 
     try {
-      const response = await fetch("/api/locale", {
+      const response = await fetch("/locale", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ locale: newLocale })

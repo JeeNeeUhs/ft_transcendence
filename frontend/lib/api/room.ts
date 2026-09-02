@@ -60,8 +60,8 @@ function connectSocket(
   payload: Record<string, string | number | number[] | undefined>
 ): Promise<{ ws: WebSocket; room: RoomState }> {
   return new Promise((resolve, reject) => {
-    const baseurl = process.env.NEXT_PUBLIC_API_URL || "";
-    const wsurl = baseurl.replace(/^https/, "wss").replace(/^http/, "ws");
+    const wsProtocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+    const wsurl = `${wsProtocol}//${window.location.host}`;
 
     const params = new URLSearchParams();
 
