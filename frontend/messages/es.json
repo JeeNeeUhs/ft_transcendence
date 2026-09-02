@@ -184,12 +184,12 @@
       "title": "Amigos",
       "description": "Quienes están en línea aparecen primero.",
       "empty": "Todavía no hay amigos.",
+      "loading": "Cargando amigos...",
       "onlineCount": "{online}/{total} en línea"
     },
     "requests": {
-      "incoming": "Te envió una solicitud de amistad {time}.",
-      "accept": "Aceptar",
-      "decline": "Rechazar"
+      "incoming": "Te envió una solicitud de amistad.",
+      "accept": "Aceptar"
     },
     "add": {
       "title": "Añadir amigo",
@@ -197,6 +197,9 @@
       "hint": "Los nombres de usuario distinguen mayúsculas y minúsculas.",
       "button": "Añadir",
       "sent": "Solicitud enviada a {username}.",
+      "self": "No puedes enviarte una solicitud de amistad a ti mismo.",
+      "userNotFound": "No existe ningún usuario con ese nombre.",
+      "alreadySent": "Ya se ha enviado una solicitud a este usuario.",
       "usernameRequired": "El nombre de usuario es obligatorio",
       "usernameMinValue": "El nombre de usuario debe tener al menos 3 caracteres",
       "usernameMaxValue": "El nombre de usuario debe tener como máximo 50 caracteres"

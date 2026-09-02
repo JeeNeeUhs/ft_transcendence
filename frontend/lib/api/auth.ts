@@ -11,7 +11,7 @@ export type User = {
   isIntra: boolean;
   avatarUrl: string;
   description: string;
-  status: string;
+  status: number;
   createdAt: Date;
 };
 

@@ -11,10 +11,22 @@ import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Field, FieldDescription, FieldError } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { Spinner } from "@/components/ui/spinner";
+import { toast } from "@/components/ui/toast";
+import { friendService } from "@/lib/api/friend";
+import { useUserStore } from "@/providers/user";
+
+const userNotFound = 404;
+const requestExists = 409;
 
 export function AddFriendForm() {
   const tUsers = useTranslations("users");
+  const tError = useTranslations("error");
+
+  const currentUser = useUserStore((state) => state.user);
+
   const [sentTo, setSentTo] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // the confirmation clears itself, so the timer has to be cleared on unmount
   const sentTimerRef = useRef<NodeJS.Timeout | null>(null);
@@ -46,8 +58,33 @@ export function AddFriendForm() {
     }
   });
 
-  // TODO: there is no friendship endpoint yet, so this only confirms locally
-  function onSubmit(data: z.infer<typeof formSchema>) {
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    if (data.username === currentUser?.username) {
+      form.setError("username", { message: tUsers("add.self") });
+      return;
+    }
+
+    setIsLoading(true);
+    const response = await friendService.send(data.username);
+    setIsLoading(false);
+
+    if (!response.success) {
+      // the friend endpoints answer with a plain message, so the status is all we can switch on
+      if (response.status === userNotFound) {
+        form.setError("username", { message: tUsers("add.userNotFound") });
+      } else if (response.status === requestExists) {
+        form.setError("username", { message: tUsers("add.alreadySent") });
+      } else {
+        toast.add({
+          type: "error",
+          title: tError("genericTitle"),
+          description: tError(`codes.${response.errorCode}`)
+        });
+      }
+
+      return;
+    }
+
     setSentTo(data.username);
     form.reset();
 
@@ -77,7 +114,10 @@ export function AddFriendForm() {
                 autoComplete="off"
                 className="flex-1"
               />
-              <Button type="submit">{tUsers("add.button")}</Button>
+              <Button type="submit" disabled={isLoading}>
+                {isLoading && <Spinner />}
+                {tUsers("add.button")}
+              </Button>
             </div>
             {fieldState.invalid ? (
               <FieldError errors={[fieldState.error]} />

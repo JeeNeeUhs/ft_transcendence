@@ -7,7 +7,7 @@ export interface UserProfile {
   username: string;
   avatarUrl: string;
   description: string;
-  status: string;
+  status: number;
   createdAt: string;
 }
 

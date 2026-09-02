@@ -7,6 +7,7 @@ import { UserAvatar } from "@/components/profile/user-avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { UserProfile } from "@/lib/api/user";
+import { presenceStatus } from "@/lib/utils";
 
 export function ProfileHeader({ profile, isSelf }: { profile: UserProfile; isSelf: boolean }) {
   const tUsers = useTranslations("users");
@@ -22,7 +23,7 @@ export function ProfileHeader({ profile, isSelf }: { profile: UserProfile; isSel
         <UserAvatar
           username={profile.username}
           avatarUrl={profile.avatarUrl}
-          status={profile.status}
+          status={presenceStatus(profile.status)}
           size="lg"
         />
         <div className="space-y-2 pt-1">

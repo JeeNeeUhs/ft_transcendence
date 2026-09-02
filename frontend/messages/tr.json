@@ -188,12 +188,12 @@
       "title": "Arkadaşlar",
       "description": "Çevrim içi olanlar en üstte listelenir.",
       "empty": "Henüz arkadaş yok.",
+      "loading": "Arkadaşlar yükleniyor...",
       "onlineCount": "{online}/{total} çevrim içi"
     },
     "requests": {
-      "incoming": "Sana {time} arkadaşlık isteği gönderdi.",
-      "accept": "Kabul et",
-      "decline": "Reddet"
+      "incoming": "Sana arkadaşlık isteği gönderdi.",
+      "accept": "Kabul et"
     },
     "add": {
       "title": "Arkadaş ekle",
@@ -201,6 +201,9 @@
       "hint": "Kullanıcı adları büyük küçük harfe duyarlıdır.",
       "button": "Ekle",
       "sent": "{username} kullanıcısına istek gönderildi.",
+      "self": "Kendine arkadaşlık isteği gönderemezsin.",
+      "userNotFound": "Bu kullanıcı adında biri yok.",
+      "alreadySent": "Bu kullanıcıya zaten bir istek gönderilmiş.",
       "usernameRequired": "Kullanıcı adı zorunludur",
       "usernameMinValue": "Kullanıcı adı en az 3 karakter olmalıdır",
       "usernameMaxValue": "Kullanıcı adı en fazla 50 karakter olmalıdır"

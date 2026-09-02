@@ -71,7 +71,7 @@ function UserProfileContent({ username }: { username: string }) {
   return (
     <>
       <ProfileHeader profile={profile} isSelf={isSelf} />
-      <FriendsPanel isSelf={isSelf} />
+      {isSelf && <FriendsPanel />}
     </>
   );
 }

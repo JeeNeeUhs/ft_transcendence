@@ -49,6 +49,17 @@ export function convertKeysToSnakeCase(obj: unknown): unknown {
   }, {});
 }
 
+// the backend sends the last seen unix timestamp, a user counts as online inside this window
+export const onlineWindow = 3 * 60 * 1000;
+
+export function presenceStatus(lastSeen?: number): "online" | "offline" {
+  if (!lastSeen) return "offline";
+
+  const ms = lastSeen < 10000000000 ? lastSeen * 1000 : lastSeen;
+
+  return Date.now() - ms < onlineWindow ? "online" : "offline";
+}
+
 export function timeAgo(timestamp: number, locale: string): string {
   // if timestamp has 10 digits convert it to ms format
   const ms = timestamp < 10000000000 ? timestamp * 1000 : timestamp;

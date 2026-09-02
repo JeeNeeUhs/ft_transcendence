@@ -188,12 +188,12 @@
       "title": "Friends",
       "description": "Everyone who is online is listed first.",
       "empty": "No friends yet.",
+      "loading": "Loading friends...",
       "onlineCount": "{online}/{total} online"
     },
     "requests": {
-      "incoming": "Sent you a friend request {time}.",
-      "accept": "Accept",
-      "decline": "Decline"
+      "incoming": "Sent you a friend request.",
+      "accept": "Accept"
     },
     "add": {
       "title": "Add friend",
@@ -201,6 +201,9 @@
       "hint": "Usernames are case sensitive.",
       "button": "Add",
       "sent": "Request sent to {username}.",
+      "self": "You can't send yourself a friend request.",
+      "userNotFound": "There is no user with that username.",
+      "alreadySent": "A request has already been sent to this user.",
       "usernameRequired": "Username is required",
       "usernameMinValue": "Username must be at least 3 characters",
       "usernameMaxValue": "Username must be at most 50 characters"
