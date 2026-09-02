@@ -193,8 +193,46 @@
     }
   },
   "profile": {
-    "myAccount": "Hesabım",
+    "myProfile": "Profilim",
     "settings": "Ayarlar"
+  },
+  "users": {
+    "loading": "Profil yükleniyor...",
+    "signInRequired": "Bu sayfayı görmek için giriş yapmalısın.",
+    "notFound": "Kullanıcı bulunamadı",
+    "notFoundDescription": "{username} adında bir kullanıcı yok.",
+    "editProfile": "Profili düzenle",
+    "noBio": "Bu kullanıcı henüz kendinden bahsetmemiş.",
+    "memberSince": "{date} tarihinden beri üye",
+    "status": {
+      "online": "Çevrim içi",
+      "lobby": "Oyunda",
+      "offline": "Çevrim dışı"
+    },
+    "friends": {
+      "title": "Arkadaşlar",
+      "empty": "Henüz arkadaş yok.",
+      "emptyUser": "{username} henüz kimseyle arkadaş olmamış.",
+      "loading": "Arkadaşlar yükleniyor...",
+      "onlineCount": "{online}/{total} çevrim içi"
+    },
+    "requests": {
+      "incoming": "Sana arkadaşlık isteği gönderdi.",
+      "accept": "Kabul et"
+    },
+    "add": {
+      "title": "Arkadaş ekle",
+      "placeholder": "Kullanıcı adı ile arkadaş ekle",
+      "hint": "Kullanıcı adları büyük küçük harfe duyarlıdır.",
+      "button": "Ekle",
+      "sent": "{username} kullanıcısına istek gönderildi.",
+      "self": "Kendine arkadaşlık isteği gönderemezsin.",
+      "userNotFound": "Bu kullanıcı adında biri yok.",
+      "alreadySent": "Bu kullanıcıya zaten bir istek gönderilmiş.",
+      "usernameRequired": "Kullanıcı adı zorunludur",
+      "usernameMinValue": "Kullanıcı adı en az 3 karakter olmalıdır",
+      "usernameMaxValue": "Kullanıcı adı en fazla 50 karakter olmalıdır"
+    }
   },
   "settings": {
     "title": "Ayarlar",
@@ -289,6 +327,7 @@
       "43": "Dosya çok büyük.",
       "44": "Bu dosya türü desteklenmiyor.",
       "45": "Profil resmi kaydedilemedi.",
+      "46": "Kullanıcı bulunamadı.",
       "47": "Açıklama geçerli değil.",
       "48": "Mevcut parolan hatalı.",
       "49": "Bu hesabın bir parolası yok.",

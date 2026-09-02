@@ -6,7 +6,7 @@ import (
 )
 
 func Register(api fiber.Router) {
-	room := api.Group("/room")
+	room := api.Group("/room", middleware.UpdateStatus)
 	room.Get("/create", middleware.RequireAuthWS, createRoomHandler)
 	room.Get("/join", middleware.RequireAuthWS, joinRoomHandler)
 	room.Get("/list", listRoomsHandler)

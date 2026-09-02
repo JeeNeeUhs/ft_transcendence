@@ -9,9 +9,12 @@ import (
 
 	"github.com/JeeNeeUhs/ft_transcendence/apierr"
 	"github.com/JeeNeeUhs/ft_transcendence/config"
+	"github.com/JeeNeeUhs/ft_transcendence/database"
+	"github.com/JeeNeeUhs/ft_transcendence/middleware"
 	"github.com/JeeNeeUhs/ft_transcendence/models"
 	"github.com/gofiber/contrib/v3/websocket"
 	"github.com/gofiber/fiber/v3"
+	"github.com/google/uuid"
 )
 
 const (
@@ -233,6 +236,7 @@ var upgradeJoin fiber.Handler = websocket.New(joinConnHandler, websocket.Config{
 func joinConnHandler(conn *websocket.Conn) {
 	username, _ := conn.Locals(localsUsernameKey).(string)
 	roomID, _ := conn.Locals(localsRoomIDKey).(string)
+	userID, _ := conn.Locals(middleware.LocalsUserIDKey).(uuid.UUID)
 	if username == "" || roomID == "" {
 		closeWithError(conn, 13)
 		return
@@ -243,6 +247,9 @@ func joinConnHandler(conn *websocket.Conn) {
 		closeWithError(conn, storeErrToCode(sErr))
 		return
 	}
+
+	setStatusOnline(userID)
+	defer setStatusLastSeen(userID)
 
 	var wg sync.WaitGroup
 	wg.Add(1)
@@ -262,6 +269,22 @@ func joinConnHandler(conn *websocket.Conn) {
 	broadcast(roomID, encodeEvent(wsEvent{Type: eventUserJoined, User: username, Room: &view}))
 
 	readPump(conn, m, roomID, username)
+}
+
+func setStatusOnline(userID uuid.UUID) {
+	if userID == uuid.Nil {
+		return
+	}
+
+	database.DB.Model(&models.User{}).Where("id = ?", userID).Update("status", models.StatusOnline)
+}
+
+func setStatusLastSeen(userID uuid.UUID) {
+	if userID == uuid.Nil {
+		return
+	}
+
+	database.DB.Model(&models.User{}).Where("id = ?", userID).Update("status", time.Now().Unix())
 }
 
 func readPump(conn *websocket.Conn, m *member, roomID, username string) {

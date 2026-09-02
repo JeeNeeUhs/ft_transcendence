@@ -3,7 +3,21 @@ import { apiClient } from "@/lib/api/client";
 export const maxAvatarSize = 5 * 1024 * 1024;
 export const avatarTypes = ["image/jpeg", "image/png"];
 
+export interface UserProfile {
+  username: string;
+  avatarUrl: string;
+  description: string;
+  status: number;
+  createdAt: string;
+}
+
 export const userService = {
+  profile: (username: string) => {
+    return apiClient<UserProfile>(`/user/${encodeURIComponent(username)}`, {
+      method: "GET"
+    });
+  },
+
   uploadAvatar: (file: File) => {
     const body = new FormData();
     body.append("avatar", file);

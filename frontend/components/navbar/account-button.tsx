@@ -34,7 +34,9 @@ function AccountDropdown({ user, onSignOut }: { user: User; onSignOut: () => voi
       ></DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuGroup>
-          <DropdownMenuItem>{tProfile("myAccount")}</DropdownMenuItem>
+          <DropdownMenuItem render={<Link href={`/users/${user.username}`} />}>
+            {tProfile("myProfile")}
+          </DropdownMenuItem>
           <DropdownMenuItem render={<Link href="/settings" />}>
             {tProfile("settings")}
           </DropdownMenuItem>

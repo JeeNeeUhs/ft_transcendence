@@ -189,8 +189,46 @@
     }
   },
   "profile": {
-    "myAccount": "Mi cuenta",
+    "myProfile": "Mi perfil",
     "settings": "Ajustes"
+  },
+  "users": {
+    "loading": "Cargando el perfil...",
+    "signInRequired": "Debes iniciar sesión para ver esta página.",
+    "notFound": "Usuario no encontrado",
+    "notFoundDescription": "No existe ningún usuario llamado {username}.",
+    "editProfile": "Editar perfil",
+    "noBio": "Este usuario todavía no ha escrito nada sobre sí mismo.",
+    "memberSince": "Miembro desde el {date}",
+    "status": {
+      "online": "En línea",
+      "lobby": "En una partida",
+      "offline": "Desconectado"
+    },
+    "friends": {
+      "title": "Amigos",
+      "empty": "Todavía no hay amigos.",
+      "emptyUser": "{username} todavía no tiene amigos.",
+      "loading": "Cargando amigos...",
+      "onlineCount": "{online}/{total} en línea"
+    },
+    "requests": {
+      "incoming": "Te envió una solicitud de amistad.",
+      "accept": "Aceptar"
+    },
+    "add": {
+      "title": "Añadir amigo",
+      "placeholder": "Añade un amigo por nombre de usuario",
+      "hint": "Los nombres de usuario distinguen mayúsculas y minúsculas.",
+      "button": "Añadir",
+      "sent": "Solicitud enviada a {username}.",
+      "self": "No puedes enviarte una solicitud de amistad a ti mismo.",
+      "userNotFound": "No existe ningún usuario con ese nombre.",
+      "alreadySent": "Ya se ha enviado una solicitud a este usuario.",
+      "usernameRequired": "El nombre de usuario es obligatorio",
+      "usernameMinValue": "El nombre de usuario debe tener al menos 3 caracteres",
+      "usernameMaxValue": "El nombre de usuario debe tener como máximo 50 caracteres"
+    }
   },
   "settings": {
     "title": "Ajustes",
@@ -283,6 +321,7 @@
       "43": "El archivo es demasiado grande.",
       "44": "Este tipo de archivo no es compatible.",
       "45": "No se pudo guardar la foto de perfil.",
+      "46": "Usuario no encontrado.",
       "47": "La descripción no es válida.",
       "48": "Tu contraseña actual es incorrecta.",
       "49": "Esta cuenta no tiene contraseña.",

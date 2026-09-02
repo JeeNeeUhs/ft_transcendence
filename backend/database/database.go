@@ -42,6 +42,12 @@ func Connect() error {
 		return fmt.Errorf("failed to migrate schema: %w", err)
 	}
 
+	// A socket that was open when the process died never ran its cleanup, so the
+	// online marker would stick forever.
+	if err := db.Model(&models.User{}).Where("status = ?", models.StatusOnline).Update("status", 0).Error; err != nil {
+		return fmt.Errorf("failed to reset online status: %w", err)
+	}
+
 	DB = db
 	log.Println("Database connection established")
 	return nil

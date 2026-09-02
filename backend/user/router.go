@@ -8,7 +8,7 @@ import (
 )
 
 func Register(api fiber.Router) {
-	user := api.Group("/user")
+	user := api.Group("/user", middleware.UpdateStatus)
 
 	user.Get("/me", middleware.RequireAuth, MeHandler)
 	user.Patch("/me", middleware.RequireAuth, UpdateMeHandler)

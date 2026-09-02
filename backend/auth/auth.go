@@ -4,6 +4,7 @@ import (
 	"errors"
 	"regexp"
 	"strings"
+	"time"
 
 	"github.com/JeeNeeUhs/ft_transcendence/apierr"
 	"github.com/JeeNeeUhs/ft_transcendence/database"
@@ -56,6 +57,7 @@ func RegisterHandler(c fiber.Ctx) error {
 	user := models.User{
 		Username:     req.Username,
 		PasswordHash: string(hash),
+		Status:       time.Now().Unix(),
 	}
 	if err := database.DB.Create(&user).Error; err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "failed to create user"})
@@ -94,6 +96,8 @@ func LoginHandler(c fiber.Ctx) error {
 		return c.Status(apierr.CodeToStatus(12)).JSON(apierr.CodeToErr(12))
 	}
 
+	database.DB.Model(&user).Where("status <> ?", models.StatusOnline).Update("status", time.Now().Unix())
+
 	tokenVersion := token.Login(user.ID)
 	accessToken, err := token.GenerateAccessToken(user.ID, tokenVersion)
 	if err != nil {
@@ -112,6 +116,8 @@ func LogoutHandler(c fiber.Ctx) error {
 	}
 
 	token.Logout(userID)
+
+	database.DB.Model(&models.User{}).Where("id = ?", userID).Update("status", 0)
 
 	return c.JSON(fiber.Map{"message": "logged out"})
 }

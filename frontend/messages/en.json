@@ -193,8 +193,46 @@
     }
   },
   "profile": {
-    "myAccount": "My Account",
+    "myProfile": "My Profile",
     "settings": "Settings"
+  },
+  "users": {
+    "loading": "Loading the profile...",
+    "signInRequired": "You need to sign in to see this page.",
+    "notFound": "User not found",
+    "notFoundDescription": "There is no user named {username}.",
+    "editProfile": "Edit profile",
+    "noBio": "This user hasn't written anything about themselves yet.",
+    "memberSince": "Member since {date}",
+    "status": {
+      "online": "Online",
+      "lobby": "In a game",
+      "offline": "Offline"
+    },
+    "friends": {
+      "title": "Friends",
+      "empty": "No friends yet.",
+      "emptyUser": "{username} has not made any friends yet.",
+      "loading": "Loading friends...",
+      "onlineCount": "{online}/{total} online"
+    },
+    "requests": {
+      "incoming": "Sent you a friend request.",
+      "accept": "Accept"
+    },
+    "add": {
+      "title": "Add friend",
+      "placeholder": "Add a friend by username",
+      "hint": "Usernames are case sensitive.",
+      "button": "Add",
+      "sent": "Request sent to {username}.",
+      "self": "You can't send yourself a friend request.",
+      "userNotFound": "There is no user with that username.",
+      "alreadySent": "A request has already been sent to this user.",
+      "usernameRequired": "Username is required",
+      "usernameMinValue": "Username must be at least 3 characters",
+      "usernameMaxValue": "Username must be at most 50 characters"
+    }
   },
   "settings": {
     "title": "Settings",
@@ -289,6 +327,7 @@
       "43": "The file is too large.",
       "44": "This file type is not supported.",
       "45": "The profile picture could not be saved.",
+      "46": "User not found.",
       "47": "Description is not valid.",
       "48": "Your current password is incorrect.",
       "49": "This account has no password.",
