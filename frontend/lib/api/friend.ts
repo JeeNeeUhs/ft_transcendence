@@ -13,6 +13,12 @@ export const friendService = {
     });
   },
 
+  userList: (username: string) => {
+    return apiClient<Friend[]>(`/friend/list/${encodeURIComponent(username)}`, {
+      method: "GET"
+    });
+  },
+
   requests: () => {
     return apiClient<Friend[]>("/friend/requests", {
       method: "GET"

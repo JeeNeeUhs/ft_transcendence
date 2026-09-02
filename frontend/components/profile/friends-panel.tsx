@@ -20,7 +20,7 @@ const presenceOrder: Record<Presence, number> = {
   offline: 2
 };
 
-export function FriendsPanel() {
+export function FriendsPanel({ username, isSelf }: { username: string; isSelf: boolean }) {
   const tUsers = useTranslations("users");
   const tError = useTranslations("error");
 
@@ -32,13 +32,15 @@ export function FriendsPanel() {
   useEffect(() => {
     const fetchFriends = async () => {
       setIsLoading(true);
+      setRequests([]);
 
+      // pending requests are always the caller's own, there is nothing to show on someone else
       const [listResponse, requestsResponse] = await Promise.all([
-        friendService.list(),
-        friendService.requests()
+        friendService.userList(username),
+        isSelf ? friendService.requests() : null
       ]);
 
-      if (!listResponse.success || !requestsResponse.success) {
+      if (!listResponse.success || (requestsResponse !== null && !requestsResponse.success)) {
         toast.add({
           type: "error",
           title: tError("genericTitle"),
@@ -50,12 +52,12 @@ export function FriendsPanel() {
       }
 
       setFriends(listResponse.data);
-      setRequests(requestsResponse.data);
+      if (requestsResponse?.success) setRequests(requestsResponse.data);
       setIsLoading(false);
     };
 
     fetchFriends();
-  }, [tError]);
+  }, [username, isSelf, tError]);
 
   const acceptRequest = async (request: Friend) => {
     setAcceptingUsername(request.username);
@@ -87,7 +89,7 @@ export function FriendsPanel() {
 
   return (
     <div className="my-10 space-y-5">
-      <AddFriendForm />
+      {isSelf && <AddFriendForm />}
 
       <div className="space-y-3">
         <SectionHeader
@@ -140,7 +142,7 @@ export function FriendsPanel() {
               </div>
             ) : (
               <p className="py-10 text-center text-xs/relaxed text-muted-foreground">
-                {tUsers("friends.empty")}
+                {isSelf ? tUsers("friends.empty") : tUsers("friends.emptyUser", { username })}
               </p>
             )}
           </>
