@@ -12,7 +12,13 @@ import { Badge } from "@/components/ui/badge";
 import { Spinner } from "@/components/ui/spinner";
 import { toast } from "@/components/ui/toast";
 import { type Friend, friendService } from "@/lib/api/friend";
-import { presenceStatus } from "@/lib/utils";
+import { type Presence, presenceStatus } from "@/lib/utils";
+
+const presenceOrder: Record<Presence, number> = {
+  online: 0,
+  lobby: 1,
+  offline: 2
+};
 
 export function FriendsPanel() {
   const tUsers = useTranslations("users");
@@ -74,10 +80,10 @@ export function FriendsPanel() {
     .map((friend) => ({ ...friend, presence: presenceStatus(friend.status) }))
     .sort((a, b) => {
       if (a.presence === b.presence) return a.username.localeCompare(b.username);
-      return a.presence === "online" ? -1 : 1;
+      return presenceOrder[a.presence] - presenceOrder[b.presence];
     });
 
-  const onlineCount = sortedFriends.filter((friend) => friend.presence === "online").length;
+  const onlineCount = sortedFriends.filter((friend) => friend.presence !== "offline").length;
 
   return (
     <div className="my-10 space-y-5">

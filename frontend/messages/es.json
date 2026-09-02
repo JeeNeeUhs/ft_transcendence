@@ -178,6 +178,7 @@
     "memberSince": "Miembro desde el {date}",
     "status": {
       "online": "En línea",
+      "lobby": "En una sala",
       "offline": "Desconectado"
     },
     "friends": {

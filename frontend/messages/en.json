@@ -182,6 +182,7 @@
     "memberSince": "Member since {date}",
     "status": {
       "online": "Online",
+      "lobby": "In a room",
       "offline": "Offline"
     },
     "friends": {

@@ -18,7 +18,7 @@ export function FriendRow({
   const tUsers = useTranslations("users");
 
   const presence = presenceStatus(status);
-  const subtitle = presence === "online" ? tUsers("status.online") : tUsers("status.offline");
+  const subtitle = tUsers(`status.${presence}`);
 
   return (
     <Link

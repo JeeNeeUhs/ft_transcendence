@@ -182,6 +182,7 @@
     "memberSince": "{date} tarihinden beri üye",
     "status": {
       "online": "Çevrim içi",
+      "lobby": "Bir odada",
       "offline": "Çevrim dışı"
     },
     "friends": {

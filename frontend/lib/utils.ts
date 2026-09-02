@@ -49,11 +49,15 @@ export function convertKeysToSnakeCase(obj: unknown): unknown {
   }, {});
 }
 
-// the backend sends the last seen unix timestamp, a user counts as online inside this window
+export type Presence = "online" | "lobby" | "offline";
+
+// the backend sends the last seen unix timestamp with two sentinels in front of it: 0 is a logged
+// out user, 1 is a user sitting in a room. anything else counts as online inside this window
 export const onlineWindow = 3 * 60 * 1000;
 
-export function presenceStatus(lastSeen?: number): "online" | "offline" {
+export function presenceStatus(lastSeen?: number): Presence {
   if (!lastSeen) return "offline";
+  if (lastSeen === 1) return "lobby";
 
   const ms = lastSeen < 10000000000 ? lastSeen * 1000 : lastSeen;
 

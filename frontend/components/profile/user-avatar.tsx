@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { cn } from "@/lib/utils";
+import { cn, type Presence } from "@/lib/utils";
 
 const avatarSizes = {
   sm: "size-9",
@@ -12,6 +12,12 @@ const dotSizes = {
   lg: "size-6"
 };
 
+const dotStyles: Record<Presence, string> = {
+  online: "bg-success",
+  lobby: "bg-warning",
+  offline: "bg-muted-foreground/40"
+};
+
 export function UserAvatar({
   username,
   avatarUrl,
@@ -20,7 +26,7 @@ export function UserAvatar({
 }: {
   username: string;
   avatarUrl?: string;
-  status?: string;
+  status?: Presence;
   size?: keyof typeof avatarSizes;
 }) {
   return (
@@ -52,7 +58,7 @@ export function UserAvatar({
           className={cn(
             "absolute right-0 bottom-0 rounded-full ring-2 ring-background",
             dotSizes[size],
-            status === "online" ? "bg-foreground" : "bg-muted-foreground/40"
+            dotStyles[status]
           )}
         />
       )}
