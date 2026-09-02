@@ -2,6 +2,30 @@
   "common": {
     "appName": "Quizinyo"
   },
+  "home": {
+    "eyebrow": "Gerçek zamanlı çok oyunculu quiz",
+    "title": "Arkadaşlarını topla, bilgini ortaya koy.",
+    "description": "Bir oda oluştur, kategorilerini seç ve herkes hazır olduğunda oyuna başla. Hızlı cevap ver, puanları topla ve sıralamanı gör.",
+    "primaryAction": "Odalara göz at",
+    "howItWorks": {
+      "eyebrow": "Nasıl çalışır?",
+      "title": "Bir sonraki oyun birkaç adım ötede."
+    },
+    "steps": {
+      "room": {
+        "title": "Bir oda bul veya oluştur",
+        "description": "Açık bir odaya katıl ya da kendi kurallarınla yeni bir oda aç."
+      },
+      "invite": {
+        "title": "Oyuncuları davet et",
+        "description": "Oda kodunu arkadaşlarınla paylaş ve herkesin hazır olmasını bekle."
+      },
+      "play": {
+        "title": "Cevapla ve yarış",
+        "description": "Süre dolmadan cevabını seç, puan kazan ve sıralamada yüksel."
+      }
+    }
+  },
   "theme": {
     "system": "Sistem",
     "dark": "Koyu",

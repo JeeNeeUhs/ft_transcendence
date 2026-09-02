@@ -2,6 +2,30 @@
   "common": {
     "appName": "Quizinyo"
   },
+  "home": {
+    "eyebrow": "Real-time multiplayer quiz",
+    "title": "Bring your friends. Put your knowledge to work.",
+    "description": "Create a room, choose your categories and start when everyone is ready. Answer quickly, collect points and see where you rank.",
+    "primaryAction": "Browse rooms",
+    "howItWorks": {
+      "eyebrow": "How it works",
+      "title": "Your next game is only a few steps away."
+    },
+    "steps": {
+      "room": {
+        "title": "Find or create a room",
+        "description": "Join an open room or create one with the categories you want."
+      },
+      "invite": {
+        "title": "Invite the players",
+        "description": "Share the room code with friends and wait until everyone is ready."
+      },
+      "play": {
+        "title": "Answer and compete",
+        "description": "Choose before time runs out, earn points and climb the ranking."
+      }
+    }
+  },
   "theme": {
     "system": "System",
     "dark": "Dark",
