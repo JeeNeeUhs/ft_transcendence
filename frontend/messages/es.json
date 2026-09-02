@@ -2,6 +2,30 @@
   "common": {
     "appName": "Quizinyo"
   },
+  "home": {
+    "eyebrow": "Quiz multijugador en tiempo real",
+    "title": "Reúne a tus amigos. Pon a prueba tus conocimientos.",
+    "description": "Crea una sala, elige tus categorías y empieza cuando todos estén listos. Responde rápido, suma puntos y descubre tu posición.",
+    "primaryAction": "Explorar salas",
+    "howItWorks": {
+      "eyebrow": "Cómo funciona",
+      "title": "Tu próxima partida está a pocos pasos."
+    },
+    "steps": {
+      "room": {
+        "title": "Busca o crea una sala",
+        "description": "Únete a una sala abierta o crea una con las categorías que quieras."
+      },
+      "invite": {
+        "title": "Invita a los jugadores",
+        "description": "Comparte el código con tus amigos y espera a que todos estén listos."
+      },
+      "play": {
+        "title": "Responde y compite",
+        "description": "Elige antes de que se acabe el tiempo, gana puntos y sube en la clasificación."
+      }
+    }
+  },
   "theme": {
     "system": "Sistema",
     "dark": "Oscuro",
