@@ -65,7 +65,7 @@ export function SignUpForm({ onSuccess }: { onSuccess: (accessToken: string) => 
         toast.add({
           type: "error",
           title: tAuth("error.genericTitle"),
-          description: tError(`error.codes.${response.errorCode}`)
+          description: tError(`codes.${response.errorCode}`)
         });
       }
 

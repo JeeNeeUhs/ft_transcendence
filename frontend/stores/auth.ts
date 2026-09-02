@@ -1,22 +1,22 @@
 import { createStore } from "zustand/vanilla";
 import type { User } from "@/lib/api/auth";
 
-export type UserState = {
+type UserState = {
   user: User | null;
   isloading: boolean;
 };
 
-export type UserStateActions = {
+type UserStateActions = {
   setUser: (user: User) => void;
   clearUser: () => void;
 };
 
-export type UserStore = UserState & UserStateActions;
-
-export const defaultInitState: UserState = {
+const defaultInitState: UserState = {
   user: null,
   isloading: true
 };
+
+export type UserStore = UserState & UserStateActions;
 
 export function createUserStore(initState: UserState = defaultInitState) {
   return createStore<UserStore>()((set) => ({

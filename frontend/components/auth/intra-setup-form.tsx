@@ -56,8 +56,8 @@ export function IntraSetupForm({ response, onSuccess }: IntraSetupFormProps) {
       } else {
         toast.add({
           type: "error",
-          title: tError("error.genericTitle"),
-          description: tError(`error.codes.${response_.errorCode}`)
+          title: tError("genericTitle"),
+          description: tError(`codes.${response_.errorCode}`)
         });
       }
 
