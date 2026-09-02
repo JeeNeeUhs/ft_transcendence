@@ -72,7 +72,101 @@
       "footer": "{time} oluşturuldu · {user}"
     },
     "allFilter": "Tümü",
-    "emptyList": "Herhangi bir oda bulunamadı, lütfen daha sonra tekrar deneyin."
+    "emptyList": "Herhangi bir oda bulunamadı, lütfen daha sonra tekrar deneyin.",
+    "create": {
+      "action": "Oluştur",
+      "title": "Yeni Oda Oluştur",
+      "description": "Bir oda oluşturun ve oynamak istediğiniz kategorileri seçin.",
+      "roomName": "Oda Adı",
+      "roomNamePlaceholder": "Oda adını girin",
+      "roomNameRequired": "Oda adı zorunludur",
+      "roomNameTooLong": "Oda adı en fazla 30 karakter olabilir.",
+      "password": "Şifre (isteğe bağlı)",
+      "passwordPlaceholder": "Şifreyi girin",
+      "passwordInvalidLen": "Şifre 4 ile 16 karakter arasında olmalıdır.",
+      "categories": "Kategoriler",
+      "categoriesRequired": "En az bir kategori seçin.",
+      "failed": "Oda oluşturulamadı."
+    },
+    "join": {
+      "action": "Katıl",
+      "title": "Odaya Katıl",
+      "description": "Bu odaya katılmak için şifreyi girin.",
+      "password": "Şifre",
+      "passwordPlaceholder": "Şifreyi girin",
+      "passwordRequired": "Şifre zorunludur",
+      "failed": "Odaya katılınamadı."
+    },
+    "detail": {
+      "you": "(sen)",
+      "leave": "Odadan ayrıl",
+      "copyCode": "Oda kodunu kopyala",
+      "copied": "Oda kodu kopyalandı",
+      "copyFailed": "Oda kodu kopyalanamadı.",
+      "status": {
+        "disconnected": "Bağlantı kesildi"
+      },
+      "loading": {
+        "connecting": "Odaya bağlanılıyor...",
+        "password": "Oda şifresi bekleniyor..."
+      },
+      "errors": {
+        "notFound": "Bu oda artık mevcut değil.",
+        "started": "Bu odadaki oyun zaten başladı.",
+        "full": "Bu oda dolu.",
+        "joinFailed": "Odaya katılınamadı.",
+        "connectionLost": "Oda bağlantın kesildi.",
+        "server": "Oda sunucusu bir hata döndürdü."
+      },
+      "system": {
+        "joined": "{user} odaya katıldı",
+        "left": "{user} odadan ayrıldı"
+      },
+      "players": {
+        "title": "Oyuncular",
+        "host": "Oda sahibi",
+        "ready": "Hazır",
+        "notReady": "Bekliyor"
+      },
+      "chat": {
+        "title": "Oda sohbeti",
+        "empty": "Henüz mesaj yok.",
+        "message": "Sohbet mesajı",
+        "placeholder": "Bir mesaj yaz...",
+        "connecting": "Sohbete bağlanılıyor...",
+        "send": "Mesaj gönder"
+      },
+      "lobby": {
+        "title": "Bilgini sınamaya hazır mısın?",
+        "readyTitle": "Hazırsın!",
+        "description": "Başlamak istediğinde kendini hazır olarak işaretle. Herkes hazır olduğunda oyun başlar.",
+        "waitingForPlayers": "En az iki oyuncu gerekli. Oda kodunu bir arkadaşınla paylaş.",
+        "waitingForOthers": "Diğer oyuncuların hazır olması bekleniyor.",
+        "readyPlayers": "Hazır oyuncular",
+        "readyAction": "Hazırım",
+        "cancelReady": "Henüz hazır değilim"
+      },
+      "game": {
+        "getReady": "Hazırlan",
+        "starting": "İlk soru birazdan geliyor",
+        "question": "Soru {current} / {total}",
+        "answered": "{answered}/{total} cevapladı",
+        "chooseAnswer": "Süre dolmadan bir cevap seç.",
+        "answerLocked": "Cevabın kilitlendi. Diğer oyuncular bekleniyor...",
+        "waitingResult": "Süre doldu. Sonuç bekleniyor...",
+        "correct": "Doğru! +{points} puan",
+        "incorrect": "Olmadı, doğru cevap işaretlendi.",
+        "noAnswer": "Bu turda cevap verilmedi.",
+        "score": "{score} puan",
+        "finishedTitle": "Oyun tamamlandı!",
+        "winner": "Kazanan {user}!",
+        "winnerScore": "Oyunu {score} puanla tamamladı",
+        "yourRank": "Sıralaman",
+        "yourScore": "Puanın",
+        "finishedDescription": "Güzel oyundu. Final sıralamasına göz at veya yeni bir tur için hazırlan.",
+        "playAgain": "Yeni oyuna hazırım"
+      }
+    }
   },
   "profile": {
     "myAccount": "Hesabım",

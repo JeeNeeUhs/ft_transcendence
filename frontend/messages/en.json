@@ -72,7 +72,101 @@
       "footer": "Created at {time} · {user}"
     },
     "allFilter": "All",
-    "emptyList": "No rooms found, please try again later."
+    "emptyList": "No rooms found, please try again later.",
+    "create": {
+      "action": "Create",
+      "title": "Create a New Room",
+      "description": "Create a room and choose the categories you want to play with.",
+      "roomName": "Room Name",
+      "roomNamePlaceholder": "Enter room name",
+      "roomNameRequired": "Room name is required",
+      "roomNameTooLong": "Room name must be at most 30 characters.",
+      "password": "Password (optional)",
+      "passwordPlaceholder": "Enter password",
+      "passwordInvalidLen": "Password must be between 4 and 16 characters.",
+      "categories": "Categories",
+      "categoriesRequired": "Select at least one category.",
+      "failed": "Failed to create the room."
+    },
+    "join": {
+      "action": "Join",
+      "title": "Join Room",
+      "description": "Enter the password to join this room.",
+      "password": "Password",
+      "passwordPlaceholder": "Enter password",
+      "passwordRequired": "Password is required",
+      "failed": "Failed to join the room."
+    },
+    "detail": {
+      "you": "(you)",
+      "leave": "Leave room",
+      "copyCode": "Copy room code",
+      "copied": "Room code copied",
+      "copyFailed": "The room code could not be copied.",
+      "status": {
+        "disconnected": "Disconnected"
+      },
+      "loading": {
+        "connecting": "Connecting to the room...",
+        "password": "Waiting for the room password..."
+      },
+      "errors": {
+        "notFound": "This room no longer exists.",
+        "started": "The game in this room has already started.",
+        "full": "This room is full.",
+        "joinFailed": "The room could not be joined.",
+        "connectionLost": "Your connection to the room was lost.",
+        "server": "The room server returned an error."
+      },
+      "system": {
+        "joined": "{user} joined the room",
+        "left": "{user} left the room"
+      },
+      "players": {
+        "title": "Players",
+        "host": "Room host",
+        "ready": "Ready",
+        "notReady": "Waiting"
+      },
+      "chat": {
+        "title": "Room chat",
+        "empty": "No messages yet.",
+        "message": "Chat message",
+        "placeholder": "Write a message...",
+        "connecting": "Connecting to chat...",
+        "send": "Send message"
+      },
+      "lobby": {
+        "title": "Ready to put your knowledge to the test?",
+        "readyTitle": "You're ready!",
+        "description": "Mark yourself ready when you want to start. The game begins when everyone is ready.",
+        "waitingForPlayers": "At least two players are needed. Share the room code with a friend.",
+        "waitingForOthers": "Waiting for the remaining players to get ready.",
+        "readyPlayers": "Ready players",
+        "readyAction": "I'm ready",
+        "cancelReady": "Not ready yet"
+      },
+      "game": {
+        "getReady": "Get ready",
+        "starting": "The first question is coming up",
+        "question": "Question {current} / {total}",
+        "answered": "{answered}/{total} answered",
+        "chooseAnswer": "Choose an answer before time runs out.",
+        "answerLocked": "Answer locked. Waiting for the others...",
+        "waitingResult": "Time's up. Waiting for the result...",
+        "correct": "Correct! +{points} points",
+        "incorrect": "Not quite, the correct answer is highlighted.",
+        "noAnswer": "No answer was submitted this round.",
+        "score": "{score} pts",
+        "finishedTitle": "Game complete!",
+        "winner": "{user} wins!",
+        "winnerScore": "Finished with {score} points",
+        "yourRank": "Your rank",
+        "yourScore": "Your score",
+        "finishedDescription": "Great game. Check the final standings or get ready for another round.",
+        "playAgain": "Ready for another game"
+      }
+    }
   },
   "profile": {
     "myAccount": "My Account",

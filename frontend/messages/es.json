@@ -68,7 +68,101 @@
     "search": "Buscar una sala",
     "card": { "join": "Unirse", "categories": "Categorías", "footer": "Creada el {time} · {user}" },
     "allFilter": "Todas",
-    "emptyList": "No se encontraron salas, inténtalo de nuevo más tarde."
+    "emptyList": "No se encontraron salas, inténtalo de nuevo más tarde.",
+    "create": {
+      "action": "Crear",
+      "title": "Crear una nueva sala",
+      "description": "Crea una sala y elige las categorías con las que quieres jugar.",
+      "roomName": "Nombre de la sala",
+      "roomNamePlaceholder": "Introduce el nombre de la sala",
+      "roomNameRequired": "El nombre de la sala es obligatorio",
+      "roomNameTooLong": "El nombre de la sala debe tener como máximo 30 caracteres.",
+      "password": "Contraseña (opcional)",
+      "passwordPlaceholder": "Introduce la contraseña",
+      "passwordInvalidLen": "La contraseña debe tener entre 4 y 16 caracteres.",
+      "categories": "Categorías",
+      "categoriesRequired": "Selecciona al menos una categoría.",
+      "failed": "No se pudo crear la sala."
+    },
+    "join": {
+      "action": "Unirse",
+      "title": "Unirse a la sala",
+      "description": "Introduce la contraseña para unirte a esta sala.",
+      "password": "Contraseña",
+      "passwordPlaceholder": "Introduce la contraseña",
+      "passwordRequired": "La contraseña es obligatoria",
+      "failed": "No se pudo unir a la sala."
+    },
+    "detail": {
+      "you": "(tú)",
+      "leave": "Salir de la sala",
+      "copyCode": "Copiar código de sala",
+      "copied": "Código de sala copiado",
+      "copyFailed": "No se pudo copiar el código de la sala.",
+      "status": {
+        "disconnected": "Desconectado"
+      },
+      "loading": {
+        "connecting": "Conectando a la sala...",
+        "password": "Esperando la contraseña de la sala..."
+      },
+      "errors": {
+        "notFound": "Esta sala ya no existe.",
+        "started": "La partida de esta sala ya ha comenzado.",
+        "full": "Esta sala está llena.",
+        "joinFailed": "No se pudo entrar en la sala.",
+        "connectionLost": "Se perdió la conexión con la sala.",
+        "server": "El servidor de la sala devolvió un error."
+      },
+      "system": {
+        "joined": "{user} se unió a la sala",
+        "left": "{user} salió de la sala"
+      },
+      "players": {
+        "title": "Jugadores",
+        "host": "Anfitrión",
+        "ready": "Listo",
+        "notReady": "Esperando"
+      },
+      "chat": {
+        "title": "Chat de la sala",
+        "empty": "Aún no hay mensajes.",
+        "message": "Mensaje de chat",
+        "placeholder": "Escribe un mensaje...",
+        "connecting": "Conectando al chat...",
+        "send": "Enviar mensaje"
+      },
+      "lobby": {
+        "title": "¿Listo para poner a prueba tus conocimientos?",
+        "readyTitle": "¡Estás listo!",
+        "description": "Márcate como listo cuando quieras empezar. La partida comienza cuando todos estén listos.",
+        "waitingForPlayers": "Se necesitan al menos dos jugadores. Comparte el código con un amigo.",
+        "waitingForOthers": "Esperando a que los demás jugadores estén listos.",
+        "readyPlayers": "Jugadores listos",
+        "readyAction": "Estoy listo",
+        "cancelReady": "Aún no estoy listo"
+      },
+      "game": {
+        "getReady": "Prepárate",
+        "starting": "La primera pregunta está por llegar",
+        "question": "Pregunta {current} / {total}",
+        "answered": "{answered}/{total} respondieron",
+        "chooseAnswer": "Elige una respuesta antes de que termine el tiempo.",
+        "answerLocked": "Respuesta bloqueada. Esperando a los demás...",
+        "waitingResult": "Se acabó el tiempo. Esperando el resultado...",
+        "correct": "¡Correcto! +{points} puntos",
+        "incorrect": "No exactamente; la respuesta correcta está marcada.",
+        "noAnswer": "No respondiste en esta ronda.",
+        "score": "{score} pts",
+        "finishedTitle": "¡Partida terminada!",
+        "winner": "¡{user} gana!",
+        "winnerScore": "Terminó con {score} puntos",
+        "yourRank": "Tu puesto",
+        "yourScore": "Tu puntuación",
+        "finishedDescription": "Buena partida. Revisa la clasificación final o prepárate para otra ronda.",
+        "playAgain": "Listo para otra partida"
+      }
+    }
   },
   "profile": {
     "myAccount": "Mi cuenta",

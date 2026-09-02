@@ -17,10 +17,11 @@ import {
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
+import { SignedIn } from "@/components/auth/auth-guard";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -49,11 +50,17 @@ export function RoomBrowser({ categories, locale }: { categories: Category[]; lo
   const tRooms = useTranslations("rooms");
   const tError = useTranslations("error");
 
-  const [searchQuery, setSearchQuery] = useState("");
-  const [categoryFilter, setCategoryFilter] = useState("all");
-  const [langFilter, setLangFilter] = useState(locale);
-
+  const [filters, setFilters] = useState({
+    search: "",
+    category: "all",
+    lang: locale
+  });
   const [rooms, setRooms] = useState<Room[]>([]);
+  const router = useRouter();
+
+  const handleJoin = (roomId: string) => {
+    router.push(`/rooms/${roomId}`);
+  };
 
   useEffect(() => {
     const fetchRooms = async () => {
@@ -101,12 +108,12 @@ export function RoomBrowser({ categories, locale }: { categories: Category[]; lo
     }))
   ];
 
-  const selectedCategory = categoryItems.find((item) => item.value === categoryFilter);
+  const selectedCategory = categoryItems.find((item) => item.value === filters.category);
   const filteredRooms = rooms.filter((room) => {
-    const matchesSearch = room.name.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = room.name.toLowerCase().includes(filters.search.toLowerCase());
     const matchesCategory =
-      categoryFilter === "all" || room.categoryIds.includes(parseInt(categoryFilter, 10));
-    const matchesLang = langFilter === "all" || room.lang === langFilter;
+      filters.category === "all" || room.categoryIds.includes(parseInt(filters.category, 10));
+    const matchesLang = filters.lang === "all" || room.lang === filters.lang;
 
     return matchesSearch && matchesCategory && matchesLang;
   });
@@ -117,51 +124,47 @@ export function RoomBrowser({ categories, locale }: { categories: Category[]; lo
         <Input
           placeholder={tRooms("search")}
           className="max-w-70"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          value={filters.search}
+          onChange={(e) => setFilters((prev) => ({ ...prev, search: e.target.value }))}
         />
         <div className="flex gap-2">
-          <Select value={langFilter} onValueChange={(value) => setLangFilter(value ?? "all")}>
+          <Select
+            value={filters.lang}
+            onValueChange={(value) => setFilters((prev) => ({ ...prev, lang: value ?? "all" }))}
+          >
             <SelectTrigger className="w-fit">
               <SelectValue>
-                <div className="flex items-center gap-2">
-                  <Image
-                    src={`/flags/${langFilter}.svg`}
-                    width={16}
-                    height={12}
-                    alt={langFilter}
-                    className="w-[16px] h-[12px] object-cover"
-                  />
-                  <span>{tLang(langFilter)}</span>
+                <div className="flex items-center gap-x-2">
+                  <span className="relative h-3 w-4 shrink-0 overflow-hidden">
+                    <Image
+                      src={`/flags/${filters.lang}.svg`}
+                      fill
+                      sizes="16px"
+                      alt={filters.lang}
+                      className="object-cover"
+                    />
+                  </span>
+                  <span>{tLang(filters.lang)}</span>
                 </div>
               </SelectValue>
             </SelectTrigger>
             <SelectContent>
               {["all", "tr", "en", "es"].map((lang) => (
                 <SelectItem key={lang} value={lang}>
-                  <div className="flex items-center gap-2">
-                    <Image
-                      src={`/flags/${lang}.svg`}
-                      width={16}
-                      height={12}
-                      alt={lang}
-                      className="w-[16px] h-[12px] object-cover"
-                    />
-                    <span>{tLang(lang)}</span>
-                  </div>
+                  <span>{tLang(lang)}</span>
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
 
           <Select
-            value={categoryFilter}
-            onValueChange={(value) => setCategoryFilter(value ?? "all")}
+            value={filters.category}
+            onValueChange={(value) => setFilters((prev) => ({ ...prev, category: value ?? "all" }))}
           >
             <SelectTrigger className="w-fit">
               <SelectValue>
                 {selectedCategory ? (
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-x-2">
                     <HugeiconsIcon icon={selectedCategory.icon} size={16} />
                     <span>{selectedCategory.label}</span>
                   </div>
@@ -173,10 +176,7 @@ export function RoomBrowser({ categories, locale }: { categories: Category[]; lo
             <SelectContent>
               {categoryItems.map((item) => (
                 <SelectItem key={item.value} value={item.value}>
-                  <div className="flex items-center gap-2">
-                    <HugeiconsIcon icon={item.icon} size={16} />
-                    <span>{item.label}</span>
-                  </div>
+                  <span>{item.label}</span>
                 </SelectItem>
               ))}
             </SelectContent>
@@ -200,15 +200,29 @@ export function RoomBrowser({ categories, locale }: { categories: Category[]; lo
                     <HugeiconsIcon icon={UserMultiple02Icon} /> {room.userCount}/20
                   </Badge>
                   <Badge variant="outline" className="flex items-center gap-1">
-                    <Image src={`/flags/${room.lang}.svg`} width={12} height={12} alt={room.lang} />
+                    <span className="relative size-3 shrink-0 overflow-hidden">
+                      <Image
+                        src={`/flags/${room.lang}.svg`}
+                        fill
+                        sizes="12px"
+                        alt={room.lang}
+                        className="object-cover"
+                      />
+                    </span>
                     {tLang(room.lang)}
                   </Badge>
                 </CardDescription>
-                <CardAction>
-                  <Link href={`/rooms/${room.id}`}>
-                    <Button variant={"secondary"}>Join</Button>
-                  </Link>
-                </CardAction>
+                <SignedIn>
+                  <CardAction>
+                    <Button
+                      variant={"secondary"}
+                      disabled={room.started || room.userCount >= 20}
+                      onClick={() => handleJoin(room.id)}
+                    >
+                      {tRooms("card.join")}
+                    </Button>
+                  </CardAction>
+                </SignedIn>
               </CardHeader>
               <CardContent className="flex flex-wrap gap-1 items-center">
                 <div>{tRooms("card.categories")}:</div>
