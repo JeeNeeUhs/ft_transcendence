@@ -94,7 +94,6 @@ export function FriendsPanel({ username, isSelf }: { username: string; isSelf: b
       <div className="space-y-3">
         <SectionHeader
           title={tUsers("friends.title")}
-          description={tUsers("friends.description")}
           action={
             <Badge variant="outline">
               {tUsers("friends.onlineCount", { online: onlineCount, total: friends.length })}

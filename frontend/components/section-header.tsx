@@ -6,7 +6,7 @@ export function SectionHeader({
   action
 }: {
   title: string;
-  description: string;
+  description?: string;
   action?: React.ReactNode;
 }) {
   return (
@@ -14,7 +14,7 @@ export function SectionHeader({
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-1">
           <h2 className="font-heading text-sm font-medium">{title}</h2>
-          <p className="text-xs/relaxed text-muted-foreground">{description}</p>
+          {description && <p className="text-xs/relaxed text-muted-foreground">{description}</p>}
         </div>
         {action}
       </div>

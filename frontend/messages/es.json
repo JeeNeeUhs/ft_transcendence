@@ -183,7 +183,6 @@
     },
     "friends": {
       "title": "Amigos",
-      "description": "Quienes están en línea aparecen primero.",
       "empty": "Todavía no hay amigos.",
       "emptyUser": "{username} todavía no tiene amigos.",
       "loading": "Cargando amigos...",

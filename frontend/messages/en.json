@@ -187,7 +187,6 @@
     },
     "friends": {
       "title": "Friends",
-      "description": "Everyone who is online is listed first.",
       "empty": "No friends yet.",
       "emptyUser": "{username} has not made any friends yet.",
       "loading": "Loading friends...",
