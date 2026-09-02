@@ -16,8 +16,6 @@ export interface ApiOptions extends Omit<RequestInit, "body"> {
   body?: unknown;
 }
 
-const base_url = process.env.NEXT_PUBLIC_API_URL;
-
 export function getAccessToken() {
   if (typeof window === "undefined") return null;
 
@@ -47,7 +45,7 @@ export async function apiClient<T>(endpoint: string, options: ApiOptions = {}): 
   }
 
   try {
-    const response = await fetch(`${base_url}/api${endpoint}`, fetchOptions);
+    const response = await fetch(`/api${endpoint}`, fetchOptions);
 
     if (!response.ok) {
       let errorCode = 0;
