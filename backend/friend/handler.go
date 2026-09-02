@@ -91,7 +91,7 @@ func AcceptRequestHandler(c fiber.Ctx) error {
 type UserResponse struct {
 	Username  string `json:"username"`
 	AvatarURL string `json:"avatar_url"`
-	Status    string `json:"status"`
+	Status    int64  `json:"status"`
 }
 
 

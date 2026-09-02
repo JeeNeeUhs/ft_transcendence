@@ -6,7 +6,7 @@ import (
 )
 
 func Register(api fiber.Router) {
-	apikeyGroup := api.Group("/apikey")
+	apikeyGroup := api.Group("/apikey", middleware.UpdateStatus)
 	
 
 	apikeyGroup.Get("/", middleware.RequireAuth, HandleGetKey)

@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS users (
     intra_id VARCHAR(15),
     is_2fa_enabled BOOLEAN DEFAULT false,
     two_factor_secret VARCHAR,
-    status VARCHAR(20) DEFAULT 'offline',
+    status BIGINT NOT NULL DEFAULT 0,
     created_at TIMESTAMP DEFAULT NOW()
 );
 

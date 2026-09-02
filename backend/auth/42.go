@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 
 	"github.com/JeeNeeUhs/ft_transcendence/apierr"
 	"github.com/JeeNeeUhs/ft_transcendence/config"
@@ -115,6 +116,8 @@ func CallbackHandler(c fiber.Ctx) error {
 	var existingUser models.User
 	err = database.DB.Where("intra_id = ?", userInfo["login"]).First(&existingUser).Error
 	if err == nil {
+		database.DB.Model(&existingUser).Where("status <> ?", models.StatusOnline).Update("status", time.Now().Unix())
+
 		tokenVersion := token.Login(existingUser.ID)
 		accessToken, err := token.GenerateAccessToken(existingUser.ID, tokenVersion)
 		if err != nil {
@@ -205,6 +208,7 @@ func Register42Handler(c fiber.Ctx) error {
 		AvatarURL: u.Image.Link,
 		IntraID:   u.Login,
 		IsIntra:   true,
+		Status:    time.Now().Unix(),
 	}
 	if err := database.DB.Create(&user).Error; err != nil {
 		return c.Status(apierr.CodeToStatus(11)).JSON(apierr.CodeToErr(11))
