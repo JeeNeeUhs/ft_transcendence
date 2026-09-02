@@ -143,3 +143,32 @@ func GetFriendsHandler(c fiber.Ctx) error {
 	}
 	return c.Status(fiber.StatusOK).JSON(friends)
 }
+
+func GetUserFriendsHandler(c fiber.Ctx) error {
+	var target struct {
+		ID uuid.UUID
+	}
+
+	err := database.DB.Table("users").Select("id").Where("username = ?", c.Params("username")).First(&target).Error
+	if err != nil {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "user not found in db"})
+	}
+
+	var friends []UserResponse
+	query := `
+		SELECT u.username, u.avatar_url, u.status
+		FROM users u
+		INNER JOIN friendships f ON (u.id = f.requester_id OR u.id = f.addressee_id)
+		WHERE (f.requester_id = ? OR f.addressee_id = ?)
+		  AND f.status = 'accepted'
+		  AND u.id != ?
+	`
+	if err := database.DB.Raw(query, target.ID, target.ID, target.ID).Scan(&friends).Error; err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "database error"})
+	}
+
+	if friends == nil {
+		friends = []UserResponse{}
+	}
+	return c.Status(fiber.StatusOK).JSON(friends)
+}
