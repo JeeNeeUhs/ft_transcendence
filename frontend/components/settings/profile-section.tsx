@@ -6,8 +6,8 @@ import { useMemo, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
 
-import { AvatarField } from "@/components/settings/avatar-field";
 import { SectionHeader } from "@/components/section-header";
+import { AvatarField } from "@/components/settings/avatar-field";
 import { Button } from "@/components/ui/button";
 import {
   Field,

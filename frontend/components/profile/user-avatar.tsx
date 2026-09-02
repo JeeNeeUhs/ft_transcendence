@@ -32,7 +32,6 @@ export function UserAvatar({
             alt={username}
             fill
             sizes="96px"
-            // avatars are served from the api host, which the next server cannot reach in docker
             unoptimized
             className="object-cover"
           />
