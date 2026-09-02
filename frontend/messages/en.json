@@ -155,7 +155,7 @@
         "answerLocked": "Answer locked. Waiting for the others...",
         "waitingResult": "Time's up. Waiting for the result...",
         "correct": "Correct! +{points} points",
-        "incorrect": "Not quite — the correct answer is highlighted.",
+        "incorrect": "Not quite, the correct answer is highlighted.",
         "noAnswer": "No answer was submitted this round.",
         "score": "{score} pts",
         "finishedTitle": "Game complete!",

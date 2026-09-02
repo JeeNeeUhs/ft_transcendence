@@ -155,7 +155,7 @@
         "answerLocked": "Cevabın kilitlendi. Diğer oyuncular bekleniyor...",
         "waitingResult": "Süre doldu. Sonuç bekleniyor...",
         "correct": "Doğru! +{points} puan",
-        "incorrect": "Olmadı — doğru cevap işaretlendi.",
+        "incorrect": "Olmadı, doğru cevap işaretlendi.",
         "noAnswer": "Bu turda cevap verilmedi.",
         "score": "{score} puan",
         "finishedTitle": "Oyun tamamlandı!",
