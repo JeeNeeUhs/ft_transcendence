@@ -135,13 +135,15 @@ export function RoomBrowser({ categories, locale }: { categories: Category[]; lo
             <SelectTrigger className="w-fit">
               <SelectValue>
                 <div className="flex items-center gap-x-2">
-                  <Image
-                    src={`/flags/${filters.lang}.svg`}
-                    width={16}
-                    height={12}
-                    alt={filters.lang}
-                    className="w-[16px] h-[12px] object-cover"
-                  />
+                  <span className="relative h-3 w-4 shrink-0 overflow-hidden">
+                    <Image
+                      src={`/flags/${filters.lang}.svg`}
+                      fill
+                      sizes="16px"
+                      alt={filters.lang}
+                      className="object-cover"
+                    />
+                  </span>
                   <span>{tLang(filters.lang)}</span>
                 </div>
               </SelectValue>
@@ -198,7 +200,15 @@ export function RoomBrowser({ categories, locale }: { categories: Category[]; lo
                     <HugeiconsIcon icon={UserMultiple02Icon} /> {room.userCount}/20
                   </Badge>
                   <Badge variant="outline" className="flex items-center gap-1">
-                    <Image src={`/flags/${room.lang}.svg`} width={12} height={12} alt={room.lang} />
+                    <span className="relative size-3 shrink-0 overflow-hidden">
+                      <Image
+                        src={`/flags/${room.lang}.svg`}
+                        fill
+                        sizes="12px"
+                        alt={room.lang}
+                        className="object-cover"
+                      />
+                    </span>
                     {tLang(room.lang)}
                   </Badge>
                 </CardDescription>
