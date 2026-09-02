@@ -1,5 +1,9 @@
-import Image from "next/image";
+"use client";
 
+import Image from "next/image";
+import { useTranslations } from "next-intl";
+
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn, type Presence } from "@/lib/utils";
 
 const avatarSizes = {
@@ -29,6 +33,8 @@ export function UserAvatar({
   status?: Presence;
   size?: keyof typeof avatarSizes;
 }) {
+  const tUsers = useTranslations("users");
+
   return (
     <div className={cn("relative shrink-0", avatarSizes[size])}>
       <div className="relative size-full overflow-hidden rounded-full bg-muted">
@@ -53,14 +59,20 @@ export function UserAvatar({
         )}
       </div>
       {status && (
-        <span
-          title={status}
-          className={cn(
-            "absolute right-0 bottom-0 rounded-full ring-2 ring-background",
-            dotSizes[size],
-            dotStyles[status]
-          )}
-        />
+        <Tooltip>
+          <TooltipTrigger
+            render={
+              <span
+                className={cn(
+                  "absolute right-0 bottom-0 rounded-full ring-2 ring-background",
+                  dotSizes[size],
+                  dotStyles[status]
+                )}
+              />
+            }
+          />
+          <TooltipContent>{tUsers(`status.${status}`)}</TooltipContent>
+        </Tooltip>
       )}
     </div>
   );

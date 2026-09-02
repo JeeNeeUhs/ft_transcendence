@@ -169,7 +169,7 @@
     }
   },
   "profile": {
-    "myAccount": "My Account",
+    "myProfile": "My Profile",
     "settings": "Settings"
   },
   "users": {
@@ -182,7 +182,7 @@
     "memberSince": "Member since {date}",
     "status": {
       "online": "Online",
-      "lobby": "In a room",
+      "lobby": "In a game",
       "offline": "Offline"
     },
     "friends": {

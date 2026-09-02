@@ -165,7 +165,7 @@
     }
   },
   "profile": {
-    "myAccount": "Mi cuenta",
+    "myProfile": "Mi perfil",
     "settings": "Ajustes"
   },
   "users": {
@@ -178,7 +178,7 @@
     "memberSince": "Miembro desde el {date}",
     "status": {
       "online": "En línea",
-      "lobby": "En una sala",
+      "lobby": "En una partida",
       "offline": "Desconectado"
     },
     "friends": {

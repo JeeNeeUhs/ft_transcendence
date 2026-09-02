@@ -169,7 +169,7 @@
     }
   },
   "profile": {
-    "myAccount": "Hesabım",
+    "myProfile": "Profilim",
     "settings": "Ayarlar"
   },
   "users": {
@@ -182,7 +182,7 @@
     "memberSince": "{date} tarihinden beri üye",
     "status": {
       "online": "Çevrim içi",
-      "lobby": "Bir odada",
+      "lobby": "Oyunda",
       "offline": "Çevrim dışı"
     },
     "friends": {
