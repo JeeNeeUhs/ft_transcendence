@@ -2,9 +2,6 @@
 .env*
 !.env*.example
 
-# certificates
-*.pem
-
 # editor files
 *.code-workspace
 .idea/

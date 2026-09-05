@@ -45,11 +45,11 @@ services:
       - transcendence
 
   nginx:
-    image: nginx:alpine
+    build: ./infrastructure/nginx
     restart: unless-stopped
     container_name: transcendence_nginx
     environment:
-      APP_DOMAIN: ${APP_DOMAIN:-transcendence.test}
+      APP_DOMAIN: ${APP_DOMAIN:-localhost}
     depends_on:
       - frontend
       - backend
@@ -57,7 +57,7 @@ services:
       - transcendence
     volumes:
       - ./infrastructure/nginx/default.conf.template:/etc/nginx/templates/default.conf.template:ro
-      - ./infrastructure/nginx/certs:/etc/nginx/certs:ro
+      - nginx_certs:/etc/nginx/certs
     ports:
       - "80:80"
       - "443:443"
@@ -68,3 +68,4 @@ networks:
 volumes:
   pgdata:
   avatars:
+  nginx_certs:
