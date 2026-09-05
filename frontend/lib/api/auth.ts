@@ -23,7 +23,6 @@ export const authService = {
     });
   },
 
-  // the backend reads a single field and decides on its own whether it holds a username or an email
   signIn: (identifier: string, password: string) => {
     return apiClient<{ accessToken: string }>("/auth/login", {
       method: "POST",
