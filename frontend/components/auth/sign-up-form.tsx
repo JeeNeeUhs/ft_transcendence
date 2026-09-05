@@ -28,6 +28,12 @@ export function SignUpForm({ onSuccess }: { onSuccess: (accessToken: string) => 
             .nonempty(tAuth("signUp.usernameRequired"))
             .min(3, tAuth("signUp.usernameMinValue"))
             .max(50, tAuth("signUp.usernameMaxValue")),
+          email: z
+            .string()
+            .trim()
+            .nonempty(tAuth("signUp.emailRequired"))
+            .max(255, tAuth("signUp.emailMaxValue"))
+            .pipe(z.email(tAuth("signUp.emailInvalid"))),
           password: z
             .string()
             .nonempty(tAuth("signUp.passwordRequired"))
@@ -47,6 +53,7 @@ export function SignUpForm({ onSuccess }: { onSuccess: (accessToken: string) => 
 
     defaultValues: {
       username: "",
+      email: "",
       password: "",
       confirmPassword: ""
     }
@@ -55,16 +62,20 @@ export function SignUpForm({ onSuccess }: { onSuccess: (accessToken: string) => 
   async function onSubmit(data: z.infer<typeof formSchema>) {
     setIsLoading(true);
 
-    const response = await authService.signUp(data.username, data.password);
+    const response = await authService.signUp(data.username, data.email, data.password);
     if (!response.success) {
-      if (response.status === 409) {
+      if (response.errorCode === 52) {
+        form.setError("email", {
+          message: tAuth("signUp.emailShouldUnique")
+        });
+      } else if (response.status === 409) {
         form.setError("username", {
           message: tAuth("signUp.usernameShouldUnique")
         });
       } else {
         toast.add({
           type: "error",
-          title: tAuth("error.genericTitle"),
+          title: tError("genericTitle"),
           description: tError(`codes.${response.errorCode}`)
         });
       }
@@ -94,6 +105,24 @@ export function SignUpForm({ onSuccess }: { onSuccess: (accessToken: string) => 
                   autoComplete="off"
                 />
                 <FieldDescription>{tAuth("signUp.uniqueUsername")}</FieldDescription>
+                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+              </Field>
+            )}
+          />
+          <Controller
+            name="email"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor="sign-up-form-email">{tAuth("email")}</FieldLabel>
+                <Input
+                  {...field}
+                  id="sign-up-form-email"
+                  type="email"
+                  aria-invalid={fieldState.invalid}
+                  placeholder={tAuth("enterEmail")}
+                  autoComplete="off"
+                />
                 {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
               </Field>
             )}

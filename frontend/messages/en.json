@@ -39,8 +39,12 @@
   },
   "auth": {
     "username": "Username",
+    "email": "Email",
+    "usernameOrEmail": "Username or email",
     "password": "Password",
     "enterUsername": "Enter your username",
+    "enterEmail": "Enter your email address",
+    "enterUsernameOrEmail": "Enter your username or email",
     "enterPassword": "Enter your password",
     "confirmPassword": "Confirm your password",
     "separator": "or continue with",
@@ -51,9 +55,9 @@
       "desc": "Sign in to your account to continue",
       "footer": "Don't have an account?",
       "action": "Sign up",
-      "usernameRequired": "Username is required",
+      "usernameOrEmailRequired": "Username or email is required",
       "passwordRequired": "Password is required",
-      "invalidUsernameOrPassword": "Invalid username or password"
+      "invalidUsernameOrPassword": "Invalid username, email or password"
     },
     "signUp": {
       "button": "Sign up",
@@ -64,6 +68,10 @@
       "usernameRequired": "Username is required",
       "usernameMinValue": "Username must be at least 3 characters",
       "usernameMaxValue": "Username must be at most 50 characters",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Enter a valid email address",
+      "emailMaxValue": "Email must be at most 255 characters",
+      "emailShouldUnique": "This email is already in use",
       "passwordRequired": "Password is required",
       "passwordMinValue": "Password must be at least 8 characters",
       "passwordMaxValue": "Password must be at most 50 characters",
@@ -331,7 +339,9 @@
       "47": "Description is not valid.",
       "48": "Your current password is incorrect.",
       "49": "This account has no password.",
-      "50": "API key not found."
+      "50": "API key not found.",
+      "51": "The email address is not valid.",
+      "52": "This email is already in use."
     }
   }
 }

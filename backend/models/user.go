@@ -11,6 +11,7 @@ const StatusOnline int64 = 1
 type User struct {
 	ID              uuid.UUID `gorm:"type:uuid;primaryKey;default:uuid_generate_v4()" json:"id"`
 	Username        string    `gorm:"column:username;type:varchar(50);unique;not null" json:"username"`
+	Email           string    `gorm:"column:email;type:varchar(255);unique" json:"-"`
 	PasswordHash    string    `gorm:"column:password_hash;not null" json:"-"`
 	AvatarURL       string    `gorm:"column:avatar_url" json:"avatar_url,omitempty"`
 	Description     string    `gorm:"column:description;type:varchar(100)" json:"description,omitempty"`

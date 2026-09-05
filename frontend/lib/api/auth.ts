@@ -16,17 +16,17 @@ export type User = {
 };
 
 export const authService = {
-  signUp: (username: string, password: string) => {
+  signUp: (username: string, email: string, password: string) => {
     return apiClient<{ accessToken: string }>("/auth/register", {
       method: "POST",
-      body: { username, password }
+      body: { username, email, password }
     });
   },
 
-  signIn: (username: string, password: string) => {
+  signIn: (identifier: string, password: string) => {
     return apiClient<{ accessToken: string }>("/auth/login", {
       method: "POST",
-      body: { username, password }
+      body: { username: identifier, password }
     });
   },
 
