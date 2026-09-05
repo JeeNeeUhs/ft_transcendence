@@ -9,8 +9,6 @@ CREATE TABLE IF NOT EXISTS users (
     description VARCHAR(500),
     is_intra BOOLEAN DEFAULT false,
     intra_id VARCHAR(15),
-    is_2fa_enabled BOOLEAN DEFAULT false,
-    two_factor_secret VARCHAR,
     status BIGINT NOT NULL DEFAULT 0,
     created_at TIMESTAMP DEFAULT NOW()
 );

@@ -13,7 +13,7 @@ var Secret = []byte(config.JwtSecret)
 
 const (
 	Issuer    = "transcendence"
-	AccessTTL = 60 * time.Minute
+	AccessTTL = 60 * 24 * 7 * time.Minute
 )
 
 type AccessClaims struct {
