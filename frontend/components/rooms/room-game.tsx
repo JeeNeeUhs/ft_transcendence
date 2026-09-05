@@ -181,6 +181,7 @@ export function RoomGame({
     D: question.optionD
   };
   const isResult = phase === "result";
+  const canSelectOption = !isResult && selectedOption === null && connectionReady && timeLeft > 0;
   const progress = duration > 0 ? Math.max(0, Math.min(100, (timeLeft / duration) * 100)) : 0;
 
   return (
@@ -224,12 +225,13 @@ export function RoomGame({
               <button
                 key={option}
                 type="button"
-                disabled={isResult || selectedOption !== null || !connectionReady || timeLeft <= 0}
+                disabled={!canSelectOption}
                 onClick={() => onAnswer(option)}
                 className={cn(
                   "flex min-h-18 items-center gap-3 rounded-lg border bg-background p-3 text-left text-sm",
-                  "hover:border-foreground/30 hover:bg-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40",
                   "disabled:cursor-default disabled:opacity-100",
+                  canSelectOption && "hover:border-foreground/30 hover:bg-muted/50",
                   isSelected && !isResult && "border-primary bg-primary/5 ring-1 ring-primary/20",
                   isCorrect && "border-emerald-500/60 bg-emerald-500/10",
                   isWrongSelection && "border-destructive/60 bg-destructive/10"
