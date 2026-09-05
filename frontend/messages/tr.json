@@ -26,6 +26,71 @@
       }
     }
   },
+  "footer": {
+    "copyright": "Quizinyo. Öğrenmek ve eğlenmek için geliştirildi.",
+    "privacy": "Gizlilik Politikası",
+    "terms": "Kullanım Koşulları"
+  },
+  "privacy": {
+    "title": "Gizlilik Politikası",
+    "description": "Bu politika, hesap oluşturduğunuzda ve gerçek zamanlı quiz oynadığınızda Quizinyo tarafından işlenen bilgileri açıklar.",
+    "sections": {
+      "data": {
+        "title": "İşlediğimiz bilgiler",
+        "body": "Bir hesap oluşturduğunuzda kullanıcı adınız ve hesap oluşturma tarihiniz saklanır. Yerel hesaplarda parolanız saklanmadan önce özetlenir. 42 ile giriş yaptığınızda 42 API tarafından döndürülen profil bilgileri kimlik doğrulama sırasında işlenir; 42 kullanıcı adınız ve profil görseliniz hesabınızla birlikte saklanır. İsteğe bağlı olarak avatar ve profil açıklaması ekleyebilirsiniz. Bir API anahtarı oluşturursanız anahtar ve oluşturulma tarihi saklanır. Quizinyo kullanılırken oyunu çalıştırmak için arkadaşlıklar, çevrim içi durum, oda etkinliği, sohbet mesajları, cevaplar ve skorlar işlenir."
+      },
+      "use": {
+        "title": "Bilgileri nasıl kullanıyoruz",
+        "body": "Bu bilgileri kimliğinizi doğrulamak, profilinizi göstermek, arkadaşlarınızla bağlantı kurmanızı sağlamak, odaları ve canlı oyunları çalıştırmak, oluşturduğunuzda genel API erişimi sunmak, güvenliği korumak ve teknik sorunları çözmek için kullanırız. Bilgileriniz reklam amacıyla kullanılmaz."
+      },
+      "sharing": {
+        "title": "Görünürlük ve üçüncü taraflar",
+        "body": "Kullanıcı adınız, avatarınız, profil açıklamanız, durumunuz, hesap oluşturma tarihiniz, arkadaş listeniz ve oyun etkinliğiniz diğer oyuncular tarafından görülebilir. 42 ile girişi seçtiğinizde kimlik doğrulama talebi 42 tarafından kendi politikalarına göre işlenir. Kişisel bilgiler satılmaz. Bilgiler Quizinyo altyapısını sağlayan hizmetlerce işlenebilir veya yasaların gerektirdiği durumlarda paylaşılabilir."
+      },
+      "storage": {
+        "title": "Saklama ve güvenlik",
+        "body": "Hesap, profil ve arkadaşlık kayıtları hizmetin veritabanında tutulur; Quizinyo'nun bu sürümünde kullanıcıların kendi hesabını silebileceği bir özellik yoktur. API anahtarınız Ayarlar sayfasından silene kadar saklanır. Canlı oda, sohbet, cevap ve skor verileri geçicidir ve yalnızca etkin oda boyunca tutulur. Oturum anahtarınız tarayıcınızın yerel depolamasında, dil tercihiniz ise bir çerezde saklanır. Parolalar saklanmadan önce özetlenir ancak hiçbir sistem mutlak güvenlik garanti edemez."
+      },
+      "choices": {
+        "title": "Tercihleriniz",
+        "body": "Ayarlar sayfasından avatarınızı, profil açıklamanızı ve yerel hesap parolanızı güncelleyebilirsiniz. Ayrıca API anahtarınızı oluşturabilir veya silebilir ve istediğiniz zaman çıkış yapabilirsiniz. Herkese açık profilinizde veya oda sohbetinde hassas bilgi paylaşmayın. Hesap ve gizlilik talepleri için kullandığınız Quizinyo kurulumunun yöneticileriyle iletişime geçin."
+      },
+      "changes": {
+        "title": "Bu politikadaki değişiklikler",
+        "body": "Quizinyo değiştikçe bu politika güncellenebilir. Bir güncellemeden sonra hizmeti kullanmaya devam etmeniz, sonraki kullanımınıza güncel politikanın uygulanacağı anlamına gelir."
+      }
+    }
+  },
+  "terms": {
+    "title": "Kullanım Koşulları",
+    "description": "Bu koşullar, Quizinyo kullanımına ve çok oyunculu alanların adil ve keyifli kalmasına ilişkin temel kuralları belirler.",
+    "sections": {
+      "acceptance": {
+        "title": "Quizinyo kullanımı",
+        "body": "Quizinyo hizmetine erişerek veya hizmeti kullanarak bu koşulları kabul etmiş olursunuz. Kabul etmiyorsanız hizmeti kullanmayın. Quizinyo, eğitim amaçlı çok oyunculu bir quiz projesidir ve kişisel, ticari olmayan kullanım için sunulur."
+      },
+      "accounts": {
+        "title": "Hesaplar ve erişim",
+        "body": "Hesabınızla gerçekleştirilen işlemlerden ve parolanız ile API anahtarınızın güvenliğinden siz sorumlusunuz. Doğru hesap bilgileri kullanın ve hesabınızın ele geçirildiğini düşünüyorsanız kurulum yöneticilerine bildirin. 42 ile giriş yapıyorsanız 42 kullanımınız ayrıca kendi koşullarına tabidir."
+      },
+      "conduct": {
+        "title": "Adil ve saygılı oyun",
+        "body": "Diğer oyuncuları taciz etmeyin; yasa dışı veya zararlı içerik paylaşmayın; hile yapmayın; başkasını taklit etmeyin; oyunları aksatmayın; yetkisiz erişim sağlamaya, güvenlik önlemlerini aşmaya veya hizmeti ya da genel API'yi aşırı yüklemeye çalışmayın. Sohbeti ve sosyal özellikleri saygılı biçimde kullanın."
+      },
+      "content": {
+        "title": "İçeriğiniz",
+        "body": "Gönderdiğiniz oda adları, profil metinleri, avatarlar ve sohbet mesajlarından siz sorumlusunuz. Yalnızca kullanma hakkına sahip olduğunuz içerikleri paylaşın; hassas kişisel bilgilere veya diğer oyunculara zarar verecek içeriklere yer vermeyin."
+      },
+      "availability": {
+        "title": "Hizmet ve quiz içeriği",
+        "body": "Quizinyo mevcut haliyle sunulur; hizmetin kesintisiz veya hatasız olacağı ya da her quiz cevabının doğru olacağı garanti edilmez. Skorlar ve sıralamalar yalnızca eğlence amaçlıdır ve maddi değer taşımaz. Özellikler değişebilir veya kullanılamaz hale gelebilir."
+      },
+      "changes": {
+        "title": "Hizmet ve koşul değişiklikleri",
+        "body": "Hizmet güvenlik, bakım veya teknik nedenlerle geçici olarak kullanılamayabilir. Proje geliştikçe bu koşullar güncellenebilir. Güncellemeden sonra kullanıma devam etmeniz yeni koşulları kabul ettiğiniz anlamına gelir."
+      }
+    }
+  },
   "theme": {
     "system": "Sistem",
     "dark": "Koyu",

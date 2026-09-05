@@ -26,6 +26,71 @@
       }
     }
   },
+  "footer": {
+    "copyright": "Quizinyo. Built for learning and play.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "description": "This policy explains what information Quizinyo handles when you create an account and play the real-time quiz.",
+    "sections": {
+      "data": {
+        "title": "Information we handle",
+        "body": "When you create an account, we store your username and account creation date. For local accounts, your password is hashed before storage. If you sign in through 42, profile information returned by the 42 API is processed during authentication; your 42 login identifier and profile image are stored with your account. You may also provide an avatar and profile description. If you create an API key, the key and its creation date are stored. While you use Quizinyo, we process friendships, online status, room activity, chat messages, answers, and scores needed to run the game."
+      },
+      "use": {
+        "title": "How we use information",
+        "body": "We use this information to authenticate you, display your profile, connect you with friends, operate rooms and live games, provide public API access when you create an API key, maintain security, and troubleshoot the service. We do not use your information for advertising."
+      },
+      "sharing": {
+        "title": "Visibility and third parties",
+        "body": "Your username, avatar, profile description, status, account creation date, friend list, and game-related activity may be visible to other players. When you choose 42 sign-in, 42 processes the authentication request under its own policies. We do not sell personal information. Information may be handled by the infrastructure used to host Quizinyo or disclosed where required by law."
+      },
+      "storage": {
+        "title": "Storage and security",
+        "body": "Account, profile, and friendship records are kept in the service database; this version of Quizinyo does not provide self-service account deletion. An API key remains stored until you delete it from Settings. Live room, chat, answer, and score data is temporary and lasts only for the active room. Your session token is kept in your browser local storage, and your language preference is stored in a cookie. Passwords are hashed before storage, but no system can guarantee absolute security."
+      },
+      "choices": {
+        "title": "Your choices",
+        "body": "You can update your avatar, profile description, and local-account password from Settings. You can also create or delete your API key and sign out at any time. Avoid sharing sensitive information in your public profile or room chat. For account or privacy requests, contact the maintainers of the Quizinyo deployment you use."
+      },
+      "changes": {
+        "title": "Changes to this policy",
+        "body": "We may update this policy as Quizinyo changes. Continuing to use the service after an update means the revised policy applies to your future use."
+      }
+    }
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "description": "These terms set the basic rules for using Quizinyo and keeping its multiplayer spaces fair and enjoyable.",
+    "sections": {
+      "acceptance": {
+        "title": "Using Quizinyo",
+        "body": "By accessing or using Quizinyo, you agree to these terms. If you do not agree, do not use the service. Quizinyo is an educational multiplayer quiz project and is provided for personal, non-commercial use."
+      },
+      "accounts": {
+        "title": "Accounts and access",
+        "body": "You are responsible for activity under your account and for keeping your password or API key secure. Use accurate account information and tell the deployment maintainers if you believe your account has been compromised. If you use 42 sign-in, your use of 42 is also governed by its own terms."
+      },
+      "conduct": {
+        "title": "Fair and respectful play",
+        "body": "Do not harass other players, post unlawful or harmful material, cheat, impersonate others, disrupt games, attempt unauthorized access, bypass security controls, or overload the service or public API. Use room chat and social features respectfully."
+      },
+      "content": {
+        "title": "Your content",
+        "body": "You remain responsible for room names, profile text, avatars, and chat messages you submit. Only share content you have the right to use, and do not include sensitive personal information or material that harms other players."
+      },
+      "availability": {
+        "title": "Availability and quiz content",
+        "body": "Quizinyo is provided as available, without a promise that it will always be uninterrupted, error-free, or that every quiz answer will be accurate. Scores and rankings are for entertainment and have no monetary value. Features may change or become unavailable."
+      },
+      "changes": {
+        "title": "Service and terms changes",
+        "body": "The service may be temporarily unavailable for security, maintenance, or technical reasons. We may revise these terms as the project evolves. Continued use after an update means you accept the revised terms."
+      }
+    }
+  },
   "theme": {
     "system": "System",
     "dark": "Dark",
