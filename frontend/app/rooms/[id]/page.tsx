@@ -243,20 +243,24 @@ export default function RoomPage() {
         case "user_left":
           if (data.room) {
             setRoom(data.room);
-            setGame((previous) => ({
-              ...previous,
-              scoreboard:
-                data.room?.users.map((user) => {
-                  const existing = previous.scoreboard.find(
-                    (entry) => entry.username === user.username
-                  );
-                  return {
-                    username: user.username,
-                    score: existing?.score ?? 0,
-                    rank: existing?.score ? existing.rank : 1
-                  };
-                }) ?? previous.scoreboard
-            }));
+            setGame((previous) => {
+              if (previous.phase === "finished") return previous;
+
+              return {
+                ...previous,
+                scoreboard:
+                  data.room?.users.map((user) => {
+                    const existing = previous.scoreboard.find(
+                      (entry) => entry.username === user.username
+                    );
+                    return {
+                      username: user.username,
+                      score: existing?.score ?? 0,
+                      rank: existing?.score ? existing.rank : 1
+                    };
+                  }) ?? previous.scoreboard
+              };
+            });
           }
           if (data.user && data.user !== currentUser?.username) {
             const message = t(data.type === "user_joined" ? "system.joined" : "system.left", {
