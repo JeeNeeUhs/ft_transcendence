@@ -39,8 +39,12 @@
   },
   "auth": {
     "username": "Nombre de usuario",
+    "email": "Correo electrónico",
+    "usernameOrEmail": "Nombre de usuario o correo electrónico",
     "password": "Contraseña",
     "enterUsername": "Introduce tu nombre de usuario",
+    "enterEmail": "Introduce tu correo electrónico",
+    "enterUsernameOrEmail": "Introduce tu nombre de usuario o correo electrónico",
     "enterPassword": "Introduce tu contraseña",
     "confirmPassword": "Confirma tu contraseña",
     "separator": "o continuar con",
@@ -51,9 +55,9 @@
       "desc": "Inicia sesión en tu cuenta para continuar",
       "footer": "¿No tienes una cuenta?",
       "action": "Regístrate",
-      "usernameRequired": "El nombre de usuario es obligatorio",
+      "usernameOrEmailRequired": "El nombre de usuario o el correo electrónico es obligatorio",
       "passwordRequired": "La contraseña es obligatoria",
-      "invalidUsernameOrPassword": "Nombre de usuario o contraseña incorrectos"
+      "invalidUsernameOrPassword": "Nombre de usuario, correo electrónico o contraseña incorrectos"
     },
     "signUp": {
       "button": "Registrarse",
@@ -64,6 +68,10 @@
       "usernameRequired": "El nombre de usuario es obligatorio",
       "usernameMinValue": "El nombre de usuario debe tener al menos 3 caracteres",
       "usernameMaxValue": "El nombre de usuario debe tener un máximo de 50 caracteres",
+      "emailRequired": "El correo electrónico es obligatorio",
+      "emailInvalid": "Introduce un correo electrónico válido",
+      "emailMaxValue": "El correo electrónico debe tener un máximo de 255 caracteres",
+      "emailShouldUnique": "Este correo electrónico ya está en uso",
       "passwordRequired": "La contraseña es obligatoria",
       "passwordMinValue": "La contraseña debe tener al menos 8 caracteres",
       "passwordMaxValue": "La contraseña debe tener un máximo de 50 caracteres",
@@ -326,6 +334,8 @@
       "48": "Tu contraseña actual es incorrecta.",
       "49": "Esta cuenta no tiene contraseña.",
       "50": "No se encontró la clave de API.",
+      "51": "El correo electrónico no es válido.",
+      "52": "Este correo electrónico ya está en uso.",
       "-1": "Se perdió la conexión, por favor inténtalo de nuevo.",
       "0": "Ocurrió un error desconocido."
     }

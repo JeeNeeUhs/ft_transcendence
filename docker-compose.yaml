@@ -44,23 +44,23 @@ services:
     networks:
       - transcendence
 
-  nginx:
-    image: nginx:alpine
-    restart: unless-stopped
-    container_name: transcendence_nginx
-    environment:
-      APP_DOMAIN: ${APP_DOMAIN:-transcendence.test}
-    depends_on:
-      - frontend
-      - backend
-    networks:
-      - transcendence
-    volumes:
-      - ./infrastructure/nginx/default.conf.template:/etc/nginx/templates/default.conf.template:ro
-      - ./infrastructure/nginx/certs:/etc/nginx/certs:ro
-    ports:
-      - "80:80"
-      - "443:443"
+  # nginx:
+  #   image: nginx:alpine
+  #   restart: unless-stopped
+  #   container_name: transcendence_nginx
+  #   environment:
+  #     APP_DOMAIN: ${APP_DOMAIN:-transcendence.test}
+  #   depends_on:
+  #     - frontend
+  #     - backend
+  #   networks:
+  #     - transcendence
+  #   volumes:
+  #     - ./infrastructure/nginx/default.conf.template:/etc/nginx/templates/default.conf.template:ro
+  #     - ./infrastructure/nginx/certs:/etc/nginx/certs:ro
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
 
 networks:
   transcendence:

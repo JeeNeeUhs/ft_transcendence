@@ -16,17 +16,18 @@ export type User = {
 };
 
 export const authService = {
-  signUp: (username: string, password: string) => {
+  signUp: (username: string, email: string, password: string) => {
     return apiClient<{ accessToken: string }>("/auth/register", {
       method: "POST",
-      body: { username, password }
+      body: { username, email, password }
     });
   },
 
-  signIn: (username: string, password: string) => {
+  // the backend reads a single field and decides on its own whether it holds a username or an email
+  signIn: (identifier: string, password: string) => {
     return apiClient<{ accessToken: string }>("/auth/login", {
       method: "POST",
-      body: { username, password }
+      body: { username: identifier, password }
     });
   },
 

@@ -39,8 +39,12 @@
   },
   "auth": {
     "username": "Kullanıcı adı",
+    "email": "E-posta",
+    "usernameOrEmail": "Kullanıcı adı veya e-posta",
     "password": "Parola",
     "enterUsername": "Kullanıcı adınızı girin",
+    "enterEmail": "E-posta adresinizi girin",
+    "enterUsernameOrEmail": "Kullanıcı adınızı veya e-postanızı girin",
     "enterPassword": "Parolanızı girin",
     "confirmPassword": "Parolanızı onaylayın",
     "separator": "veya şununla devam et",
@@ -51,9 +55,9 @@
       "desc": "Devam etmek için hesabınıza giriş yapın",
       "footer": "Hesabınız yok mu?",
       "action": "Kayıt ol",
-      "usernameRequired": "Kullanıcı adı zorunludur",
+      "usernameOrEmailRequired": "Kullanıcı adı veya e-posta zorunludur",
       "passwordRequired": "Parola zorunludur",
-      "invalidUsernameOrPassword": "Geçersiz kullanıcı adı veya parola"
+      "invalidUsernameOrPassword": "Geçersiz kullanıcı adı, e-posta veya parola"
     },
     "signUp": {
       "button": "Kayıt ol",
@@ -64,6 +68,10 @@
       "usernameRequired": "Kullanıcı adı zorunludur",
       "usernameMinValue": "Kullanıcı adı en az 3 karakter olmalıdır",
       "usernameMaxValue": "Kullanıcı adı en fazla 50 karakter olmalıdır",
+      "emailRequired": "E-posta zorunludur",
+      "emailInvalid": "Geçerli bir e-posta adresi girin",
+      "emailMaxValue": "E-posta en fazla 255 karakter olmalıdır",
+      "emailShouldUnique": "Bu e-posta zaten kullanılıyor",
       "passwordRequired": "Parola zorunludur",
       "passwordMinValue": "Parola en az 8 karakter olmalıdır",
       "passwordMaxValue": "Parola en fazla 50 karakter olmalıdır",
@@ -331,7 +339,9 @@
       "47": "Açıklama geçerli değil.",
       "48": "Mevcut parolan hatalı.",
       "49": "Bu hesabın bir parolası yok.",
-      "50": "API anahtarı bulunamadı."
+      "50": "API anahtarı bulunamadı.",
+      "51": "E-posta adresi geçerli değil.",
+      "52": "Bu e-posta zaten kullanılıyor."
     }
   }
 }

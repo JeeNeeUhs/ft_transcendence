@@ -15,13 +15,13 @@ import { authService } from "@/lib/api/auth";
 
 export function SignInForm({ onSuccess }: { onSuccess: (accessToken: string) => void }) {
   const tAuth = useTranslations("auth");
-  const tError = useTranslations("auth");
+  const tError = useTranslations("error");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const formSchema = useMemo(
     () =>
       z.object({
-        username: z.string().trim().nonempty(tAuth("signIn.usernameRequired")),
+        identifier: z.string().trim().nonempty(tAuth("signIn.usernameOrEmailRequired")),
         password: z.string().nonempty(tAuth("signIn.passwordRequired"))
       }),
     [tAuth]
@@ -31,7 +31,7 @@ export function SignInForm({ onSuccess }: { onSuccess: (accessToken: string) => 
     resolver: zodResolver(formSchema),
 
     defaultValues: {
-      username: "",
+      identifier: "",
       password: ""
     }
   });
@@ -39,10 +39,10 @@ export function SignInForm({ onSuccess }: { onSuccess: (accessToken: string) => 
   async function onSubmit(data: z.infer<typeof formSchema>) {
     setIsLoading(true);
 
-    const response = await authService.signIn(data.username, data.password);
+    const response = await authService.signIn(data.identifier, data.password);
     if (!response.success) {
       if (response.status === 401) {
-        form.setError("username", {
+        form.setError("identifier", {
           message: tAuth("signIn.invalidUsernameOrPassword")
         });
         form.setError("password", {
@@ -51,7 +51,7 @@ export function SignInForm({ onSuccess }: { onSuccess: (accessToken: string) => 
       } else {
         toast.add({
           type: "error",
-          title: tAuth("error.genericTitle"),
+          title: tError("genericTitle"),
           description: tError(`codes.${response.errorCode}`)
         });
       }
@@ -68,16 +68,18 @@ export function SignInForm({ onSuccess }: { onSuccess: (accessToken: string) => 
       <form id="sign-in-form" onSubmit={form.handleSubmit(onSubmit)}>
         <FieldGroup>
           <Controller
-            name="username"
+            name="identifier"
             control={form.control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="sign-in-form-username">{tAuth("username")}</FieldLabel>
+                <FieldLabel htmlFor="sign-in-form-identifier">
+                  {tAuth("usernameOrEmail")}
+                </FieldLabel>
                 <Input
                   {...field}
-                  id="sign-in-form-username"
+                  id="sign-in-form-identifier"
                   aria-invalid={fieldState.invalid}
-                  placeholder={tAuth("enterUsername")}
+                  placeholder={tAuth("enterUsernameOrEmail")}
                   autoComplete="off"
                 />
                 {fieldState.invalid && <FieldError errors={[fieldState.error]} />}

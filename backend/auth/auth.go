@@ -17,10 +17,20 @@ import (
 	"gorm.io/gorm"
 )
 
-var validUsername = regexp.MustCompile(`^[A-Za-z0-9]{3,50}$`)
+var (
+	validUsername = regexp.MustCompile(`^[A-Za-z0-9]{3,50}$`)
+	validEmail    = regexp.MustCompile(`^[^@\s]+@[^@\s]+\.[^@\s]+$`)
+)
+
+const maxEmailLength = 255
+
+func normalizeEmail(email string) string {
+	return strings.ToLower(strings.TrimSpace(email))
+}
 
 type RegisterRequest struct {
 	Username string `json:"username"`
+	Email    string `json:"email"`
 	Password string `json:"password"`
 }
 
@@ -33,6 +43,11 @@ func RegisterHandler(c fiber.Ctx) error {
 	req.Username = strings.TrimSpace(req.Username)
 	if !validUsername.MatchString(req.Username) {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "username not valid"})
+	}
+
+	req.Email = normalizeEmail(req.Email)
+	if len(req.Email) > maxEmailLength || !validEmail.MatchString(req.Email) {
+		return c.Status(apierr.CodeToStatus(51)).JSON(apierr.CodeToErr(51))
 	}
 
 	req.Password = strings.TrimSpace(req.Password)
@@ -49,6 +64,14 @@ func RegisterHandler(c fiber.Ctx) error {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "internal server error"})
 	}
 
+	err = database.DB.Where("email = ?", req.Email).First(&existing).Error
+	if err == nil {
+		return c.Status(apierr.CodeToStatus(52)).JSON(apierr.CodeToErr(52))
+	}
+	if !errors.Is(err, gorm.ErrRecordNotFound) {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "internal server error"})
+	}
+
 	hash, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "internal server error"})
@@ -56,6 +79,7 @@ func RegisterHandler(c fiber.Ctx) error {
 
 	user := models.User{
 		Username:     req.Username,
+		Email:        req.Email,
 		PasswordHash: string(hash),
 		Status:       time.Now().Unix(),
 	}
@@ -87,8 +111,13 @@ func LoginHandler(c fiber.Ctx) error {
 
 	req.Username = strings.TrimSpace(req.Username)
 
+	column, value := "username", req.Username
+	if strings.Contains(req.Username, "@") {
+		column, value = "email", normalizeEmail(req.Username)
+	}
+
 	var user models.User
-	if err := database.DB.Where("username = ?", req.Username).First(&user).Error; err != nil {
+	if err := database.DB.Where(column+" = ?", value).First(&user).Error; err != nil {
 		return c.Status(apierr.CodeToStatus(12)).JSON(apierr.CodeToErr(12))
 	}
 
