@@ -80,7 +80,8 @@ export function SignInForm({ onSuccess }: { onSuccess: (accessToken: string) => 
                   id="sign-in-form-identifier"
                   aria-invalid={fieldState.invalid}
                   placeholder={tAuth("enterUsernameOrEmail")}
-                  autoComplete="off"
+                  autoComplete="username"
+                  allowPasswordManager
                 />
                 {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
               </Field>
@@ -98,7 +99,8 @@ export function SignInForm({ onSuccess }: { onSuccess: (accessToken: string) => 
                   type="password"
                   aria-invalid={fieldState.invalid}
                   placeholder={tAuth("enterPassword")}
-                  autoComplete="off"
+                  autoComplete="current-password"
+                  allowPasswordManager
                 />
                 {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
               </Field>
