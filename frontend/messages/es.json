@@ -26,6 +26,71 @@
       }
     }
   },
+  "footer": {
+    "copyright": "Quizinyo. Creado para aprender y jugar.",
+    "privacy": "Política de privacidad",
+    "terms": "Términos de servicio"
+  },
+  "privacy": {
+    "title": "Política de privacidad",
+    "description": "Esta política explica qué información trata Quizinyo cuando creas una cuenta y participas en el quiz en tiempo real.",
+    "sections": {
+      "data": {
+        "title": "Información que tratamos",
+        "body": "Cuando creas una cuenta, almacenamos tu nombre de usuario y la fecha de creación. En las cuentas locales, la contraseña se guarda mediante hash. Si inicias sesión con 42, la información de perfil devuelta por la API de 42 se trata durante la autenticación; tu identificador de usuario de 42 y tu imagen de perfil se almacenan con tu cuenta. También puedes añadir un avatar y una descripción. Si creas una clave de API, almacenamos la clave y su fecha de creación. Mientras usas Quizinyo, tratamos amistades, estado en línea, actividad de las salas, mensajes de chat, respuestas y puntuaciones necesarios para ejecutar el juego."
+      },
+      "use": {
+        "title": "Cómo usamos la información",
+        "body": "Usamos esta información para autenticarte, mostrar tu perfil, conectarte con amigos, gestionar salas y partidas en directo, ofrecer acceso a la API pública cuando creas una clave, mantener la seguridad y resolver problemas técnicos. No usamos tu información con fines publicitarios."
+      },
+      "sharing": {
+        "title": "Visibilidad y terceros",
+        "body": "Tu nombre de usuario, avatar, descripción, estado, fecha de creación de la cuenta, lista de amigos y actividad de juego pueden ser visibles para otros jugadores. Cuando eliges iniciar sesión con 42, esta plataforma trata la solicitud de autenticación según sus propias políticas. No vendemos información personal. La información puede ser tratada por la infraestructura que aloja Quizinyo o comunicada cuando la ley lo exija."
+      },
+      "storage": {
+        "title": "Conservación y seguridad",
+        "body": "Los datos de cuenta, perfil y amistad se guardan en la base de datos del servicio; esta versión de Quizinyo no ofrece una opción para eliminar la cuenta directamente. La clave de API se conserva hasta que la elimines desde Ajustes. Los datos de salas, chat, respuestas y puntuaciones son temporales y duran solo mientras la sala está activa. El token de sesión se guarda en el almacenamiento local del navegador y la preferencia de idioma, en una cookie. Las contraseñas se almacenan mediante hash, pero ningún sistema puede garantizar una seguridad absoluta."
+      },
+      "choices": {
+        "title": "Tus opciones",
+        "body": "Puedes actualizar tu avatar, descripción de perfil y contraseña de cuenta local desde Ajustes. También puedes crear o eliminar tu clave de API y cerrar sesión en cualquier momento. No compartas información sensible en tu perfil público ni en el chat. Para solicitudes sobre tu cuenta o privacidad, contacta con los responsables de la instalación de Quizinyo que utilizas."
+      },
+      "changes": {
+        "title": "Cambios en esta política",
+        "body": "Podemos actualizar esta política a medida que cambia Quizinyo. Si sigues usando el servicio después de una actualización, la política revisada se aplicará a tu uso futuro."
+      }
+    }
+  },
+  "terms": {
+    "title": "Términos de servicio",
+    "description": "Estos términos establecen las reglas básicas para usar Quizinyo y mantener sus espacios multijugador justos y agradables.",
+    "sections": {
+      "acceptance": {
+        "title": "Uso de Quizinyo",
+        "body": "Al acceder o usar Quizinyo, aceptas estos términos. Si no estás de acuerdo, no uses el servicio. Quizinyo es un proyecto educativo de quiz multijugador y se ofrece para uso personal y no comercial."
+      },
+      "accounts": {
+        "title": "Cuentas y acceso",
+        "body": "Eres responsable de la actividad de tu cuenta y de mantener seguras tu contraseña y tu clave de API. Usa información de cuenta correcta y avisa a los responsables de la instalación si crees que tu cuenta ha sido comprometida. Si usas el inicio de sesión de 42, tu uso de 42 también se rige por sus propios términos."
+      },
+      "conduct": {
+        "title": "Juego justo y respetuoso",
+        "body": "No acoses a otros jugadores, publiques material ilegal o dañino, hagas trampas, suplantes identidades, interrumpas partidas, intentes obtener acceso no autorizado, eludas controles de seguridad ni sobrecargues el servicio o la API pública. Usa el chat y las funciones sociales con respeto."
+      },
+      "content": {
+        "title": "Tu contenido",
+        "body": "Eres responsable de los nombres de sala, textos de perfil, avatares y mensajes de chat que envías. Comparte únicamente contenido que tengas derecho a usar y no incluyas información personal sensible ni material que perjudique a otros jugadores."
+      },
+      "availability": {
+        "title": "Disponibilidad y contenido del quiz",
+        "body": "Quizinyo se ofrece según disponibilidad, sin prometer que funcionará siempre sin interrupciones o errores ni que todas las respuestas del quiz serán exactas. Las puntuaciones y clasificaciones son solo para entretenimiento y no tienen valor monetario. Las funciones pueden cambiar o dejar de estar disponibles."
+      },
+      "changes": {
+        "title": "Cambios en el servicio y los términos",
+        "body": "El servicio puede dejar de estar disponible temporalmente por motivos de seguridad, mantenimiento o problemas técnicos. Podemos revisar los términos conforme evoluciona el proyecto. El uso continuado tras una actualización implica la aceptación de los términos revisados."
+      }
+    }
+  },
   "theme": {
     "system": "Sistema",
     "dark": "Oscuro",
