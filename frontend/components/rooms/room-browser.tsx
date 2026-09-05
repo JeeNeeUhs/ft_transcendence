@@ -110,7 +110,9 @@ export function RoomBrowser({ categories, locale }: { categories: Category[]; lo
 
   const selectedCategory = categoryItems.find((item) => item.value === filters.category);
   const filteredRooms = rooms.filter((room) => {
-    const matchesSearch = room.name.toLowerCase().includes(filters.search.toLowerCase());
+    const search = filters.search.toLowerCase();
+    const matchesSearch =
+      room.name.toLowerCase().includes(search) || room.id.toLowerCase().includes(search);
     const matchesCategory =
       filters.category === "all" || room.categoryIds.includes(parseInt(filters.category, 10));
     const matchesLang = filters.lang === "all" || room.lang === filters.lang;

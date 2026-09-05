@@ -102,7 +102,8 @@ export function SignUpForm({ onSuccess }: { onSuccess: (accessToken: string) => 
                   id="sign-up-form-username"
                   aria-invalid={fieldState.invalid}
                   placeholder={tAuth("enterUsername")}
-                  autoComplete="off"
+                  autoComplete="username"
+                  allowPasswordManager
                 />
                 <FieldDescription>{tAuth("signUp.uniqueUsername")}</FieldDescription>
                 {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -121,7 +122,8 @@ export function SignUpForm({ onSuccess }: { onSuccess: (accessToken: string) => 
                   type="email"
                   aria-invalid={fieldState.invalid}
                   placeholder={tAuth("enterEmail")}
-                  autoComplete="off"
+                  autoComplete="email"
+                  allowPasswordManager
                 />
                 {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
               </Field>
@@ -140,7 +142,8 @@ export function SignUpForm({ onSuccess }: { onSuccess: (accessToken: string) => 
                     type="password"
                     aria-invalid={fieldState.invalid}
                     placeholder={tAuth("enterPassword")}
-                    autoComplete="off"
+                    autoComplete="new-password"
+                    allowPasswordManager
                   />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
@@ -157,7 +160,8 @@ export function SignUpForm({ onSuccess }: { onSuccess: (accessToken: string) => 
                     type="password"
                     aria-invalid={fieldState.invalid}
                     placeholder={tAuth("confirmPassword")}
-                    autoComplete="off"
+                    autoComplete="new-password"
+                    allowPasswordManager
                   />
                   <FieldDescription>{tAuth("signUp.createPasswordMinMax")}</FieldDescription>
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
