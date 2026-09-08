@@ -362,6 +362,7 @@
     "apiKey": {
       "title": "API key",
       "description": "Used to reach the public statistics endpoints. Each key is limited to 1200 requests per hour.",
+      "documentation": "API documentation",
       "loading": "Loading your API key...",
       "empty": "You don't have an API key yet. Create one to start using the public API.",
       "create": "Create API key",

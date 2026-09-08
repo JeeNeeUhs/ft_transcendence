@@ -362,6 +362,7 @@
     "apiKey": {
       "title": "API anahtarı",
       "description": "Herkese açık istatistik uçlarına erişmek için kullanılır. Anahtar başına saatte 1200 istek sınırı vardır.",
+      "documentation": "API dokümantasyonu",
       "loading": "API anahtarı yükleniyor...",
       "empty": "Henüz bir API anahtarın yok. Herkese açık API'yi kullanmaya başlamak için bir tane oluştur.",
       "create": "API anahtarı oluştur",

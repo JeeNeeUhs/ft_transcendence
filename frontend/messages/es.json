@@ -358,6 +358,7 @@
     "apiKey": {
       "title": "Clave de API",
       "description": "Se usa para acceder a los endpoints públicos de estadísticas. Cada clave está limitada a 1200 peticiones por hora.",
+      "documentation": "Documentación de la API",
       "loading": "Cargando tu clave de API...",
       "empty": "Todavía no tienes una clave de API. Crea una para empezar a usar la API pública.",
       "create": "Crear clave de API",

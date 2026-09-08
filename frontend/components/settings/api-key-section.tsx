@@ -1,7 +1,8 @@
 "use client";
 
-import { Alert02Icon, CheckmarkCircle02Icon } from "@hugeicons/core-free-icons";
+import { Alert02Icon, CheckmarkCircle02Icon, LinkSquare02Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 
@@ -138,6 +139,14 @@ export function ApiKeySection() {
       <SectionHeader
         title={tSettings("apiKey.title")}
         description={tSettings("apiKey.description")}
+        action={
+          <Link href={"/api/public/docs/index.html"} target="_blank">
+            <Button variant={"outline"}>
+              <HugeiconsIcon icon={LinkSquare02Icon} />
+              {tSettings("apiKey.documentation")}
+            </Button>
+          </Link>
+        }
       />
 
       {isLoading ? (
