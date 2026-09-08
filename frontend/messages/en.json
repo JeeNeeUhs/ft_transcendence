@@ -309,7 +309,7 @@
       "accepted": "You are now friends with {username}.",
       "self": "You can't send yourself a friend request.",
       "userNotFound": "There is no user with that username.",
-      "alreadySent": "A request has already been sent to this user.",
+      "alreadySent": "This user is already your friend or a request has already been sent.",
       "usernameRequired": "Username is required",
       "usernameMinValue": "Username must be at least 3 characters",
       "usernameMaxValue": "Username must be at most 50 characters"

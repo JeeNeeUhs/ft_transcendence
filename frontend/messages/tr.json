@@ -309,7 +309,7 @@
       "accepted": "Artık {username} ile arkadaşsınız.",
       "self": "Kendine arkadaşlık isteği gönderemezsin.",
       "userNotFound": "Bu kullanıcı adında biri yok.",
-      "alreadySent": "Bu kullanıcıya zaten bir istek gönderilmiş.",
+      "alreadySent": "Bu kullanıcı zaten arkadaşın veya bir istek gönderilmiş.",
       "usernameRequired": "Kullanıcı adı zorunludur",
       "usernameMinValue": "Kullanıcı adı en az 3 karakter olmalıdır",
       "usernameMaxValue": "Kullanıcı adı en fazla 50 karakter olmalıdır"
