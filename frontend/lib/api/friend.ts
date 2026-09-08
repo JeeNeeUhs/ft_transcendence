@@ -45,5 +45,11 @@ export const friendService = {
       method: "POST",
       body: { username }
     });
+  },
+
+  remove: (username: string) => {
+    return apiClient<{ message: string }>(`/friend/remove/${username}`, {
+      method: "DELETE"
+    });
   }
 };

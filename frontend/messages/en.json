@@ -288,7 +288,10 @@
       "empty": "No friends yet.",
       "emptyUser": "{username} has not made any friends yet.",
       "loading": "Loading friends...",
-      "onlineCount": "{online}/{total} online"
+      "onlineCount": "{online}/{total} online",
+      "actions": "Actions for {username}",
+      "remove": "Remove friend",
+      "removed": "{username} was removed from your friends."
     },
     "requests": {
       "incoming": "Sent you a friend request.",

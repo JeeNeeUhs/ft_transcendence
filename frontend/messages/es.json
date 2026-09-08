@@ -284,7 +284,10 @@
       "empty": "Todavía no hay amigos.",
       "emptyUser": "{username} todavía no tiene amigos.",
       "loading": "Cargando amigos...",
-      "onlineCount": "{online}/{total} en línea"
+      "onlineCount": "{online}/{total} en línea",
+      "actions": "Acciones para {username}",
+      "remove": "Eliminar amigo",
+      "removed": "{username} fue eliminado de tus amigos."
     },
     "requests": {
       "incoming": "Te envió una solicitud de amistad.",

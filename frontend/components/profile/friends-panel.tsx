@@ -28,6 +28,7 @@ export function FriendsPanel({ username, isSelf }: { username: string; isSelf: b
   const [requests, setRequests] = useState<Friend[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [acceptingUsername, setAcceptingUsername] = useState<string | null>(null);
+  const [removingUsername, setRemovingUsername] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchFriends = async () => {
@@ -76,6 +77,27 @@ export function FriendsPanel({ username, isSelf }: { username: string; isSelf: b
 
     setRequests((current) => current.filter((item) => item.username !== request.username));
     setFriends((current) => [...current, request]);
+  };
+
+  const removeFriend = async (friend: Friend) => {
+    setRemovingUsername(friend.username);
+    const response = await friendService.remove(friend.username);
+    setRemovingUsername(null);
+
+    if (!response.success) {
+      toast.add({
+        type: "error",
+        title: tError("genericTitle"),
+        description: tError("fetchError")
+      });
+      return;
+    }
+
+    setFriends((current) => current.filter((item) => item.username !== friend.username));
+    toast.add({
+      type: "success",
+      title: tUsers("friends.removed", { username: friend.username })
+    });
   };
 
   const sortedFriends = friends
@@ -136,6 +158,8 @@ export function FriendsPanel({ username, isSelf }: { username: string; isSelf: b
                     username={friend.username}
                     avatarUrl={friend.avatarUrl}
                     status={friend.status}
+                    onRemove={isSelf ? () => removeFriend(friend) : undefined}
+                    isRemoving={removingUsername === friend.username}
                   />
                 ))}
               </div>

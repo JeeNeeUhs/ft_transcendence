@@ -13,7 +13,7 @@ import { type FriendshipStatus, friendService } from "@/lib/api/friend";
 import type { UserProfile } from "@/lib/api/user";
 import { presenceStatus } from "@/lib/utils";
 
-type RequestState = FriendshipStatus | "loading" | "sending";
+type RequestState = FriendshipStatus | "loading" | "sending" | "removing";
 
 export function ProfileHeader({ profile, isSelf }: { profile: UserProfile; isSelf: boolean }) {
   const tUsers = useTranslations("users");
@@ -68,9 +68,31 @@ export function ProfileHeader({ profile, isSelf }: { profile: UserProfile; isSel
     });
   };
 
+  const removeFriend = async () => {
+    setRequestState("removing");
+    const response = await friendService.remove(profile.username);
+
+    if (!response.success) {
+      const statusResponse = await friendService.status(profile.username);
+      setRequestState(statusResponse.success ? statusResponse.data.status : "accepted");
+      toast.add({
+        type: "error",
+        title: tError("genericTitle"),
+        description: tError("fetchError")
+      });
+      return;
+    }
+
+    setRequestState("none");
+    toast.add({
+      type: "success",
+      title: tUsers("friends.removed", { username: profile.username })
+    });
+  };
+
   const buttonText =
-    requestState === "accepted"
-      ? tUsers("add.alreadyFriends")
+    requestState === "accepted" || requestState === "removing"
+      ? tUsers("friends.remove")
       : requestState === "pending_sent"
         ? tUsers("add.requestSent")
         : requestState === "pending_received"
@@ -108,16 +130,20 @@ export function ProfileHeader({ profile, isSelf }: { profile: UserProfile; isSel
       ) : (
         <Button
           size="lg"
-          variant={requestState === "accepted" ? "secondary" : "default"}
-          onClick={sendFriendRequest}
+          variant={
+            requestState === "accepted" || requestState === "removing" ? "destructive" : "default"
+          }
+          onClick={requestState === "accepted" ? removeFriend : sendFriendRequest}
           disabled={
             requestState === "loading" ||
             requestState === "sending" ||
-            requestState === "pending_sent" ||
-            requestState === "accepted"
+            requestState === "removing" ||
+            requestState === "pending_sent"
           }
         >
-          {(requestState === "loading" || requestState === "sending") && <Spinner />}
+          {(requestState === "loading" ||
+            requestState === "sending" ||
+            requestState === "removing") && <Spinner />}
           {buttonText}
         </Button>
       )}

@@ -288,7 +288,10 @@
       "empty": "Henüz arkadaş yok.",
       "emptyUser": "{username} henüz kimseyle arkadaş olmamış.",
       "loading": "Arkadaşlar yükleniyor...",
-      "onlineCount": "{online}/{total} çevrim içi"
+      "onlineCount": "{online}/{total} çevrim içi",
+      "actions": "{username} için işlemler",
+      "remove": "Arkadaşlıktan çıkar",
+      "removed": "{username} arkadaşlarından çıkarıldı."
     },
     "requests": {
       "incoming": "Sana arkadaşlık isteği gönderdi.",
