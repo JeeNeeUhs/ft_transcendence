@@ -6,6 +6,8 @@ export interface Friend {
   status: number;
 }
 
+export type FriendshipStatus = "none" | "pending_sent" | "pending_received" | "accepted" | "self";
+
 export const friendService = {
   list: () => {
     return apiClient<Friend[]>("/friend/list", {
@@ -21,6 +23,12 @@ export const friendService = {
 
   requests: () => {
     return apiClient<Friend[]>("/friend/requests", {
+      method: "GET"
+    });
+  },
+
+  status: (username: string) => {
+    return apiClient<{ status: FriendshipStatus }>(`/friend/status/${username}`, {
       method: "GET"
     });
   },

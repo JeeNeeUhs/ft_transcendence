@@ -27,7 +27,8 @@ export function SignUpForm({ onSuccess }: { onSuccess: (accessToken: string) => 
             .trim()
             .nonempty(tAuth("signUp.usernameRequired"))
             .min(3, tAuth("signUp.usernameMinValue"))
-            .max(50, tAuth("signUp.usernameMaxValue")),
+            .max(50, tAuth("signUp.usernameMaxValue"))
+            .regex(/^[A-Za-z0-9]+$/, tAuth("signUp.usernameInvalid")),
           email: z
             .string()
             .trim()
