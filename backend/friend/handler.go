@@ -12,16 +12,12 @@ type SendRequestInput struct {
 	AddresseeUsername string `json:"username"`
 }
 
-
 func SendRequestHandler(c fiber.Ctx) error {
-	
 	requesterID, ok := c.Locals(middleware.LocalsUserIDKey).(uuid.UUID)
 	if !ok {
 		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "unauthorized"})
 	}
 
-	
-	
 	var input SendRequestInput
 	if err := c.Bind().Body(&input); err != nil || input.AddresseeUsername == "" {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "invalid request body or empty username"})
@@ -30,23 +26,51 @@ func SendRequestHandler(c fiber.Ctx) error {
 	var destUser struct {
 		ID uuid.UUID
 	}
-	
-	err := database.DB.Table("users").Select("id").Where("username = ?", input.AddresseeUsername).First(&destUser).Error
-	if err != nil {
+	if err := database.DB.Table("users").Select("id").Where("username = ?", input.AddresseeUsername).First(&destUser).Error; err != nil {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "user not found in db"})
 	}
 	addresseeID := destUser.ID
+
+
+	if requesterID == addresseeID {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "cannot send request to yourself"})
+	}
+
+	var incomingRequestCount int64
+	database.DB.Table("friendships").
+		Where("requester_id = ? AND addressee_id = ? AND status = 'pending'", addresseeID, requesterID).
+		Count(&incomingRequestCount)
+
+	if incomingRequestCount > 0 {
+		updateQuery := `UPDATE friendships SET status = 'accepted' WHERE requester_id = ? AND addressee_id = ? AND status = 'pending'`
+		if err := database.DB.Exec(updateQuery, addresseeID, requesterID).Error; err != nil {
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "database error during auto-accept"})
+		}
+		return c.Status(fiber.StatusOK).JSON(fiber.Map{
+			"message": "friend request automatically accepted",
+		})
+	}
+
+
+	var existingRelation int64
+	database.DB.Table("friendships").
+		Where("(requester_id = ? AND addressee_id = ?) OR (requester_id = ? AND addressee_id = ?)", requesterID, addresseeID, addresseeID, requesterID).
+		Count(&existingRelation)
+
+	if existingRelation > 0 {
+		return c.Status(fiber.StatusConflict).JSON(fiber.Map{"error": "friendship or request already exists"})
+	}
+
 	
 	insertQuery := `INSERT INTO friendships (requester_id, addressee_id, status) VALUES (?, ?, 'pending')`
 	if err := database.DB.Exec(insertQuery, requesterID, addresseeID).Error; err != nil {
-		return c.Status(fiber.StatusConflict).JSON(fiber.Map{"error": "friend request already exists or invalid"})
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "failed to send friend request"})
 	}
 
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
 		"message": "friend request sent successfully",
 	})
 }
-
 
 type AcceptRequestInput struct {
 	RequesterUsername string `json:"username"`
@@ -164,11 +188,42 @@ func GetUserFriendsHandler(c fiber.Ctx) error {
 		  AND u.id != ?
 	`
 	if err := database.DB.Raw(query, target.ID, target.ID, target.ID).Scan(&friends).Error; err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "database error"})
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "database erroor"})
 	}
 
 	if friends == nil {
 		friends = []UserResponse{}
 	}
 	return c.Status(fiber.StatusOK).JSON(friends)
+}
+
+func RemoveFriendHandler(c fiber.Ctx) error {
+	userID, ok := c.Locals(middleware.LocalsUserIDKey).(uuid.UUID)
+	if !ok {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "unauthorized"})
+	}
+
+	targetUsername := c.Params("username")
+	if targetUsername == "" {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "target username is required"})
+	}
+
+	var targetUser struct {
+		ID uuid.UUID
+	}
+	if err := database.DB.Table("users").Select("id").Where("username = ?", targetUsername).First(&targetUser).Error; err != nil {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "target user not found in db"})
+	}
+	targetID := targetUser.ID
+
+	deleteQuery := `DELETE FROM friendships WHERE (requester_id = ? AND addressee_id = ?) OR (requester_id = ? AND addressee_id = ?)`
+	result := database.DB.Exec(deleteQuery, userID, targetID, targetID, userID)
+
+	if result.Error != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "database error during remval"})
+	}
+
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"message": "friendship or request removed succcessfully",
+	})
 }

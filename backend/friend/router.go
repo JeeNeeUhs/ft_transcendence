@@ -15,4 +15,5 @@ func Register(api fiber.Router) {
 	friendGroup.Get("/requests", GetRequestsHandler)
 	friendGroup.Get("/list", GetFriendsHandler)
 	friendGroup.Get("/list/:username", GetUserFriendsHandler)
+	friendGroup.Delete("/remove/:username", RemoveFriendHandler)
 }

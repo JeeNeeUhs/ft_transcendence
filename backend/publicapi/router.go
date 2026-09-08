@@ -22,8 +22,6 @@ func Register(api fiber.Router) {
 	protected := publicGroup.Group("", apikey.APIKeyAuth, apikey.RateLimiter())
 
 	protected.Get("/stats/users", GetUserStatsHandler)
-	protected.Get("/stats/matches", GetMatchStatsHandler)
-
 	protected.Get("/me/friends", GetFriendsHandler)
 	protected.Post("/me/friend-requests", SendFriendRequestHandler)
 	protected.Put("/me/friend-requests/:username", AcceptFriendRequestHandler)
