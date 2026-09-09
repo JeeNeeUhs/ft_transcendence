@@ -1,0 +1,27 @@
+server {
+    listen 80;
+    server_name ${APP_DOMAIN};
+
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    server_name ${APP_DOMAIN};
+
+    ssl_certificate /etc/nginx/certs/${APP_DOMAIN}.pem;
+    ssl_certificate_key /etc/nginx/certs/${APP_DOMAIN}-key.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+
+    location /api/ {
+        proxy_pass http://backend:8081;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+
+    location / {
+        proxy_pass http://frontend:3000;
+    }
+}

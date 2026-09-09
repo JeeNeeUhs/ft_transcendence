@@ -1,0 +1,421 @@
+{
+  "common": {
+    "appName": "Quizinyo"
+  },
+  "home": {
+    "eyebrow": "Gerçek zamanlı çok oyunculu quiz",
+    "title": "Arkadaşlarını topla, bilgini ortaya koy.",
+    "description": "Bir oda oluştur, kategorilerini seç ve herkes hazır olduğunda oyuna başla. Hızlı cevap ver, puanları topla ve sıralamanı gör.",
+    "primaryAction": "Odalara göz at",
+    "howItWorks": {
+      "eyebrow": "Nasıl çalışır?",
+      "title": "Bir sonraki oyun birkaç adım ötede."
+    },
+    "steps": {
+      "room": {
+        "title": "Bir oda bul veya oluştur",
+        "description": "Açık bir odaya katıl ya da kendi kurallarınla yeni bir oda aç."
+      },
+      "invite": {
+        "title": "Oyuncuları davet et",
+        "description": "Oda kodunu arkadaşlarınla paylaş ve herkesin hazır olmasını bekle."
+      },
+      "play": {
+        "title": "Cevapla ve yarış",
+        "description": "Süre dolmadan cevabını seç, puan kazan ve sıralamada yüksel."
+      }
+    }
+  },
+  "footer": {
+    "copyright": "Quizinyo. Öğrenmek ve eğlenmek için geliştirildi.",
+    "privacy": "Gizlilik Politikası",
+    "terms": "Kullanım Koşulları"
+  },
+  "privacy": {
+    "title": "Gizlilik Politikası",
+    "description": "Bu politika, hesap oluşturduğunuzda ve gerçek zamanlı quiz oynadığınızda Quizinyo tarafından işlenen bilgileri açıklar.",
+    "sections": {
+      "data": {
+        "title": "İşlediğimiz bilgiler",
+        "body": "Bir hesap oluşturduğunuzda kullanıcı adınız ve hesap oluşturma tarihiniz saklanır. Yerel hesaplarda parolanız saklanmadan önce özetlenir. 42 ile giriş yaptığınızda 42 API tarafından döndürülen profil bilgileri kimlik doğrulama sırasında işlenir; 42 kullanıcı adınız ve profil görseliniz hesabınızla birlikte saklanır. İsteğe bağlı olarak avatar ve profil açıklaması ekleyebilirsiniz. Bir API anahtarı oluşturursanız anahtar ve oluşturulma tarihi saklanır. Quizinyo kullanılırken oyunu çalıştırmak için arkadaşlıklar, çevrim içi durum, oda etkinliği, sohbet mesajları, cevaplar ve skorlar işlenir."
+      },
+      "use": {
+        "title": "Bilgileri nasıl kullanıyoruz",
+        "body": "Bu bilgileri kimliğinizi doğrulamak, profilinizi göstermek, arkadaşlarınızla bağlantı kurmanızı sağlamak, odaları ve canlı oyunları çalıştırmak, oluşturduğunuzda genel API erişimi sunmak, güvenliği korumak ve teknik sorunları çözmek için kullanırız. Bilgileriniz reklam amacıyla kullanılmaz."
+      },
+      "sharing": {
+        "title": "Görünürlük ve üçüncü taraflar",
+        "body": "Kullanıcı adınız, avatarınız, profil açıklamanız, durumunuz, hesap oluşturma tarihiniz, arkadaş listeniz ve oyun etkinliğiniz diğer oyuncular tarafından görülebilir. 42 ile girişi seçtiğinizde kimlik doğrulama talebi 42 tarafından kendi politikalarına göre işlenir. Kişisel bilgiler satılmaz. Bilgiler Quizinyo altyapısını sağlayan hizmetlerce işlenebilir veya yasaların gerektirdiği durumlarda paylaşılabilir."
+      },
+      "storage": {
+        "title": "Saklama ve güvenlik",
+        "body": "Hesap, profil ve arkadaşlık kayıtları hizmetin veritabanında tutulur; Quizinyo'nun bu sürümünde kullanıcıların kendi hesabını silebileceği bir özellik yoktur. API anahtarınız Ayarlar sayfasından silene kadar saklanır. Canlı oda, sohbet, cevap ve skor verileri geçicidir ve yalnızca etkin oda boyunca tutulur. Oturum anahtarınız tarayıcınızın yerel depolamasında, dil tercihiniz ise bir çerezde saklanır. Parolalar saklanmadan önce özetlenir ancak hiçbir sistem mutlak güvenlik garanti edemez."
+      },
+      "choices": {
+        "title": "Tercihleriniz",
+        "body": "Ayarlar sayfasından avatarınızı, profil açıklamanızı ve yerel hesap parolanızı güncelleyebilirsiniz. Ayrıca API anahtarınızı oluşturabilir veya silebilir ve istediğiniz zaman çıkış yapabilirsiniz. Herkese açık profilinizde veya oda sohbetinde hassas bilgi paylaşmayın. Hesap ve gizlilik talepleri için kullandığınız Quizinyo kurulumunun yöneticileriyle iletişime geçin."
+      },
+      "changes": {
+        "title": "Bu politikadaki değişiklikler",
+        "body": "Quizinyo değiştikçe bu politika güncellenebilir. Bir güncellemeden sonra hizmeti kullanmaya devam etmeniz, sonraki kullanımınıza güncel politikanın uygulanacağı anlamına gelir."
+      }
+    }
+  },
+  "terms": {
+    "title": "Kullanım Koşulları",
+    "description": "Bu koşullar, Quizinyo kullanımına ve çok oyunculu alanların adil ve keyifli kalmasına ilişkin temel kuralları belirler.",
+    "sections": {
+      "acceptance": {
+        "title": "Quizinyo kullanımı",
+        "body": "Quizinyo hizmetine erişerek veya hizmeti kullanarak bu koşulları kabul etmiş olursunuz. Kabul etmiyorsanız hizmeti kullanmayın. Quizinyo, eğitim amaçlı çok oyunculu bir quiz projesidir ve kişisel, ticari olmayan kullanım için sunulur."
+      },
+      "accounts": {
+        "title": "Hesaplar ve erişim",
+        "body": "Hesabınızla gerçekleştirilen işlemlerden ve parolanız ile API anahtarınızın güvenliğinden siz sorumlusunuz. Doğru hesap bilgileri kullanın ve hesabınızın ele geçirildiğini düşünüyorsanız kurulum yöneticilerine bildirin. 42 ile giriş yapıyorsanız 42 kullanımınız ayrıca kendi koşullarına tabidir."
+      },
+      "conduct": {
+        "title": "Adil ve saygılı oyun",
+        "body": "Diğer oyuncuları taciz etmeyin; yasa dışı veya zararlı içerik paylaşmayın; hile yapmayın; başkasını taklit etmeyin; oyunları aksatmayın; yetkisiz erişim sağlamaya, güvenlik önlemlerini aşmaya veya hizmeti ya da genel API'yi aşırı yüklemeye çalışmayın. Sohbeti ve sosyal özellikleri saygılı biçimde kullanın."
+      },
+      "content": {
+        "title": "İçeriğiniz",
+        "body": "Gönderdiğiniz oda adları, profil metinleri, avatarlar ve sohbet mesajlarından siz sorumlusunuz. Yalnızca kullanma hakkına sahip olduğunuz içerikleri paylaşın; hassas kişisel bilgilere veya diğer oyunculara zarar verecek içeriklere yer vermeyin."
+      },
+      "availability": {
+        "title": "Hizmet ve quiz içeriği",
+        "body": "Quizinyo mevcut haliyle sunulur; hizmetin kesintisiz veya hatasız olacağı ya da her quiz cevabının doğru olacağı garanti edilmez. Skorlar ve sıralamalar yalnızca eğlence amaçlıdır ve maddi değer taşımaz. Özellikler değişebilir veya kullanılamaz hale gelebilir."
+      },
+      "changes": {
+        "title": "Hizmet ve koşul değişiklikleri",
+        "body": "Hizmet güvenlik, bakım veya teknik nedenlerle geçici olarak kullanılamayabilir. Proje geliştikçe bu koşullar güncellenebilir. Güncellemeden sonra kullanıma devam etmeniz yeni koşulları kabul ettiğiniz anlamına gelir."
+      }
+    }
+  },
+  "theme": {
+    "system": "Sistem",
+    "dark": "Koyu",
+    "light": "Açık"
+  },
+  "languages": {
+    "all": "Tümü",
+    "tr": "Türkçe",
+    "en": "İngilizce",
+    "es": "İspanyolca"
+  },
+  "auth": {
+    "username": "Kullanıcı adı",
+    "email": "E-posta",
+    "usernameOrEmail": "Kullanıcı adı veya e-posta",
+    "password": "Parola",
+    "enterUsername": "Kullanıcı adınızı girin",
+    "enterEmail": "E-posta adresinizi girin",
+    "enterUsernameOrEmail": "Kullanıcı adınızı veya e-postanızı girin",
+    "enterPassword": "Parolanızı girin",
+    "confirmPassword": "Parolanızı onaylayın",
+    "separator": "veya şununla devam et",
+    "signInWithIntra": "42 ile giriş yap",
+    "signIn": {
+      "button": "Giriş yap",
+      "title": "Tekrar hoş geldiniz",
+      "desc": "Devam etmek için hesabınıza giriş yapın",
+      "footer": "Hesabınız yok mu?",
+      "action": "Kayıt ol",
+      "usernameOrEmailRequired": "Kullanıcı adı veya e-posta zorunludur",
+      "passwordRequired": "Parola zorunludur",
+      "invalidUsernameOrPassword": "Geçersiz kullanıcı adı, e-posta veya parola"
+    },
+    "signUp": {
+      "button": "Kayıt ol",
+      "title": "Hesap oluştur",
+      "desc": "Quizinyo'ya başlamak için kayıt olun",
+      "footer": "Zaten hesabınız var mı?",
+      "action": "Giriş yap",
+      "usernameRequired": "Kullanıcı adı zorunludur",
+      "usernameMinValue": "Kullanıcı adı en az 3 karakter olmalıdır",
+      "usernameMaxValue": "Kullanıcı adı en fazla 50 karakter olmalıdır",
+      "usernameInvalid": "Kullanıcı adı yalnızca harf ve rakamlardan oluşabilir",
+      "emailRequired": "E-posta zorunludur",
+      "emailInvalid": "Geçerli bir e-posta adresi girin",
+      "emailMaxValue": "E-posta en fazla 255 karakter olmalıdır",
+      "emailShouldUnique": "Bu e-posta zaten kullanılıyor",
+      "passwordRequired": "Parola zorunludur",
+      "passwordMinValue": "Parola en az 8 karakter olmalıdır",
+      "passwordMaxValue": "Parola en fazla 50 karakter olmalıdır",
+      "confirmPassword": "Lütfen parolanızı onaylayın",
+      "passwordDontMatch": "Parolalar eşleşmiyor",
+      "usernameShouldUnique": "Bu kullanıcı adı zaten alınmış",
+      "uniqueUsername": "Hesabınız için benzersiz bir kullanıcı adı seçin",
+      "createPasswordMinMax": "Parola 8 ile 50 karakter arasında olmalıdır"
+    },
+    "intraSetup": {
+      "title": "Profilinizi tamamlayın",
+      "desc": "Hesabınızı oluşturmayı tamamlamak için bir kullanıcı adı seçin",
+      "footer": "Farklı bir hesap mı kullanmak istiyorsunuz?",
+      "action": "Geri dön"
+    },
+    "signOut": "Çıkış yap",
+    "oauth": {
+      "failed": "Kimlik doğrulama başarısız. Lütfen tekrar deneyin.",
+      "complete": "Kurulumu tamamla",
+      "completing": "Kurulum tamamlanıyor..."
+    }
+  },
+  "rooms": {
+    "title": "Odalar",
+    "description": "Bir oda seç veya oluştur ve oynamaya başla",
+    "search": "Bir oda aratın",
+    "card": {
+      "join": "Katıl",
+      "categories": "Kategoriler",
+      "footer": "{time} oluşturuldu · {user}"
+    },
+    "allFilter": "Tümü",
+    "emptyList": "Herhangi bir oda bulunamadı, lütfen daha sonra tekrar deneyin.",
+    "create": {
+      "action": "Oluştur",
+      "title": "Yeni Oda Oluştur",
+      "description": "Bir oda oluşturun ve oynamak istediğiniz kategorileri seçin.",
+      "roomName": "Oda Adı",
+      "roomNamePlaceholder": "Oda adını girin",
+      "roomNameRequired": "Oda adı zorunludur",
+      "roomNameTooLong": "Oda adı en fazla 30 karakter olabilir.",
+      "password": "Şifre (isteğe bağlı)",
+      "passwordPlaceholder": "Şifreyi girin",
+      "passwordInvalidLen": "Şifre 4 ile 16 karakter arasında olmalıdır.",
+      "categories": "Kategoriler",
+      "categoriesRequired": "En az bir kategori seçin.",
+      "failed": "Oda oluşturulamadı."
+    },
+    "join": {
+      "action": "Katıl",
+      "title": "Odaya Katıl",
+      "description": "Bu odaya katılmak için şifreyi girin.",
+      "password": "Şifre",
+      "passwordPlaceholder": "Şifreyi girin",
+      "passwordRequired": "Şifre zorunludur",
+      "failed": "Odaya katılınamadı."
+    },
+    "detail": {
+      "you": "(sen)",
+      "leave": "Odadan ayrıl",
+      "copyCode": "Oda kodunu kopyala",
+      "copied": "Oda kodu kopyalandı",
+      "copyFailed": "Oda kodu kopyalanamadı.",
+      "status": {
+        "disconnected": "Bağlantı kesildi"
+      },
+      "loading": {
+        "connecting": "Odaya bağlanılıyor...",
+        "password": "Oda şifresi bekleniyor..."
+      },
+      "errors": {
+        "notFound": "Bu oda artık mevcut değil.",
+        "started": "Bu odadaki oyun zaten başladı.",
+        "full": "Bu oda dolu.",
+        "joinFailed": "Odaya katılınamadı.",
+        "connectionLost": "Oda bağlantın kesildi.",
+        "server": "Oda sunucusu bir hata döndürdü."
+      },
+      "system": {
+        "joined": "{user} odaya katıldı",
+        "left": "{user} odadan ayrıldı"
+      },
+      "players": {
+        "title": "Oyuncular",
+        "host": "Oda sahibi",
+        "ready": "Hazır",
+        "notReady": "Bekliyor"
+      },
+      "chat": {
+        "title": "Oda sohbeti",
+        "empty": "Henüz mesaj yok.",
+        "message": "Sohbet mesajı",
+        "placeholder": "Bir mesaj yaz...",
+        "connecting": "Sohbete bağlanılıyor...",
+        "send": "Mesaj gönder"
+      },
+      "lobby": {
+        "title": "Bilgini sınamaya hazır mısın?",
+        "readyTitle": "Hazırsın!",
+        "description": "Başlamak istediğinde kendini hazır olarak işaretle. Herkes hazır olduğunda oyun başlar.",
+        "waitingForPlayers": "En az iki oyuncu gerekli. Oda kodunu bir arkadaşınla paylaş.",
+        "waitingForOthers": "Diğer oyuncuların hazır olması bekleniyor.",
+        "readyPlayers": "Hazır oyuncular",
+        "readyAction": "Hazırım",
+        "cancelReady": "Henüz hazır değilim"
+      },
+      "game": {
+        "getReady": "Hazırlan",
+        "starting": "İlk soru birazdan geliyor",
+        "question": "Soru {current} / {total}",
+        "answered": "{answered}/{total} cevapladı",
+        "chooseAnswer": "Süre dolmadan bir cevap seç.",
+        "answerLocked": "Cevabın kilitlendi. Diğer oyuncular bekleniyor...",
+        "waitingResult": "Süre doldu. Sonuç bekleniyor...",
+        "correct": "Doğru! +{points} puan",
+        "incorrect": "Olmadı, doğru cevap işaretlendi.",
+        "noAnswer": "Bu turda cevap verilmedi.",
+        "score": "{score} puan",
+        "finishedTitle": "Oyun tamamlandı!",
+        "winner": "Kazanan {user}!",
+        "winnerScore": "Oyunu {score} puanla tamamladı",
+        "yourRank": "Sıralaman",
+        "yourScore": "Puanın",
+        "finishedDescription": "Güzel oyundu. Final sıralamasına göz at veya yeni bir tur için hazırlan.",
+        "playAgain": "Yeni oyuna hazırım"
+      }
+    }
+  },
+  "profile": {
+    "myProfile": "Profilim",
+    "settings": "Ayarlar"
+  },
+  "users": {
+    "loading": "Profil yükleniyor...",
+    "signInRequired": "Bu sayfayı görmek için giriş yapmalısın.",
+    "notFound": "Kullanıcı bulunamadı",
+    "notFoundDescription": "{username} adında bir kullanıcı yok.",
+    "editProfile": "Profili düzenle",
+    "noBio": "Bu kullanıcı henüz kendinden bahsetmemiş.",
+    "memberSince": "{date} tarihinden beri üye",
+    "status": {
+      "online": "Çevrim içi",
+      "lobby": "Oyunda",
+      "offline": "Çevrim dışı"
+    },
+    "friends": {
+      "title": "Arkadaşlar",
+      "empty": "Henüz arkadaş yok.",
+      "emptyUser": "{username} henüz kimseyle arkadaş olmamış.",
+      "loading": "Arkadaşlar yükleniyor...",
+      "onlineCount": "{online}/{total} çevrim içi",
+      "actions": "{username} için işlemler",
+      "remove": "Arkadaşlıktan çıkar",
+      "removed": "{username} arkadaşlarından çıkarıldı."
+    },
+    "requests": {
+      "incoming": "Sana arkadaşlık isteği gönderdi.",
+      "accept": "Kabul et"
+    },
+    "add": {
+      "title": "Arkadaş ekle",
+      "placeholder": "Kullanıcı adı ile arkadaş ekle",
+      "hint": "Kullanıcı adları büyük küçük harfe duyarlıdır.",
+      "button": "Ekle",
+      "profileButton": "Arkadaş ekle",
+      "requestSent": "İstek gönderildi",
+      "alreadyFriends": "Arkadaşsınız",
+      "sent": "{username} kullanıcısına istek gönderildi.",
+      "accepted": "Artık {username} ile arkadaşsınız.",
+      "self": "Kendine arkadaşlık isteği gönderemezsin.",
+      "userNotFound": "Bu kullanıcı adında biri yok.",
+      "alreadySent": "Bu kullanıcı zaten arkadaşın veya bir istek gönderilmiş.",
+      "usernameRequired": "Kullanıcı adı zorunludur",
+      "usernameMinValue": "Kullanıcı adı en az 3 karakter olmalıdır",
+      "usernameMaxValue": "Kullanıcı adı en fazla 50 karakter olmalıdır"
+    }
+  },
+  "settings": {
+    "title": "Ayarlar",
+    "description": "Hesabını ve geliştirici erişimini buradan yönet",
+    "signInRequired": "Bu sayfayı görmek için giriş yapmalısın.",
+    "nav": {
+      "profile": "Profil",
+      "password": "Parola",
+      "apiKey": "API anahtarı"
+    },
+    "profile": {
+      "title": "Profil",
+      "description": "Diğer oyuncuların seni nasıl gördüğünü belirle.",
+      "username": "Kullanıcı adı",
+      "usernameHint": "Kullanıcı adı kayıt olurken belirlenir ve değiştirilemez.",
+      "avatar": "Profil resmi",
+      "avatarHint": "JPG veya PNG, en fazla 5 MB.",
+      "changeAvatar": "Resmi değiştir",
+      "avatarUpdated": "Profil resmin güncellendi",
+      "avatarUnsupported": "Yalnızca JPG ve PNG dosyaları yükleyebilirsin.",
+      "avatarTooLarge": "Dosya 5 MB'tan küçük olmalı.",
+      "accountInfo": "Hesap bilgisi",
+      "intraAccount": "Bu bir 42 hesabıdır.",
+      "localAccount": "Bu bir yerel hesaptır.",
+      "memberSince": "{date} tarihinden beri üye",
+      "bio": "Hakkında",
+      "bioPlaceholder": "Kendinden kısaca bahset",
+      "bioHint": "{count}/{max} karakter",
+      "descriptionMaxValue": "Açıklama en fazla 100 karakter olmalıdır",
+      "save": "Değişiklikleri kaydet",
+      "saved": "Profilin güncellendi"
+    },
+    "password": {
+      "title": "Parola",
+      "description": "Hesabının parolasını değiştir.",
+      "currentPassword": "Mevcut parola",
+      "newPassword": "Yeni parola",
+      "enterCurrent": "Mevcut parolanı gir",
+      "enterNew": "Yeni parolanı gir",
+      "enterConfirm": "Yeni parolanı onayla",
+      "currentRequired": "Mevcut parola zorunludur",
+      "confirmRequired": "Lütfen yeni parolanı onayla",
+      "minValue": "Parola en az 8 karakter olmalıdır",
+      "maxValue": "Parola en fazla 50 karakter olmalıdır",
+      "dontMatch": "Parolalar eşleşmiyor",
+      "sameAsCurrent": "Yeni parola mevcut parolandan farklı olmalıdır",
+      "invalidCurrent": "Mevcut parolan hatalı",
+      "hint": "Parola 8 ile 50 karakter arasında olmalıdır",
+      "save": "Parolayı değiştir",
+      "saved": "Parolan değiştirildi",
+      "savedDescription": "Diğer tüm oturumların kapatıldı.",
+      "intraNotice": "42 hesabınla giriş yaptığın için parolan yok. Girişini 42 Intra üzerinden yapmaya devam edebilirsin."
+    },
+    "apiKey": {
+      "title": "API anahtarı",
+      "description": "Herkese açık istatistik uçlarına erişmek için kullanılır. Anahtar başına saatte 1200 istek sınırı vardır.",
+      "documentation": "API dokümantasyonu",
+      "loading": "API anahtarı yükleniyor...",
+      "empty": "Henüz bir API anahtarın yok. Herkese açık API'yi kullanmaya başlamak için bir tane oluştur.",
+      "create": "API anahtarı oluştur",
+      "created": "API anahtarın oluşturuldu",
+      "createdDescription": "Anahtarı güvenli bir yere kaydet.",
+      "reveal": "Göster",
+      "hide": "Gizle",
+      "copy": "Kopyala",
+      "copied": "Kopyalandı",
+      "delete": "Sil",
+      "deleted": "API anahtarın silindi",
+      "active": "Aktif",
+      "inactive": "Pasif",
+      "createdAt": "{date} tarihinde oluşturuldu",
+      "deleteTitle": "API anahtarı silinsin mi?",
+      "deleteDescription": "Bu anahtarı kullanan tüm entegrasyonlar çalışmayı durdurur. Bu işlem geri alınamaz.",
+      "deleteConfirm": "Anahtarı sil",
+      "cancel": "Vazgeç",
+      "warning": "Bu anahtarı kimseyle paylaşma. Sızdırdığını düşünüyorsan sil ve yenisini oluştur."
+    }
+  },
+  "error": {
+    "genericTitle": "Bir şeyler ters gitti",
+    "fetchError": "Veri çekilirken bir sorun oluştu.",
+    "popupBlocked": "Açılır pencere tarayıcı tarafından engellendi. Lütfen açılır pencerelere izin verin ve tekrar deneyin.",
+    "codes": {
+      "-1": "Bağlantı koptu, lütfen tekrar deneyin.",
+      "0": "Bilinmeyen bir hata oluştu.",
+      "1": "Gönderilen istek geçersiz.",
+      "4": "Oturum jetonu oluşturulamadı.",
+      "5": "Veritabanı hatası oluştu.",
+      "7": "Parola geçerli değil.",
+      "9": "Kullanıcı bilgileri alınamadı.",
+      "13": "Bu işlem için yetkin yok.",
+      "42": "Bir dosya seçmelisin.",
+      "43": "Dosya çok büyük.",
+      "44": "Bu dosya türü desteklenmiyor.",
+      "45": "Profil resmi kaydedilemedi.",
+      "46": "Kullanıcı bulunamadı.",
+      "47": "Açıklama geçerli değil.",
+      "48": "Mevcut parolan hatalı.",
+      "49": "Bu hesabın bir parolası yok.",
+      "50": "API anahtarı bulunamadı.",
+      "51": "E-posta adresi geçerli değil.",
+      "52": "Bu e-posta zaten kullanılıyor."
+    }
+  }
+}

@@ -1,0 +1,417 @@
+{
+  "common": {
+    "appName": "Quizinyo"
+  },
+  "home": {
+    "eyebrow": "Quiz multijugador en tiempo real",
+    "title": "Reúne a tus amigos. Pon a prueba tus conocimientos.",
+    "description": "Crea una sala, elige tus categorías y empieza cuando todos estén listos. Responde rápido, suma puntos y descubre tu posición.",
+    "primaryAction": "Explorar salas",
+    "howItWorks": {
+      "eyebrow": "Cómo funciona",
+      "title": "Tu próxima partida está a pocos pasos."
+    },
+    "steps": {
+      "room": {
+        "title": "Busca o crea una sala",
+        "description": "Únete a una sala abierta o crea una con las categorías que quieras."
+      },
+      "invite": {
+        "title": "Invita a los jugadores",
+        "description": "Comparte el código con tus amigos y espera a que todos estén listos."
+      },
+      "play": {
+        "title": "Responde y compite",
+        "description": "Elige antes de que se acabe el tiempo, gana puntos y sube en la clasificación."
+      }
+    }
+  },
+  "footer": {
+    "copyright": "Quizinyo. Creado para aprender y jugar.",
+    "privacy": "Política de privacidad",
+    "terms": "Términos de servicio"
+  },
+  "privacy": {
+    "title": "Política de privacidad",
+    "description": "Esta política explica qué información trata Quizinyo cuando creas una cuenta y participas en el quiz en tiempo real.",
+    "sections": {
+      "data": {
+        "title": "Información que tratamos",
+        "body": "Cuando creas una cuenta, almacenamos tu nombre de usuario y la fecha de creación. En las cuentas locales, la contraseña se guarda mediante hash. Si inicias sesión con 42, la información de perfil devuelta por la API de 42 se trata durante la autenticación; tu identificador de usuario de 42 y tu imagen de perfil se almacenan con tu cuenta. También puedes añadir un avatar y una descripción. Si creas una clave de API, almacenamos la clave y su fecha de creación. Mientras usas Quizinyo, tratamos amistades, estado en línea, actividad de las salas, mensajes de chat, respuestas y puntuaciones necesarios para ejecutar el juego."
+      },
+      "use": {
+        "title": "Cómo usamos la información",
+        "body": "Usamos esta información para autenticarte, mostrar tu perfil, conectarte con amigos, gestionar salas y partidas en directo, ofrecer acceso a la API pública cuando creas una clave, mantener la seguridad y resolver problemas técnicos. No usamos tu información con fines publicitarios."
+      },
+      "sharing": {
+        "title": "Visibilidad y terceros",
+        "body": "Tu nombre de usuario, avatar, descripción, estado, fecha de creación de la cuenta, lista de amigos y actividad de juego pueden ser visibles para otros jugadores. Cuando eliges iniciar sesión con 42, esta plataforma trata la solicitud de autenticación según sus propias políticas. No vendemos información personal. La información puede ser tratada por la infraestructura que aloja Quizinyo o comunicada cuando la ley lo exija."
+      },
+      "storage": {
+        "title": "Conservación y seguridad",
+        "body": "Los datos de cuenta, perfil y amistad se guardan en la base de datos del servicio; esta versión de Quizinyo no ofrece una opción para eliminar la cuenta directamente. La clave de API se conserva hasta que la elimines desde Ajustes. Los datos de salas, chat, respuestas y puntuaciones son temporales y duran solo mientras la sala está activa. El token de sesión se guarda en el almacenamiento local del navegador y la preferencia de idioma, en una cookie. Las contraseñas se almacenan mediante hash, pero ningún sistema puede garantizar una seguridad absoluta."
+      },
+      "choices": {
+        "title": "Tus opciones",
+        "body": "Puedes actualizar tu avatar, descripción de perfil y contraseña de cuenta local desde Ajustes. También puedes crear o eliminar tu clave de API y cerrar sesión en cualquier momento. No compartas información sensible en tu perfil público ni en el chat. Para solicitudes sobre tu cuenta o privacidad, contacta con los responsables de la instalación de Quizinyo que utilizas."
+      },
+      "changes": {
+        "title": "Cambios en esta política",
+        "body": "Podemos actualizar esta política a medida que cambia Quizinyo. Si sigues usando el servicio después de una actualización, la política revisada se aplicará a tu uso futuro."
+      }
+    }
+  },
+  "terms": {
+    "title": "Términos de servicio",
+    "description": "Estos términos establecen las reglas básicas para usar Quizinyo y mantener sus espacios multijugador justos y agradables.",
+    "sections": {
+      "acceptance": {
+        "title": "Uso de Quizinyo",
+        "body": "Al acceder o usar Quizinyo, aceptas estos términos. Si no estás de acuerdo, no uses el servicio. Quizinyo es un proyecto educativo de quiz multijugador y se ofrece para uso personal y no comercial."
+      },
+      "accounts": {
+        "title": "Cuentas y acceso",
+        "body": "Eres responsable de la actividad de tu cuenta y de mantener seguras tu contraseña y tu clave de API. Usa información de cuenta correcta y avisa a los responsables de la instalación si crees que tu cuenta ha sido comprometida. Si usas el inicio de sesión de 42, tu uso de 42 también se rige por sus propios términos."
+      },
+      "conduct": {
+        "title": "Juego justo y respetuoso",
+        "body": "No acoses a otros jugadores, publiques material ilegal o dañino, hagas trampas, suplantes identidades, interrumpas partidas, intentes obtener acceso no autorizado, eludas controles de seguridad ni sobrecargues el servicio o la API pública. Usa el chat y las funciones sociales con respeto."
+      },
+      "content": {
+        "title": "Tu contenido",
+        "body": "Eres responsable de los nombres de sala, textos de perfil, avatares y mensajes de chat que envías. Comparte únicamente contenido que tengas derecho a usar y no incluyas información personal sensible ni material que perjudique a otros jugadores."
+      },
+      "availability": {
+        "title": "Disponibilidad y contenido del quiz",
+        "body": "Quizinyo se ofrece según disponibilidad, sin prometer que funcionará siempre sin interrupciones o errores ni que todas las respuestas del quiz serán exactas. Las puntuaciones y clasificaciones son solo para entretenimiento y no tienen valor monetario. Las funciones pueden cambiar o dejar de estar disponibles."
+      },
+      "changes": {
+        "title": "Cambios en el servicio y los términos",
+        "body": "El servicio puede dejar de estar disponible temporalmente por motivos de seguridad, mantenimiento o problemas técnicos. Podemos revisar los términos conforme evoluciona el proyecto. El uso continuado tras una actualización implica la aceptación de los términos revisados."
+      }
+    }
+  },
+  "theme": {
+    "system": "Sistema",
+    "dark": "Oscuro",
+    "light": "Claro"
+  },
+  "languages": {
+    "all": "Todos",
+    "tr": "Turco",
+    "en": "Inglés",
+    "es": "Español"
+  },
+  "auth": {
+    "username": "Nombre de usuario",
+    "email": "Correo electrónico",
+    "usernameOrEmail": "Nombre de usuario o correo electrónico",
+    "password": "Contraseña",
+    "enterUsername": "Introduce tu nombre de usuario",
+    "enterEmail": "Introduce tu correo electrónico",
+    "enterUsernameOrEmail": "Introduce tu nombre de usuario o correo electrónico",
+    "enterPassword": "Introduce tu contraseña",
+    "confirmPassword": "Confirma tu contraseña",
+    "separator": "o continuar con",
+    "signInWithIntra": "Iniciar sesión con 42",
+    "signIn": {
+      "button": "Iniciar sesión",
+      "title": "Bienvenido de nuevo",
+      "desc": "Inicia sesión en tu cuenta para continuar",
+      "footer": "¿No tienes una cuenta?",
+      "action": "Regístrate",
+      "usernameOrEmailRequired": "El nombre de usuario o el correo electrónico es obligatorio",
+      "passwordRequired": "La contraseña es obligatoria",
+      "invalidUsernameOrPassword": "Nombre de usuario, correo electrónico o contraseña incorrectos"
+    },
+    "signUp": {
+      "button": "Registrarse",
+      "title": "Crear una cuenta",
+      "desc": "Regístrate para empezar con Quizinyo",
+      "footer": "¿Ya tienes una cuenta?",
+      "action": "Iniciar sesión",
+      "usernameRequired": "El nombre de usuario es obligatorio",
+      "usernameMinValue": "El nombre de usuario debe tener al menos 3 caracteres",
+      "usernameMaxValue": "El nombre de usuario debe tener un máximo de 50 caracteres",
+      "usernameInvalid": "El nombre de usuario solo puede contener letras y números",
+      "emailRequired": "El correo electrónico es obligatorio",
+      "emailInvalid": "Introduce un correo electrónico válido",
+      "emailMaxValue": "El correo electrónico debe tener un máximo de 255 caracteres",
+      "emailShouldUnique": "Este correo electrónico ya está en uso",
+      "passwordRequired": "La contraseña es obligatoria",
+      "passwordMinValue": "La contraseña debe tener al menos 8 caracteres",
+      "passwordMaxValue": "La contraseña debe tener un máximo de 50 caracteres",
+      "confirmPassword": "Por favor, confirma tu contraseña",
+      "passwordDontMatch": "Las contraseñas no coinciden",
+      "usernameShouldUnique": "Este nombre de usuario ya está en uso",
+      "uniqueUsername": "Elige un nombre de usuario único para tu cuenta",
+      "createPasswordMinMax": "La contraseña debe tener entre 8 y 50 caracteres"
+    },
+    "intraSetup": {
+      "title": "Completa tu perfil",
+      "desc": "Elige un nombre de usuario para terminar de configurar tu cuenta",
+      "footer": "¿Quieres usar una cuenta diferente?",
+      "action": "Volver"
+    },
+    "signOut": "Cerrar sesión",
+    "oauth": {
+      "failed": "Error de autenticación. Por favor, inténtalo de nuevo.",
+      "complete": "Completar configuración",
+      "completing": "Completando configuración..."
+    }
+  },
+  "rooms": {
+    "title": "Salas",
+    "description": "Elige una sala para unirte o crea la tuya y empieza a jugar",
+    "search": "Buscar una sala",
+    "card": { "join": "Unirse", "categories": "Categorías", "footer": "Creada el {time} · {user}" },
+    "allFilter": "Todas",
+    "emptyList": "No se encontraron salas, inténtalo de nuevo más tarde.",
+    "create": {
+      "action": "Crear",
+      "title": "Crear una nueva sala",
+      "description": "Crea una sala y elige las categorías con las que quieres jugar.",
+      "roomName": "Nombre de la sala",
+      "roomNamePlaceholder": "Introduce el nombre de la sala",
+      "roomNameRequired": "El nombre de la sala es obligatorio",
+      "roomNameTooLong": "El nombre de la sala debe tener como máximo 30 caracteres.",
+      "password": "Contraseña (opcional)",
+      "passwordPlaceholder": "Introduce la contraseña",
+      "passwordInvalidLen": "La contraseña debe tener entre 4 y 16 caracteres.",
+      "categories": "Categorías",
+      "categoriesRequired": "Selecciona al menos una categoría.",
+      "failed": "No se pudo crear la sala."
+    },
+    "join": {
+      "action": "Unirse",
+      "title": "Unirse a la sala",
+      "description": "Introduce la contraseña para unirte a esta sala.",
+      "password": "Contraseña",
+      "passwordPlaceholder": "Introduce la contraseña",
+      "passwordRequired": "La contraseña es obligatoria",
+      "failed": "No se pudo unir a la sala."
+    },
+    "detail": {
+      "you": "(tú)",
+      "leave": "Salir de la sala",
+      "copyCode": "Copiar código de sala",
+      "copied": "Código de sala copiado",
+      "copyFailed": "No se pudo copiar el código de la sala.",
+      "status": {
+        "disconnected": "Desconectado"
+      },
+      "loading": {
+        "connecting": "Conectando a la sala...",
+        "password": "Esperando la contraseña de la sala..."
+      },
+      "errors": {
+        "notFound": "Esta sala ya no existe.",
+        "started": "La partida de esta sala ya ha comenzado.",
+        "full": "Esta sala está llena.",
+        "joinFailed": "No se pudo entrar en la sala.",
+        "connectionLost": "Se perdió la conexión con la sala.",
+        "server": "El servidor de la sala devolvió un error."
+      },
+      "system": {
+        "joined": "{user} se unió a la sala",
+        "left": "{user} salió de la sala"
+      },
+      "players": {
+        "title": "Jugadores",
+        "host": "Anfitrión",
+        "ready": "Listo",
+        "notReady": "Esperando"
+      },
+      "chat": {
+        "title": "Chat de la sala",
+        "empty": "Aún no hay mensajes.",
+        "message": "Mensaje de chat",
+        "placeholder": "Escribe un mensaje...",
+        "connecting": "Conectando al chat...",
+        "send": "Enviar mensaje"
+      },
+      "lobby": {
+        "title": "¿Listo para poner a prueba tus conocimientos?",
+        "readyTitle": "¡Estás listo!",
+        "description": "Márcate como listo cuando quieras empezar. La partida comienza cuando todos estén listos.",
+        "waitingForPlayers": "Se necesitan al menos dos jugadores. Comparte el código con un amigo.",
+        "waitingForOthers": "Esperando a que los demás jugadores estén listos.",
+        "readyPlayers": "Jugadores listos",
+        "readyAction": "Estoy listo",
+        "cancelReady": "Aún no estoy listo"
+      },
+      "game": {
+        "getReady": "Prepárate",
+        "starting": "La primera pregunta está por llegar",
+        "question": "Pregunta {current} / {total}",
+        "answered": "{answered}/{total} respondieron",
+        "chooseAnswer": "Elige una respuesta antes de que termine el tiempo.",
+        "answerLocked": "Respuesta bloqueada. Esperando a los demás...",
+        "waitingResult": "Se acabó el tiempo. Esperando el resultado...",
+        "correct": "¡Correcto! +{points} puntos",
+        "incorrect": "No exactamente; la respuesta correcta está marcada.",
+        "noAnswer": "No respondiste en esta ronda.",
+        "score": "{score} pts",
+        "finishedTitle": "¡Partida terminada!",
+        "winner": "¡{user} gana!",
+        "winnerScore": "Terminó con {score} puntos",
+        "yourRank": "Tu puesto",
+        "yourScore": "Tu puntuación",
+        "finishedDescription": "Buena partida. Revisa la clasificación final o prepárate para otra ronda.",
+        "playAgain": "Listo para otra partida"
+      }
+    }
+  },
+  "profile": {
+    "myProfile": "Mi perfil",
+    "settings": "Ajustes"
+  },
+  "users": {
+    "loading": "Cargando el perfil...",
+    "signInRequired": "Debes iniciar sesión para ver esta página.",
+    "notFound": "Usuario no encontrado",
+    "notFoundDescription": "No existe ningún usuario llamado {username}.",
+    "editProfile": "Editar perfil",
+    "noBio": "Este usuario todavía no ha escrito nada sobre sí mismo.",
+    "memberSince": "Miembro desde el {date}",
+    "status": {
+      "online": "En línea",
+      "lobby": "En una partida",
+      "offline": "Desconectado"
+    },
+    "friends": {
+      "title": "Amigos",
+      "empty": "Todavía no hay amigos.",
+      "emptyUser": "{username} todavía no tiene amigos.",
+      "loading": "Cargando amigos...",
+      "onlineCount": "{online}/{total} en línea",
+      "actions": "Acciones para {username}",
+      "remove": "Eliminar amigo",
+      "removed": "{username} fue eliminado de tus amigos."
+    },
+    "requests": {
+      "incoming": "Te envió una solicitud de amistad.",
+      "accept": "Aceptar"
+    },
+    "add": {
+      "title": "Añadir amigo",
+      "placeholder": "Añade un amigo por nombre de usuario",
+      "hint": "Los nombres de usuario distinguen mayúsculas y minúsculas.",
+      "button": "Añadir",
+      "profileButton": "Añadir amigo",
+      "requestSent": "Solicitud enviada",
+      "alreadyFriends": "Amigos",
+      "sent": "Solicitud enviada a {username}.",
+      "accepted": "Ahora eres amigo de {username}.",
+      "self": "No puedes enviarte una solicitud de amistad a ti mismo.",
+      "userNotFound": "No existe ningún usuario con ese nombre.",
+      "alreadySent": "Este usuario ya es tu amigo o ya se ha enviado una solicitud.",
+      "usernameRequired": "El nombre de usuario es obligatorio",
+      "usernameMinValue": "El nombre de usuario debe tener al menos 3 caracteres",
+      "usernameMaxValue": "El nombre de usuario debe tener como máximo 50 caracteres"
+    }
+  },
+  "settings": {
+    "title": "Ajustes",
+    "description": "Gestiona tu cuenta y tu acceso de desarrollador",
+    "signInRequired": "Debes iniciar sesión para ver esta página.",
+    "nav": {
+      "profile": "Perfil",
+      "password": "Contraseña",
+      "apiKey": "Clave de API"
+    },
+    "profile": {
+      "title": "Perfil",
+      "description": "Decide cómo te ven los demás jugadores.",
+      "username": "Nombre de usuario",
+      "usernameHint": "El nombre de usuario se define al registrarte y no se puede cambiar.",
+      "avatar": "Foto de perfil",
+      "avatarHint": "JPG o PNG, 5 MB como máximo.",
+      "changeAvatar": "Cambiar foto",
+      "avatarUpdated": "Se actualizó tu foto de perfil",
+      "avatarUnsupported": "Solo puedes subir archivos JPG y PNG.",
+      "avatarTooLarge": "El archivo debe pesar menos de 5 MB.",
+      "accountInfo": "Información de la cuenta",
+      "intraAccount": "Esta es una cuenta de 42.",
+      "localAccount": "Esta es una cuenta local.",
+      "memberSince": "Miembro desde el {date}",
+      "bio": "Acerca de ti",
+      "bioPlaceholder": "Cuéntales algo sobre ti",
+      "bioHint": "{count}/{max} caracteres",
+      "descriptionMaxValue": "La descripción debe tener como máximo 100 caracteres",
+      "save": "Guardar cambios",
+      "saved": "Tu perfil se actualizó"
+    },
+    "password": {
+      "title": "Contraseña",
+      "description": "Cambia la contraseña de tu cuenta.",
+      "currentPassword": "Contraseña actual",
+      "newPassword": "Nueva contraseña",
+      "enterCurrent": "Introduce tu contraseña actual",
+      "enterNew": "Introduce tu nueva contraseña",
+      "enterConfirm": "Confirma tu nueva contraseña",
+      "currentRequired": "La contraseña actual es obligatoria",
+      "confirmRequired": "Por favor, confirma tu nueva contraseña",
+      "minValue": "La contraseña debe tener al menos 8 caracteres",
+      "maxValue": "La contraseña debe tener como máximo 50 caracteres",
+      "dontMatch": "Las contraseñas no coinciden",
+      "sameAsCurrent": "La nueva contraseña debe ser distinta de la actual",
+      "invalidCurrent": "Tu contraseña actual es incorrecta",
+      "hint": "La contraseña debe tener entre 8 y 50 caracteres",
+      "save": "Cambiar contraseña",
+      "saved": "Tu contraseña se cambió",
+      "savedDescription": "Se cerraron todas tus demás sesiones.",
+      "intraNotice": "Iniciaste sesión con tu cuenta de 42, así que no tienes contraseña. Sigue entrando a través de 42 Intra."
+    },
+    "apiKey": {
+      "title": "Clave de API",
+      "description": "Se usa para acceder a los endpoints públicos de estadísticas. Cada clave está limitada a 1200 peticiones por hora.",
+      "documentation": "Documentación de la API",
+      "loading": "Cargando tu clave de API...",
+      "empty": "Todavía no tienes una clave de API. Crea una para empezar a usar la API pública.",
+      "create": "Crear clave de API",
+      "created": "Se creó tu clave de API",
+      "createdDescription": "Guarda la clave en un lugar seguro.",
+      "reveal": "Mostrar",
+      "hide": "Ocultar",
+      "copy": "Copiar",
+      "copied": "Copiada",
+      "delete": "Eliminar",
+      "deleted": "Se eliminó tu clave de API",
+      "active": "Activa",
+      "inactive": "Inactiva",
+      "createdAt": "Creada el {date}",
+      "deleteTitle": "¿Eliminar la clave de API?",
+      "deleteDescription": "Todas las integraciones que usen esta clave dejarán de funcionar. Esta acción no se puede deshacer.",
+      "deleteConfirm": "Eliminar clave",
+      "cancel": "Cancelar",
+      "warning": "No compartas esta clave con nadie. Si crees que se filtró, elimínala y crea una nueva."
+    }
+  },
+  "error": {
+    "genericTitle": "Algo salió mal",
+    "fetchError": "Ocurrió un error al obtener la fuente.",
+    "popupBlocked": "El navegador bloqueó la ventana emergente. Por favor, permite las ventanas emergentes e inténtalo de nuevo.",
+    "codes": {
+      "1": "La petición enviada no es válida.",
+      "4": "No se pudo generar el token de sesión.",
+      "5": "Ocurrió un error de base de datos.",
+      "7": "La contraseña no es válida.",
+      "9": "No se pudo cargar tu información de usuario.",
+      "13": "No tienes permiso para hacer esto.",
+      "42": "Debes elegir un archivo.",
+      "43": "El archivo es demasiado grande.",
+      "44": "Este tipo de archivo no es compatible.",
+      "45": "No se pudo guardar la foto de perfil.",
+      "46": "Usuario no encontrado.",
+      "47": "La descripción no es válida.",
+      "48": "Tu contraseña actual es incorrecta.",
+      "49": "Esta cuenta no tiene contraseña.",
+      "50": "No se encontró la clave de API.",
+      "51": "El correo electrónico no es válido.",
+      "52": "Este correo electrónico ya está en uso.",
+      "-1": "Se perdió la conexión, por favor inténtalo de nuevo.",
+      "0": "Ocurrió un error desconocido."
+    }
+  }
+}

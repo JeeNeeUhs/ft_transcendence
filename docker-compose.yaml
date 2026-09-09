@@ -1,0 +1,71 @@
+services:
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    container_name: transcendence_backend
+    env_file:
+      - .env
+    environment:
+      AVATAR_DIR: /app/avatars
+    volumes:
+      - avatars:/app/avatars
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - transcendence
+
+  database:
+    image: postgres:17.6-alpine
+    restart: unless-stopped
+    container_name: transcendence_db
+    env_file:
+      - .env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./infrastructure/db:/docker-entrypoint-initdb.d
+    networks:
+      - transcendence
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    container_name: transcendence_frontend
+    environment:
+      HOSTNAME: ${FRONTEND_HOST}
+      PORT: ${FRONTEND_PORT}
+    depends_on:
+      - backend
+    networks:
+      - transcendence
+
+  nginx:
+    build: ./infrastructure/nginx
+    restart: unless-stopped
+    container_name: transcendence_nginx
+    environment:
+      APP_DOMAIN: ${APP_DOMAIN:-localhost}
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - transcendence
+    volumes:
+      - ./infrastructure/nginx/default.conf.template:/etc/nginx/templates/default.conf.template:ro
+      - nginx_certs:/etc/nginx/certs
+    ports:
+      - "80:80"
+      - "443:443"
+
+networks:
+  transcendence:
+
+volumes:
+  pgdata:
+  avatars:
+  nginx_certs:

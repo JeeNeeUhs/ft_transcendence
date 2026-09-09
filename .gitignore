@@ -1,0 +1,11 @@
+# env files
+.env*
+!.env*.example
+
+# editor files
+*.code-workspace
+.idea/
+.vscode/
+
+# misc
+.DS_Store
