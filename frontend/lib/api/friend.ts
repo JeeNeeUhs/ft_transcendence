@@ -6,6 +6,8 @@ export interface Friend {
   status: number;
 }
 
+export type FriendshipStatus = "none" | "pending_sent" | "pending_received" | "accepted" | "self";
+
 export const friendService = {
   list: () => {
     return apiClient<Friend[]>("/friend/list", {
@@ -25,6 +27,12 @@ export const friendService = {
     });
   },
 
+  status: (username: string) => {
+    return apiClient<{ status: FriendshipStatus }>(`/friend/status/${username}`, {
+      method: "GET"
+    });
+  },
+
   send: (username: string) => {
     return apiClient<{ message: string }>("/friend/request", {
       method: "POST",
@@ -36,6 +44,12 @@ export const friendService = {
     return apiClient<{ message: string }>("/friend/accept", {
       method: "POST",
       body: { username }
+    });
+  },
+
+  remove: (username: string) => {
+    return apiClient<{ message: string }>(`/friend/remove/${username}`, {
+      method: "DELETE"
     });
   }
 };

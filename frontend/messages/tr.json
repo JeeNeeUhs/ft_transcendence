@@ -133,6 +133,7 @@
       "usernameRequired": "Kullanıcı adı zorunludur",
       "usernameMinValue": "Kullanıcı adı en az 3 karakter olmalıdır",
       "usernameMaxValue": "Kullanıcı adı en fazla 50 karakter olmalıdır",
+      "usernameInvalid": "Kullanıcı adı yalnızca harf ve rakamlardan oluşabilir",
       "emailRequired": "E-posta zorunludur",
       "emailInvalid": "Geçerli bir e-posta adresi girin",
       "emailMaxValue": "E-posta en fazla 255 karakter olmalıdır",
@@ -287,7 +288,10 @@
       "empty": "Henüz arkadaş yok.",
       "emptyUser": "{username} henüz kimseyle arkadaş olmamış.",
       "loading": "Arkadaşlar yükleniyor...",
-      "onlineCount": "{online}/{total} çevrim içi"
+      "onlineCount": "{online}/{total} çevrim içi",
+      "actions": "{username} için işlemler",
+      "remove": "Arkadaşlıktan çıkar",
+      "removed": "{username} arkadaşlarından çıkarıldı."
     },
     "requests": {
       "incoming": "Sana arkadaşlık isteği gönderdi.",
@@ -298,10 +302,14 @@
       "placeholder": "Kullanıcı adı ile arkadaş ekle",
       "hint": "Kullanıcı adları büyük küçük harfe duyarlıdır.",
       "button": "Ekle",
+      "profileButton": "Arkadaş ekle",
+      "requestSent": "İstek gönderildi",
+      "alreadyFriends": "Arkadaşsınız",
       "sent": "{username} kullanıcısına istek gönderildi.",
+      "accepted": "Artık {username} ile arkadaşsınız.",
       "self": "Kendine arkadaşlık isteği gönderemezsin.",
       "userNotFound": "Bu kullanıcı adında biri yok.",
-      "alreadySent": "Bu kullanıcıya zaten bir istek gönderilmiş.",
+      "alreadySent": "Bu kullanıcı zaten arkadaşın veya bir istek gönderilmiş.",
       "usernameRequired": "Kullanıcı adı zorunludur",
       "usernameMinValue": "Kullanıcı adı en az 3 karakter olmalıdır",
       "usernameMaxValue": "Kullanıcı adı en fazla 50 karakter olmalıdır"
@@ -362,6 +370,7 @@
     "apiKey": {
       "title": "API anahtarı",
       "description": "Herkese açık istatistik uçlarına erişmek için kullanılır. Anahtar başına saatte 1200 istek sınırı vardır.",
+      "documentation": "API dokümantasyonu",
       "loading": "API anahtarı yükleniyor...",
       "empty": "Henüz bir API anahtarın yok. Herkese açık API'yi kullanmaya başlamak için bir tane oluştur.",
       "create": "API anahtarı oluştur",

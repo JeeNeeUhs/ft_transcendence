@@ -7,7 +7,6 @@ import (
 	"github.com/google/uuid"
 )
 
-
 type SendRequestInput struct {
 	AddresseeUsername string `json:"username"`
 }
@@ -31,7 +30,6 @@ func SendRequestHandler(c fiber.Ctx) error {
 	}
 	addresseeID := destUser.ID
 
-
 	if requesterID == addresseeID {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "cannot send request to yourself"})
 	}
@@ -51,7 +49,6 @@ func SendRequestHandler(c fiber.Ctx) error {
 		})
 	}
 
-
 	var existingRelation int64
 	database.DB.Table("friendships").
 		Where("(requester_id = ? AND addressee_id = ?) OR (requester_id = ? AND addressee_id = ?)", requesterID, addresseeID, addresseeID, requesterID).
@@ -61,7 +58,6 @@ func SendRequestHandler(c fiber.Ctx) error {
 		return c.Status(fiber.StatusConflict).JSON(fiber.Map{"error": "friendship or request already exists"})
 	}
 
-	
 	insertQuery := `INSERT INTO friendships (requester_id, addressee_id, status) VALUES (?, ?, 'pending')`
 	if err := database.DB.Exec(insertQuery, requesterID, addresseeID).Error; err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "failed to send friend request"})
@@ -75,7 +71,6 @@ func SendRequestHandler(c fiber.Ctx) error {
 type AcceptRequestInput struct {
 	RequesterUsername string `json:"username"`
 }
-
 
 func AcceptRequestHandler(c fiber.Ctx) error {
 	addresseeID, ok := c.Locals(middleware.LocalsUserIDKey).(uuid.UUID)
@@ -99,7 +94,7 @@ func AcceptRequestHandler(c fiber.Ctx) error {
 
 	updateQuery := `UPDATE friendships SET status = 'accepted' WHERE requester_id = ? AND addressee_id = ? AND status = 'pending'`
 	result := database.DB.Exec(updateQuery, requesterID, addresseeID)
-	
+
 	if result.Error != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "database error"})
 	}
@@ -118,6 +113,51 @@ type UserResponse struct {
 	Status    int64  `json:"status"`
 }
 
+type FriendshipStatusResponse struct {
+	Status string `json:"status"`
+}
+
+func GetFriendshipStatusHandler(c fiber.Ctx) error {
+	userID, ok := c.Locals(middleware.LocalsUserIDKey).(uuid.UUID)
+	if !ok {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "unauthorized"})
+	}
+
+	var target struct {
+		ID uuid.UUID
+	}
+	if err := database.DB.Table("users").Select("id").Where("username = ?", c.Params("username")).First(&target).Error; err != nil {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "user not found in db"})
+	}
+
+	if target.ID == userID {
+		return c.JSON(FriendshipStatusResponse{Status: "self"})
+	}
+
+	var relation struct {
+		RequesterID uuid.UUID
+		Status      string
+	}
+	result := database.DB.Table("friendships").
+		Select("requester_id, status").
+		Where("(requester_id = ? AND addressee_id = ?) OR (requester_id = ? AND addressee_id = ?)", userID, target.ID, target.ID, userID).
+		Limit(1).
+		Scan(&relation)
+	if result.Error != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "database error"})
+	}
+	if result.RowsAffected == 0 {
+		return c.JSON(FriendshipStatusResponse{Status: "none"})
+	}
+	if relation.Status == "accepted" {
+		return c.JSON(FriendshipStatusResponse{Status: "accepted"})
+	}
+	if relation.RequesterID == userID {
+		return c.JSON(FriendshipStatusResponse{Status: "pending_sent"})
+	}
+
+	return c.JSON(FriendshipStatusResponse{Status: "pending_received"})
+}
 
 func GetRequestsHandler(c fiber.Ctx) error {
 	userID, ok := c.Locals(middleware.LocalsUserIDKey).(uuid.UUID)
@@ -141,7 +181,6 @@ func GetRequestsHandler(c fiber.Ctx) error {
 	}
 	return c.Status(fiber.StatusOK).JSON(requests)
 }
-
 
 func GetFriendsHandler(c fiber.Ctx) error {
 	userID, ok := c.Locals(middleware.LocalsUserIDKey).(uuid.UUID)

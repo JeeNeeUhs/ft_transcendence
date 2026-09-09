@@ -133,6 +133,7 @@
       "usernameRequired": "El nombre de usuario es obligatorio",
       "usernameMinValue": "El nombre de usuario debe tener al menos 3 caracteres",
       "usernameMaxValue": "El nombre de usuario debe tener un máximo de 50 caracteres",
+      "usernameInvalid": "El nombre de usuario solo puede contener letras y números",
       "emailRequired": "El correo electrónico es obligatorio",
       "emailInvalid": "Introduce un correo electrónico válido",
       "emailMaxValue": "El correo electrónico debe tener un máximo de 255 caracteres",
@@ -283,7 +284,10 @@
       "empty": "Todavía no hay amigos.",
       "emptyUser": "{username} todavía no tiene amigos.",
       "loading": "Cargando amigos...",
-      "onlineCount": "{online}/{total} en línea"
+      "onlineCount": "{online}/{total} en línea",
+      "actions": "Acciones para {username}",
+      "remove": "Eliminar amigo",
+      "removed": "{username} fue eliminado de tus amigos."
     },
     "requests": {
       "incoming": "Te envió una solicitud de amistad.",
@@ -294,10 +298,14 @@
       "placeholder": "Añade un amigo por nombre de usuario",
       "hint": "Los nombres de usuario distinguen mayúsculas y minúsculas.",
       "button": "Añadir",
+      "profileButton": "Añadir amigo",
+      "requestSent": "Solicitud enviada",
+      "alreadyFriends": "Amigos",
       "sent": "Solicitud enviada a {username}.",
+      "accepted": "Ahora eres amigo de {username}.",
       "self": "No puedes enviarte una solicitud de amistad a ti mismo.",
       "userNotFound": "No existe ningún usuario con ese nombre.",
-      "alreadySent": "Ya se ha enviado una solicitud a este usuario.",
+      "alreadySent": "Este usuario ya es tu amigo o ya se ha enviado una solicitud.",
       "usernameRequired": "El nombre de usuario es obligatorio",
       "usernameMinValue": "El nombre de usuario debe tener al menos 3 caracteres",
       "usernameMaxValue": "El nombre de usuario debe tener como máximo 50 caracteres"
@@ -358,6 +366,7 @@
     "apiKey": {
       "title": "Clave de API",
       "description": "Se usa para acceder a los endpoints públicos de estadísticas. Cada clave está limitada a 1200 peticiones por hora.",
+      "documentation": "Documentación de la API",
       "loading": "Cargando tu clave de API...",
       "empty": "Todavía no tienes una clave de API. Crea una para empezar a usar la API pública.",
       "create": "Crear clave de API",

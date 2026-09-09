@@ -133,6 +133,7 @@
       "usernameRequired": "Username is required",
       "usernameMinValue": "Username must be at least 3 characters",
       "usernameMaxValue": "Username must be at most 50 characters",
+      "usernameInvalid": "Username can only contain letters and numbers",
       "emailRequired": "Email is required",
       "emailInvalid": "Enter a valid email address",
       "emailMaxValue": "Email must be at most 255 characters",
@@ -287,7 +288,10 @@
       "empty": "No friends yet.",
       "emptyUser": "{username} has not made any friends yet.",
       "loading": "Loading friends...",
-      "onlineCount": "{online}/{total} online"
+      "onlineCount": "{online}/{total} online",
+      "actions": "Actions for {username}",
+      "remove": "Remove friend",
+      "removed": "{username} was removed from your friends."
     },
     "requests": {
       "incoming": "Sent you a friend request.",
@@ -298,10 +302,14 @@
       "placeholder": "Add a friend by username",
       "hint": "Usernames are case sensitive.",
       "button": "Add",
+      "profileButton": "Add friend",
+      "requestSent": "Request sent",
+      "alreadyFriends": "Friends",
       "sent": "Request sent to {username}.",
+      "accepted": "You are now friends with {username}.",
       "self": "You can't send yourself a friend request.",
       "userNotFound": "There is no user with that username.",
-      "alreadySent": "A request has already been sent to this user.",
+      "alreadySent": "This user is already your friend or a request has already been sent.",
       "usernameRequired": "Username is required",
       "usernameMinValue": "Username must be at least 3 characters",
       "usernameMaxValue": "Username must be at most 50 characters"
@@ -362,6 +370,7 @@
     "apiKey": {
       "title": "API key",
       "description": "Used to reach the public statistics endpoints. Each key is limited to 1200 requests per hour.",
+      "documentation": "API documentation",
       "loading": "Loading your API key...",
       "empty": "You don't have an API key yet. Create one to start using the public API.",
       "create": "Create API key",
