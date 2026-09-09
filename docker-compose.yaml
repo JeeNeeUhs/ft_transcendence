@@ -49,7 +49,8 @@ services:
     restart: unless-stopped
     container_name: transcendence_nginx
     environment:
-      APP_DOMAIN: ${APP_DOMAIN:-localhost}
+      APP_DOMAIN: ${APP_DOMAIN}
+      APP_ORIGIN: ${APP_ORIGIN}
     depends_on:
       - frontend
       - backend
@@ -59,8 +60,8 @@ services:
       - ./infrastructure/nginx/default.conf.template:/etc/nginx/templates/default.conf.template:ro
       - nginx_certs:/etc/nginx/certs
     ports:
-      - "80:80"
-      - "443:443"
+      - "8080:80"
+      - "8081:443"
 
 networks:
   transcendence:
