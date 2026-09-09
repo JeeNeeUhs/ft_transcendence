@@ -2,8 +2,7 @@
 
 set -eu
 
-APP_DOMAIN="${APP_DOMAIN:-localhost}"
-export APP_DOMAIN
+export APP_DOMAIN APP_ORIGIN
 
 CERT_DIR=/etc/nginx/certs
 CERT_FILE="$CERT_DIR/$APP_DOMAIN.pem"
@@ -18,7 +17,7 @@ if [ ! -s "$CERT_FILE" ] || [ ! -s "$KEY_FILE" ]; then
         -addext "subjectAltName=DNS:$APP_DOMAIN,DNS:localhost,IP:127.0.0.1"
 fi
 
-envsubst '${APP_DOMAIN}' \
+envsubst '${APP_DOMAIN} ${APP_ORIGIN}' \
     < /etc/nginx/templates/default.conf.template \
     > /etc/nginx/conf.d/default.conf
 
