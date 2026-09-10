@@ -208,6 +208,7 @@ func Register42Handler(c fiber.Ctx) error {
 		AvatarURL: u.Image.Link,
 		IntraID:   u.Login,
 		IsIntra:   true,
+		Email:     u.Email,
 		Status:    time.Now().Unix(),
 	}
 	if err := database.DB.Create(&user).Error; err != nil {
