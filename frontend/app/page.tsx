@@ -59,7 +59,7 @@ export default async function Home() {
 
       <footer className="mx-auto w-full max-w-6xl px-5">
         <div className="flex flex-col gap-5 border-t py-8 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-          <p>{tFooter("copyright", { year: new Date().getFullYear() })}</p>
+          <p>{tFooter("copyright")}</p>
           <nav className="flex items-center gap-5">
             <Link className="transition-colors hover:text-foreground" href="/privacy">
               {tFooter("privacy")}
